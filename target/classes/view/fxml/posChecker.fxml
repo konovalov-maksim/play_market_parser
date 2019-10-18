@@ -5,16 +5,21 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController">
-   <children>
-      <TableView layoutX="30.0" layoutY="55.0" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="400.0" fx:id="table">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController" fx:id="rootPane">
+    <TableView layoutX="30.0" layoutY="55.0" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="400.0"
+               fx:id="table">
         <columns>
-          <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="queryCol"/>
-          <TableColumn prefWidth="75.0" text="%position" />
+            <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="queryCol"/>
+            <TableColumn prefWidth="75.0" text="%position" fx:id="posCol"/>
         </columns>
-      </TableView>
-      <Button layoutX="30.0" layoutY="15.0" mnemonicParsing="false" text="%addQueries" fx:id="addQueriesBtn" onAction="#addQueriesClick" />
-      <Button layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="%importQueries" fx:id="importQueriesBtn" onAction="#importQueriesClick"/>
-      <Button layoutX="300" layoutY="15.0" mnemonicParsing="false" text="%importQueries" fx:id="startBtn" onAction="#startPosChecking"/>
-   </children>
+    </TableView>
+    <Button layoutX="30.0" layoutY="15.0" mnemonicParsing="false" text="%addQueries" fx:id="addQueriesBtn"
+            onAction="#addQueriesClick"/>
+    <Button layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="%importQueries" fx:id="importQueriesBtn"
+            onAction="#importQueriesClick"/>
+    <Button layoutX="300" layoutY="15.0" mnemonicParsing="false" text="%startPosChecking" fx:id="startBtn"
+            onAction="#startPosChecking"/>
+    <Button layoutX="450" layoutY="15.0" mnemonicParsing="false" text="%exportResults" fx:id="exportBtn"
+            onAction="#exportResults"/>
 </AnchorPane>

@@ -28,13 +28,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Query> queries;
 
-/*    public static void main(String[] args) {
-        PosChecker posChecker = new PosChecker();
-        posChecker.readQueries();
-        posChecker.createThreads();
-        posChecker.startNewLoaders();
-    }*/
-
     public PosChecker(List<Query> queries, int threadsCount, int checksCount, PosCheckCompleteListener posCheckCompleteListener) {
         this.queries = Collections.synchronizedList(queries);
         this.posCheckCompleteListener = posCheckCompleteListener;
@@ -52,7 +45,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
 
         //Читаем файл в список строк
         try (Stream<String> lines = Files.lines(outputPath, StandardCharsets.UTF_8)) {
-            //if (isTitleInFirstRow) firstRow = lines.findFirst().orElse("");
             lines.skip(isTitleInFirstRow ? 1 : 0)
                     .distinct()
                     .forEachOrdered(r -> queries.add(new Query(r)));
@@ -83,7 +75,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         if (processedCount < queries.size() * CHECKS_COUNT)
             startNewLoaders();
         else {
-//            exportPos();
             for (Query query : queries) query.calcRealPos();
             posCheckCompleteListener.onPosCheckingComplete(queries);
         }
@@ -114,9 +105,9 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
             for (Query query : queries)
                 newContent.add(query.getFullRowText() + Global.CSV_DELIMITER + query.getRealPos());
             Files.write(outputPath, newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            System.out.println("File succesfully overwriting");
+            System.out.println("File successfully overwritten");
         } catch (IOException | NullPointerException e) {
-            System.out.println("File couldn't be overwrited!");
+            System.out.println("File couldn't be overwritten!");
         }
     }
 

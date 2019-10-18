@@ -8,7 +8,7 @@ public class Query {
     private String text;
     private List<Integer> pseudoPos = Collections.synchronizedList(new ArrayList<>());
     private String fullRowText;
-    private int realPos;
+    private Integer realPos;
 
     public Query(String fullRowText) {
         this.fullRowText = fullRowText;
@@ -36,7 +36,11 @@ public class Query {
         realPos = 0;
     }
 
-    public int getRealPos() {
+    public String getRealPosString() {
+        return realPos == null? "" : realPos.toString();
+    }
+
+    public Integer getRealPos() {
         return realPos;
     }
 

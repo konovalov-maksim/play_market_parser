@@ -1,5 +1,6 @@
 package playMarketParser;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 public class Global {
@@ -27,5 +28,11 @@ public class Global {
         private String getBundlePath() {
             return bundlePath;
         }
+    }
+
+    public static File getInitDir() {
+        File initDir = new File(System.getProperty("user.home"));
+        if(!initDir.canRead()) initDir = null;
+        return initDir;
     }
 }
