@@ -11,6 +11,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
@@ -35,7 +37,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML private Button addQueriesBtn;
     @FXML private Button importQueriesBtn;
     @FXML private Button startBtn;
-    @FXML private AnchorPane rootPane;
+    @FXML private VBox rootPane;
     @FXML private TableView<Query> table;
     @FXML private TableColumn<Query, String> queryCol;
     @FXML private TableColumn<Query, String> posCol;
