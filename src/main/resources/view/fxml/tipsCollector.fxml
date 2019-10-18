@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.TipsCollectorController">
+   <children>
+      <TableView layoutX="30.0" layoutY="55.0" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="200.0" fx:id="table">
+        <columns>
+          <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="queryCol"/>
+<!--          <TableColumn prefWidth="75.0" text="%tip" />-->
+        </columns>
+      </TableView>
+      <Button layoutX="32.0" layoutY="15.0" mnemonicParsing="false" text="%addQueries" fx:id="addQueriesBtn" onAction="#addQueriesClick" />
+      <Button layoutX="170.0" layoutY="15.0" mnemonicParsing="false" text="%importQueries" fx:id="importQueriesBtn" onAction="#importQueriesClick"/>
+   </children>
+</AnchorPane>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="600" prefHeight="600.0"
+            prefWidth="600.0" fx:controller="playMarketParser.gui.MainController"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar prefHeight="25.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="%file">
+                <MenuItem mnemonicParsing="false" text="%exit"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="%options">
+                <MenuItem mnemonicParsing="false" text="%prefs"/>
+            </Menu>
+        </menus>
+    </MenuBar>
+    <TabPane layoutY="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="%posChecking">
+            <fx:include source="posChecker.fxml"/>
+        </Tab>
+        <Tab text="%tipsCollecting">
+            <fx:include source="tipsCollector.fxml"/>
+        </Tab>
+    </TabPane>
+</AnchorPane>
