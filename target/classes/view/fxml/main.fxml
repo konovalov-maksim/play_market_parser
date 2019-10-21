@@ -11,14 +11,12 @@
             prefWidth="600.0" fx:controller="playMarketParser.gui.MainController"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <MenuBar prefHeight="25.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <menus>
             <Menu mnemonicParsing="false" text="%file">
                 <MenuItem mnemonicParsing="false" text="%exit"/>
             </Menu>
             <Menu mnemonicParsing="false" text="%options">
-                <MenuItem mnemonicParsing="false" text="%prefs"/>
+                <MenuItem mnemonicParsing="false" text="%prefs" onAction="#openPrefs"/>
             </Menu>
-        </menus>
     </MenuBar>
     <TabPane layoutY="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" tabClosingPolicy="UNAVAILABLE">
         <Tab text="%posChecking">

@@ -28,7 +28,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>playMarketParser.PosChecker</mainClass>
+                            <mainClass>playMarketParser.gui.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

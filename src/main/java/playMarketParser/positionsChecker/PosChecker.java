@@ -1,17 +1,7 @@
 package playMarketParser.positionsChecker;
 
-import playMarketParser.Global;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.stream.Stream;
 
 public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private final int CHECKS_COUNT;

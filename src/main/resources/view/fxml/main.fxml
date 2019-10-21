@@ -15,7 +15,7 @@
                 <MenuItem mnemonicParsing="false" text="%exit"/>
             </Menu>
             <Menu mnemonicParsing="false" text="%options">
-                <MenuItem mnemonicParsing="false" text="%prefs"/>
+                <MenuItem mnemonicParsing="false" text="%prefs" onAction="#openPrefs"/>
             </Menu>
     </MenuBar>
     <TabPane layoutY="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" tabClosingPolicy="UNAVAILABLE">
