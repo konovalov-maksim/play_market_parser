@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private final int CHECKS_COUNT;
-    private final static String APP_ID = "com.appgrade.cinemaguru";
+    private String appId;
 
     private PosCheckCompleteListener posCheckCompleteListener;
 
@@ -23,12 +23,12 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private final boolean isTitleInFirstRow = true;
     private int threadsCount;
     private int processedCount;
-    private Path outputPath;
 
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Query> queries;
 
-    public PosChecker(List<Query> queries, int threadsCount, int checksCount, PosCheckCompleteListener posCheckCompleteListener) {
+    public PosChecker(String appId, List<Query> queries, int threadsCount, int checksCount, PosCheckCompleteListener posCheckCompleteListener) {
+        this.appId = appId;
         this.queries = Collections.synchronizedList(queries);
         this.posCheckCompleteListener = posCheckCompleteListener;
         this.MAX_THREADS_COUNT = threadsCount;
@@ -40,25 +40,10 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         startNewLoaders();
     }
 
-    private void readQueries() {
-        outputPath = Paths.get("pos.csv");
-
-        //Читаем файл в список строк
-        try (Stream<String> lines = Files.lines(outputPath, StandardCharsets.UTF_8)) {
-            lines.skip(isTitleInFirstRow ? 1 : 0)
-                    .distinct()
-                    .forEachOrdered(r -> queries.add(new Query(r)));
-            System.out.println("File reading completed");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("File can't be read!");
-        }
-    }
-
     private void createThreads() {
         for (int i = 0; i < CHECKS_COUNT; i++)
             for (Query query : queries)
-                unprocessed.addLast(new PosLoader(query, APP_ID, this));
+                unprocessed.addLast(new PosLoader(query, appId, this));
     }
 
     private synchronized void startNewLoaders() {
@@ -77,37 +62,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         else {
             for (Query query : queries) query.calcRealPos();
             posCheckCompleteListener.onPosCheckingComplete(queries);
-        }
-    }
-
-    private void exportPos() {
-        String firstRow = Global.CSV_DELIMITER;
-        //Формируем заголовок при необходимости
-        if (isTitleInFirstRow)
-            try (Stream<String> lines = Files.lines(outputPath, StandardCharsets.UTF_8)) {
-                firstRow = lines.findFirst().orElse(Global.CSV_DELIMITER);
-            } catch (IOException e) {
-                System.out.println("File couldn't be overwrited!");
-            }
-
-        try (PrintStream ps = new PrintStream(new FileOutputStream(outputPath.toFile()))) {
-            //Указываем кодировку файла UTF-8
-            ps.write('\ufeef');
-            ps.write('\ufebb');
-            ps.write('\ufebf');
-            //Добавляем заголовок при необходимости
-            if (isTitleInFirstRow) {
-                firstRow = firstRow + Global.CSV_DELIMITER +
-                        new SimpleDateFormat("dd-MM-yyyy").format(new Date(System.currentTimeMillis())) + "\n";
-                Files.write(outputPath, firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-            }
-            List<String> newContent = new ArrayList<>();
-            for (Query query : queries)
-                newContent.add(query.getFullRowText() + Global.CSV_DELIMITER + query.getRealPos());
-            Files.write(outputPath, newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            System.out.println("File successfully overwritten");
-        } catch (IOException | NullPointerException e) {
-            System.out.println("File couldn't be overwritten!");
         }
     }
 

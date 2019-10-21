@@ -19,7 +19,6 @@ public class Main extends Application {
         Global.setLocale(Global.Locale.EN);
         ResourceBundle bundle = Global.getBundle();
 
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/main.fxml"), bundle);
         Parent root = loader.load();
         stage.setTitle(bundle.getString("appName"));
