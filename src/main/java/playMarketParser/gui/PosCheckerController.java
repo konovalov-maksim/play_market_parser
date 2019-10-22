@@ -32,13 +32,17 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML private Button addQueriesBtn;
     @FXML private Button importQueriesBtn;
     @FXML private Button startBtn;
-    @FXML private TextField appUrlTf;
+    @FXML private Button exportBtn;
+    @FXML private Button clearBtn;
+    @FXML private Button abortBtn;
     @FXML private CheckBox titleFirstChb;
+    @FXML private TextField appUrlTf;
     @FXML private VBox rootPane;
     @FXML private TableView<Query> table;
     @FXML private TableColumn<Query, String> queryCol;
     @FXML private TableColumn<Query, String> posCol;
 
+    private PosChecker posChecker;
     private ResourceBundle bundle;
     private Prefs prefs;
 
@@ -48,8 +52,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     public void initialize(URL location, ResourceBundle resources) {
         bundle = Global.getBundle();
         prefs = new Prefs();
+        enableReadyMode();
 
         appUrlTf.setText(prefs.getString("pos_app_url"));
+        titleFirstChb.setSelected(prefs.getBoolean("title_first"));
 
         //Таблица
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.8));
@@ -92,11 +98,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(bundle.getString("txtDescr"), "*.txt"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(bundle.getString("csvDescr"), "*.csv"));
-        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "inputPath"));
+        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "input_path"));
         File inputFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         if (inputFile == null) return;
-        prefs.put("inputPath", inputFile.getParentFile().toString());
-
+        prefs.put("input_path", inputFile.getParentFile().toString());
+        prefs.put("title_first", titleFirstChb.isSelected());
 
         try (Stream<String> lines = Files.lines(inputFile.toPath(), StandardCharsets.UTF_8)) {
             lines.skip(titleFirstChb.isSelected() ? 1 : 0)
@@ -118,12 +124,30 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
             showAlert(bundle.getString("error"), bundle.getString("noAppUrl"));
             return;
         }
+        for (Query query : queries) query.clearPositions();
+        table.refresh();
+
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
         //https://play.google.com/store/apps/details?id=com.appgrade.cinemaguru
         prefs.put("pos_app_url", appUrlTf.getText());
 
-        PosChecker posChecker = new PosChecker(appId, queries, 5, 7, this);
+        posChecker = new PosChecker(appId, queries, prefs.getInt("pos_threads_cnt"),
+                prefs.getInt("pos_checks_cnt"),this);
+
+        enableLoadingMode();
         posChecker.start();
+    }
+
+    @FXML
+    private void abortPosChecking() {
+        posChecker.abort();
+    }
+
+    @Override
+    public void onPosCheckingComplete(List<Query> processedQueries) {
+        queries = FXCollections.observableArrayList(processedQueries);
+        table.refresh();
+        enableCompleteMode();
     }
 
     @FXML
@@ -138,10 +162,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
         fileChooser.setInitialFileName(bundle.getString("outPositions") + " " + curDate);
-        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "outputPath"));
+        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "output_path"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
-        prefs.put("outputPath", outputFile.getParentFile().toString());
+        prefs.put("output_path", outputFile.getParentFile().toString());
 
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
@@ -167,10 +191,42 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
 
     }
 
-    @Override
-    public void onPosCheckingComplete(List<Query> processedQueries) {
-        queries = FXCollections.observableArrayList(processedQueries);
-        table.refresh();
+    @FXML
+    private void clearQueries() {
+        table.getItems().clear();
+        enableReadyMode();
     }
+
+    private void enableReadyMode() {
+        addQueriesBtn.setDisable(false);
+        importQueriesBtn.setDisable(false);
+        titleFirstChb.setDisable(false);
+        clearBtn.setDisable(false);
+        exportBtn.setDisable(true);
+        startBtn.setManaged(true);
+        abortBtn.setManaged(false);
+    }
+
+    private void enableLoadingMode() {
+        addQueriesBtn.setDisable(true);
+        importQueriesBtn.setDisable(true);
+        titleFirstChb.setDisable(true);
+        clearBtn.setDisable(true);
+        exportBtn.setDisable(true);
+        startBtn.setManaged(false);
+        abortBtn.setManaged(true);
+    }
+
+    private void enableCompleteMode() {
+        addQueriesBtn.setDisable(false);
+        importQueriesBtn.setDisable(false);
+        titleFirstChb.setDisable(false);
+        clearBtn.setDisable(false);
+        exportBtn.setDisable(false);
+        startBtn.setManaged(true);
+        abortBtn.setManaged(false);
+    }
+
+
 
 }

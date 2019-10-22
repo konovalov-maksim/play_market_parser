@@ -52,6 +52,11 @@ public class Query {
         return fullRowText;
     }
 
+    public void clearPositions() {
+        pseudoPos.clear();
+        realPos = null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

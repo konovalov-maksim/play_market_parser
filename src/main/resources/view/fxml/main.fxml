@@ -7,8 +7,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="600" prefHeight="600.0"
-            prefWidth="600.0" fx:controller="playMarketParser.gui.MainController"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="700" prefHeight="600.0"
+            prefWidth="700.0" fx:controller="playMarketParser.gui.MainController"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <MenuBar prefHeight="25.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <Menu mnemonicParsing="false" text="%file">

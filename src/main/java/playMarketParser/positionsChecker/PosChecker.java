@@ -13,6 +13,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private final boolean isTitleInFirstRow = true;
     private int threadsCount;
     private int processedCount;
+    private boolean isAborted;
 
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Query> queries;
@@ -26,8 +27,14 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     public void start() {
+        isAborted = false;
         createThreads();
         startNewLoaders();
+    }
+
+    public synchronized void abort(){
+        unprocessed.clear();
+        isAborted = true;
     }
 
     private void createThreads() {
@@ -43,11 +50,13 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         }
     }
 
+
+
     @Override
     public synchronized void onPosLoadComplete(PosLoader posLoader) {
         threadsCount--;
         processedCount++;
-        if (processedCount < queries.size() * CHECKS_COUNT)
+        if (processedCount < queries.size() * CHECKS_COUNT && !isAborted)
             startNewLoaders();
         else {
             for (Query query : queries) query.calcRealPos();

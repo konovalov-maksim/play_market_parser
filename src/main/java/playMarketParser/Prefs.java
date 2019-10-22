@@ -1,8 +1,5 @@
 package playMarketParser;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Spinner;
-
 import java.util.HashMap;
 import java.util.prefs.Preferences;
 
@@ -44,5 +41,6 @@ public class Prefs {
         defaults.put("pos_app_url", "");
         defaults.put("pos_threads_cnt", 5);
         defaults.put("pos_checks_cnt", 5);
+        defaults.put("title_first", true);
     }
 }
