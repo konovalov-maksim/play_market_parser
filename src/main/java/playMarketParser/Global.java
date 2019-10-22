@@ -30,9 +30,20 @@ public class Global {
         }
     }
 
-    public static File getInitDir() {
+    private static File getUserDir() {
         File initDir = new File(System.getProperty("user.home"));
-        if(!initDir.canRead()) initDir = null;
+        if (!initDir.isDirectory() || !initDir.canRead() || !initDir.canWrite()) initDir = null;
         return initDir;
     }
+
+    public static File getInitDir(Prefs prefs, String pathType) {
+        String pathString = prefs.getString(pathType);
+        if (pathString == null) return getUserDir();
+
+        File initPath = new File(prefs.getString(pathType));
+        if (initPath.isDirectory() && initPath.canRead() && initPath.canWrite()) return initPath;
+        return getUserDir();
+    }
+
+
 }

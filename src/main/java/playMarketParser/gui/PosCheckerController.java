@@ -92,9 +92,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(bundle.getString("txtDescr"), "*.txt"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(bundle.getString("csvDescr"), "*.csv"));
-        fileChooser.setInitialDirectory(Global.getInitDir());
+        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "inputPath"));
         File inputFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         if (inputFile == null) return;
+        prefs.put("inputPath", inputFile.getParentFile().toString());
+
 
         try (Stream<String> lines = Files.lines(inputFile.toPath(), StandardCharsets.UTF_8)) {
             lines.skip(titleFirstChb.isSelected() ? 1 : 0)
@@ -136,11 +138,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
         fileChooser.setInitialFileName(bundle.getString("outPositions") + " " + curDate);
-        fileChooser.setInitialDirectory(Global.getInitDir());
+        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "outputPath"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
-
-        System.out.println(outputFile.toPath().toString());
+        prefs.put("outputPath", outputFile.getParentFile().toString());
 
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
