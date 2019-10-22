@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
+import playMarketParser.Prefs;
 import playMarketParser.positionsChecker.PosChecker;
 import playMarketParser.positionsChecker.Query;
 
@@ -39,12 +40,16 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML private TableColumn<Query, String> posCol;
 
     private ResourceBundle bundle;
+    private Prefs prefs;
 
     private ObservableList<Query> queries = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bundle = Global.getBundle();
+        prefs = new Prefs();
+
+        appUrlTf.setText(prefs.getString("pos_app_url"));
 
         //Таблица
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.8));
@@ -113,6 +118,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         }
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
         //https://play.google.com/store/apps/details?id=com.appgrade.cinemaguru
+        prefs.put("pos_app_url", appUrlTf.getText());
 
         PosChecker posChecker = new PosChecker(appId, queries, 5, 7, this);
         posChecker.start();

@@ -1,50 +1,48 @@
 package playMarketParser;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
+import javafx.fxml.FXML;
+import javafx.scene.control.Spinner;
+
+import java.util.HashMap;
+import java.util.prefs.Preferences;
 
 public class Prefs {
+    private Preferences preferences;
+    private HashMap<String, Object> defaults = new HashMap<>();
 
-    private Properties prefs = new Properties();
 
     public Prefs() {
-        try (FileInputStream fis = new FileInputStream("/preferences.properties")) {
-            prefs.load(fis);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        preferences = Preferences.userNodeForPackage(Prefs.class);
+        putDefaults();
     }
 
-    public int getInt(String propName, int defValue) {
-        try {
-            return Integer.parseInt(prefs.getProperty(propName));
-        } catch (Exception e) {
-            return defValue;
-        }
+    public int getInt(String propName) {
+        return preferences.getInt(propName, (int) defaults.get(propName));
     }
 
-    public String getString(String propName, String defValue) {
-        String result = prefs.getProperty(propName);
-        return (result != null) ? result : defValue;
+    public String getString(String propName) {
+        return preferences.get(propName, (String) defaults.get(propName));
     }
 
-    public boolean getBoolean(String propName, boolean defValue) {
-        String result = prefs.getProperty(propName);
-        if (result != null && result.equals("0")) return false;
-        if (result != null && result.equals("1")) return true;
-        return defValue;
+    public boolean getBoolean(String propName) {
+        return preferences.getBoolean(propName, (boolean) defaults.get(propName));
     }
 
-    public void setProperty(String propName, int value) {
-        prefs.setProperty(propName, String.valueOf(value));
+    public void put(String propName, String value) {
+        preferences.put(propName, value);
     }
 
-    public void setProperty(String propName, String value) {
-        prefs.setProperty(propName, value);
+    public void put(String propName, int value) {
+        preferences.put(propName, String.valueOf(value));
     }
 
-    public void setProperty(String propName, boolean value) {
-        prefs.setProperty(propName, value ? "1" : "0");
+    public void put(String propName, boolean value) {
+        preferences.put(propName, String.valueOf(value));
+    }
+
+    private void putDefaults(){
+        defaults.put("pos_app_url", "");
+        defaults.put("pos_threads_cnt", 5);
+        defaults.put("pos_checks_cnt", 5);
     }
 }

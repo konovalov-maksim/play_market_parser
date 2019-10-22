@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<?import javafx.geometry.Insets?>
 <VBox maxHeight="700" maxWidth="700" minHeight="700" minWidth="700" xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PrefsController">
     <TitledPane animated="false" text="%general">
@@ -17,11 +21,32 @@
         </VBox>
     </TitledPane>
     <TitledPane animated="false" text="%posChecking">
-        <VBox spacing="10">
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-            </padding>
-        </VBox>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="25"/>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="25"/>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="25"/>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="25"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+            <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0"
+                   GridPane.valignment="CENTER">
+                <GridPane.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </GridPane.margin>
+            </Label>
+            <Spinner fx:id="posThreadsCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="1"
+                     GridPane.rowIndex="0"/>
+            <Label text="%checksCount" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </GridPane.margin>
+            </Label>
+            <Spinner fx:id="posChecksCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3"
+                     GridPane.rowIndex="0"/>
+        </GridPane>
     </TitledPane>
     <TitledPane animated="false" text="%tipsCollecting">
         <VBox spacing="10">
@@ -31,9 +56,9 @@
         </VBox>
     </TitledPane>
     <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="10">
-        <Button mnemonicParsing="false" text="%ok" onAction="#onOkClick"/>
-        <Button mnemonicParsing="false" text="%apply" onAction="#onApplyClick"/>
-        <Button mnemonicParsing="false" text="%cancel" onAction="#onCancelClick"/>
+        <Button mnemonicParsing="false" onAction="#onOkClick" text="%ok"/>
+        <Button mnemonicParsing="false" onAction="#onCancelClick" text="%cancel"/>
+        <Button mnemonicParsing="false" onAction="#onApplyClick" text="%apply"/>
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
