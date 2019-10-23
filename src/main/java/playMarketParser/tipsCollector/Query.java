@@ -2,12 +2,12 @@ package playMarketParser.tipsCollector;
 
 import java.util.*;
 
-class Query {
+public class Query {
     private String text;
     private List<String> tipsSet = new ArrayList<>();
     private Query parentQuery;
 
-    Query(String text, Query parentQuery) {
+    public Query(String text, Query parentQuery) {
         this.text = text;
         this.parentQuery = parentQuery;
     }

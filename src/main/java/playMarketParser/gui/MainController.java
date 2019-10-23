@@ -3,7 +3,6 @@ package playMarketParser.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +17,8 @@ import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
+
+    private ResourceBundle bundle;
 
     @FXML
     private Button addQueriesBtn;
@@ -34,7 +35,7 @@ public class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/prefs.fxml"), Global.getBundle());
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("appName");
+            stage.setTitle(bundle.getString("prefs"));
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -44,7 +45,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        bundle = resources;
     }
 
 
