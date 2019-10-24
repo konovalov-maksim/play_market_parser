@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static playMarketParser.Global.showAlert;
+
 
 public class PosCheckerController implements Initializable, PosChecker.PosCheckCompleteListener {
 
@@ -43,14 +45,14 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML private TableColumn<Query, String> posCol;
 
     private PosChecker posChecker;
-    private ResourceBundle bundle;
+    private ResourceBundle rb;
     private Prefs prefs;
 
     private ObservableList<Query> queries = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        bundle = Global.getBundle();
+        rb = Global.getBundle();
         prefs = new Prefs();
         enableReadyMode();
 
@@ -65,26 +67,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         table.setItems(queries);
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setGraphic(null);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     @FXML
     private void addQueries(ActionEvent event) {
-        // Create the new dialog
-        TextAreaDialog dialog = new TextAreaDialog("", bundle.getString("enterQueries"));
-        dialog.setHeaderText(null);
-        dialog.setGraphic(null);
+        TextAreaDialog dialog = new TextAreaDialog("", rb.getString("enterQueries"), rb.getString("addingQueries"), "");
 
-        // Show the dialog and capture the result.
         Optional result = dialog.showAndWait();
-
-        // If the "Okay" button was clicked, the result will contain our String in the get() method
         if (result.isPresent()) {
             System.out.println(result.get());
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
@@ -96,8 +83,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML
     private void importQueries() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(bundle.getString("txtDescr"), "*.txt"));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(bundle.getString("csvDescr"), "*.csv"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("txtDescr"), "*.txt"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("csvDescr"), "*.csv"));
         fileChooser.setInitialDirectory(Global.getInitDir(prefs, "input_path"));
         File inputFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         if (inputFile == null) return;
@@ -110,18 +97,18 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
                     .forEachOrdered(r -> queries.add(new Query(r)));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(bundle.getString("error"), bundle.getString("unableToReadFile"));
+            showAlert(rb.getString("error"), rb.getString("unableToReadFile"));
         }
     }
 
     @FXML
     private void startPosChecking() {
         if (queries.size() == 0) {
-            showAlert(bundle.getString("error"), bundle.getString("noQueries"));
+            showAlert(rb.getString("error"), rb.getString("noQueries"));
             return;
         }
         if (appUrlTf.getText().length() == 0) {
-            showAlert(bundle.getString("error"), bundle.getString("noAppUrl"));
+            showAlert(rb.getString("error"), rb.getString("noAppUrl"));
             return;
         }
         for (Query query : queries) query.clearPositions();
@@ -153,7 +140,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML
     private void exportResults(ActionEvent event){
         if (queries == null || queries.size() == 0) {
-            showAlert(bundle.getString("error"), bundle.getString("noResults"));
+            showAlert(rb.getString("error"), rb.getString("noResults"));
             return;
         }
 
@@ -161,7 +148,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
-        fileChooser.setInitialFileName(bundle.getString("outPositions") + " " + curDate);
+        fileChooser.setInitialFileName(rb.getString("outPositions") + " " + curDate);
         fileChooser.setInitialDirectory(Global.getInitDir(prefs, "output_path"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
@@ -175,7 +162,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
             ps.write('\ufebf');
 
             //Добавляем заголовок
-            String firstRow = bundle.getString("query") + Global.CSV_DELIMITER + bundle.getString("position") + " " +
+            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("position") + " " +
                         new SimpleDateFormat("dd-MM-yyyy").format(new Date(System.currentTimeMillis())) + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
@@ -183,10 +170,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
             for (Query query : queries)
                 newContent.add(query.getFullRowText() + Global.CSV_DELIMITER + query.getRealPos());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            showAlert(bundle.getString("saved"), bundle.getString("fileSaved"));
+            showAlert(rb.getString("saved"), rb.getString("fileSaved"));
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
-            showAlert(bundle.getString("error"), bundle.getString("fileNotSaved"));
+            showAlert(rb.getString("error"), rb.getString("fileNotSaved"));
         }
 
     }

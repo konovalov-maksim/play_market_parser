@@ -8,8 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="playMarketParser.gui.TipsCollectorController">
+      fx:controller="playMarketParser.gui.TipsCollectorController" fx:id="rootPane">
     <HBox spacing="10.0">
         <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries"/>
         <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%importQueries"/>
@@ -25,20 +28,33 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
     </HBox>
-    <HBox spacing="10.0">
-        <TableView minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="200.0"
+    <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="30"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="70"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+        <TableView GridPane.columnIndex="0" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="200.0"
                    fx:id="inputTable">
             <columns>
                 <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="inputQueryCol"/>
             </columns>
+            <GridPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </GridPane.margin>
         </TableView>
 
-        <TableView minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="400.0"
+        <TableView  GridPane.columnIndex="1" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="400.0"
                    fx:id="outputTable">
             <columns>
-                <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="outputQueryCol"/>
-                <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="tipCol"/>
+                <TableColumn prefWidth="75.0" text="%query" fx:id="outputQueryCol"/>
+                <TableColumn prefWidth="75.0" text="%tip" fx:id="tipCol"/>
             </columns>
+            <GridPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </GridPane.margin>
         </TableView>
-    </HBox>
+    </GridPane>
 </VBox>

@@ -1,7 +1,7 @@
 
 package playMarketParser.gui;
 
-import com.sun.javafx.scene.control.skin.resources.ControlResources;
+import com.sun.istack.internal.Nullable;
 import javafx.application.Platform;
 import javafx.beans.NamedArg;
 import javafx.geometry.Pos;
@@ -9,14 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 
-/**
- * A dialog that shows a text input control to the user.
- *
- * @see Dialog
- * @since JavaFX 8u40
- */
+
 public class TextAreaDialog extends Dialog<String> {
 
     /**************************************************************************
@@ -31,26 +25,11 @@ public class TextAreaDialog extends Dialog<String> {
     private final String defaultValue;
 
 
-
-    /**************************************************************************
-     *
-     * Constructors
-     *
-     **************************************************************************/
-
-    /**
-     * Creates a new TextInputDialog without a default value entered into the
-     * dialog {@link TextArea}.
-     */
-    public TextAreaDialog() {
-        this("", "");
-    }
-
     /**
      * Creates a new TextInputDialog with the default value entered into the
      * dialog {@link TextArea}.
      */
-    public TextAreaDialog(@NamedArg("defaultValue") String defaultValue, String labelText) {
+    public TextAreaDialog(@NamedArg("defaultValue") String defaultValue, String labelText, String title, String header) {
         final DialogPane dialogPane = getDialogPane();
 
         // -- textfield
@@ -59,9 +38,12 @@ public class TextAreaDialog extends Dialog<String> {
         GridPane.setHgrow(textArea, Priority.ALWAYS);
         GridPane.setFillWidth(textArea, true);
 
+        setHeaderText(null);
+        setGraphic(null);
 
         label = new Label();
-        label.setText(labelText);
+        if (labelText.length() > 0) label.setText(labelText);
+
 
         this.defaultValue = defaultValue;
 
@@ -72,8 +54,8 @@ public class TextAreaDialog extends Dialog<String> {
 
         dialogPane.contentTextProperty().addListener(o -> updateGrid());
 
-        setTitle(ControlResources.getString("Dialog.confirm.title"));
-        dialogPane.setHeaderText(ControlResources.getString("Dialog.confirm.header"));
+        setTitle(title);
+        if (header.length() > 0) dialogPane.setHeaderText(header);
         dialogPane.getStyleClass().add("text-input-dialog");
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 

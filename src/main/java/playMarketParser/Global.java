@@ -1,5 +1,7 @@
 package playMarketParser;
 
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.util.ResourceBundle;
 
@@ -45,5 +47,12 @@ public class Global {
         return getUserDir();
     }
 
-
+    public static void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
