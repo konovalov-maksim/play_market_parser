@@ -14,12 +14,15 @@ import javafx.stage.FileChooser;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.tipsCollector.Query;
+import playMarketParser.tipsCollector.Tip;
+import playMarketParser.tipsCollector.TipsCollector;
 
 import java.io.File;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
@@ -27,7 +30,7 @@ import java.util.stream.Stream;
 import static playMarketParser.Global.showAlert;
 
 
-public class TipsCollectorController implements Initializable {
+public class TipsCollectorController implements Initializable, TipsCollector.TipsLoadingListener {
 
     @FXML private Button addQueriesBtn;
     @FXML private Button importQueriesBtn;
@@ -148,5 +151,10 @@ public class TipsCollectorController implements Initializable {
         exportBtn.setDisable(false);
         startBtn.setManaged(true);
         abortBtn.setManaged(false);
+    }
+
+    @Override
+    public void onFinish(List<Tip> tips) {
+
     }
 }

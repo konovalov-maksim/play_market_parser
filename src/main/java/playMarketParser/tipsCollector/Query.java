@@ -4,10 +4,9 @@ import java.util.*;
 
 public class Query {
     private String text;
-    private List<String> tipsSet = new ArrayList<>();
     private Query parentQuery;
 
-    public Query(String text, Query parentQuery) {
+    Query(String text, Query parentQuery) {
         this.text = text;
         this.parentQuery = parentQuery;
     }
@@ -16,21 +15,10 @@ public class Query {
         return text;
     }
 
-    List<String> getTips() {
-        return new ArrayList<>(tipsSet);
-    }
-
-    //Добавление неисправленных подсказок
-    void addTips(List<String> inputTips) {
-        for (String tip : inputTips)
-            if (tip.length() >= text.length() && tip.substring(0, text.length()).equals(text))
-                tipsSet.add(tip);
-    }
-
-    String getRootQueryText() {
-        if (parentQuery == null) return text.trim();
-        else return parentQuery.getRootQueryText();
-    }
+//    String getRootQueryText() {
+//        if (parentQuery == null) return text.trim();
+//        else return parentQuery.getRootQueryText();
+//    }
 
     boolean isRoot() {
         return parentQuery == null;
@@ -40,8 +28,7 @@ public class Query {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Query query = (Query) o;
-        return Objects.equals(text, query.text);
+        return text.equals(((Query) o).getText());
     }
 
     @Override

@@ -17,17 +17,18 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
 
     private static final int MAX_THREADS_COUNT = 5;
     private int threadsCount;
-
-    public static void main(String[] args) {
-        TipsCollector tipsCollector = new TipsCollector();
-        tipsCollector.readQueries();
-        tipsCollector.attachQueriesToLoaders();
-    }
+    private TipsLoadingListener tipsLoadingListener;
 
     private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
-    private List<Query> processed = Collections.synchronizedList(new ArrayList<>());
+    private List<Tip> tips = Collections.synchronizedList(new ArrayList<>());
 
-    private void readQueries() {
+    public TipsCollector(List<String> queriesStrings, int threadsCount, TipsLoadingListener tipsLoadingListener) {
+        for (String queryString : queriesStrings) unprocessed.addLast(new Query(queryString + " ", null));
+        this.threadsCount = threadsCount;
+        this.tipsLoadingListener = tipsLoadingListener;
+    }
+
+/*    private void readQueries() {
         Path inputPath = Paths.get("inputTips.txt");
         try (Stream<String> lines = Files.lines(inputPath, StandardCharsets.UTF_8)) {
             lines.distinct().forEachOrdered(text -> unprocessed.addLast(new Query(text + " ", null)));
@@ -35,6 +36,10 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         } catch (IOException e) {
             System.out.println("File reading error");
         }
+    }*/
+
+    public void start() {
+        attachQueriesToLoaders();
     }
 
     //Распределяем запросы по потокам
@@ -48,17 +53,19 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     @Override
     public synchronized void onTipsLoadComplete(TipsLoader tipsLoader) {
         Query query = tipsLoader.getQuery();
-        processed.add(query);
-        //Добавляем в очередь новые запросы, если найдено не менее 5 подсказок
-        if (query.getTips().size() >= 5)
+        tips.addAll(tipsLoader.getTips());
+//        processed.add(query);
+//        if (tipsLoader.getTips().size() >= 5)
+        //Добавляем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
+        if (tipsLoader.getTips().stream().filter(s -> !s.isCorrected()).count() >= 5)
             for (char letter : getAlphabet(query.getText()))
                 unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
-        if (unprocessed.isEmpty() && threadsCount == 0) exportTips();
+        if (unprocessed.isEmpty() && threadsCount == 0) tipsLoadingListener.onFinish(tips);
         else attachQueriesToLoaders();
     }
 
-    //Записываем собранные подсказки в файл
+/*    //Записываем собранные подсказки в файл
     private void exportTips() {
         Path outputPath = Paths.get("outputTips.csv");
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputPath.toFile()))){
@@ -79,6 +86,10 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         } catch (IOException | NullPointerException e) {
             System.out.println("File can't be overwritten!");
         }
+    }*/
+
+    public interface TipsLoadingListener {
+        void onFinish(List<Tip> tips);
     }
 
     //Получаем алфавит в зависимости от языка запроса (по последним буквам запроса)

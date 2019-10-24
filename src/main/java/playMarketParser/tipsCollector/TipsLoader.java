@@ -3,12 +3,14 @@ package playMarketParser.tipsCollector;
 import org.jsoup.nodes.Document;
 import playMarketParser.DocReader;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 class TipsLoader extends Thread {
 
     private Query query;
     private OnTipLoadCompleteListener onTipLoadCompleteListener;
+    private List<Tip> tips = new ArrayList<>();
 
     TipsLoader(Query query, OnTipLoadCompleteListener onTipLoadCompleteListener) {
         this.query = query;
@@ -23,15 +25,16 @@ class TipsLoader extends Thread {
     }
 
     private void collectTips() {
+        String queryText = query.getText();
         //Формируем из запроса url
-        String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + query.getText() + "&hl=ru&gl=RU";
+        String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText + "&hl=ru&gl=RU";
         //Загружаем js документ
         Document doc = DocReader.readDocByURL(url);
         if (doc == null) return;
         //Получаем контент документа в виде строки
         String content = doc.text();
         if (content.equals("[]")) {
-            System.out.println(query.getText());
+            System.out.println(queryText);
             return;
         }
         //Парсим строку
@@ -40,18 +43,22 @@ class TipsLoader extends Thread {
         content = content.replace("[s:", "");
         content = content.replace(",t:q}]", "");
         //Извлекаем из строки нужные данные в массив, а затем в список
-        String[] tips = content.split(",t:q},s:");
-        for (String tip : tips) System.out.printf("%-35s%-50s%n", query.getText(), tip);
-        query.addTips(Arrays.asList(tips));
+        String[] tipsArray = content.split(",t:q},s:");
+        for (String tip : tipsArray) {
+            tips.add(new Tip(queryText, tip));
+            System.out.printf("%-35s%-50s%n", queryText, tip);
+        }
     }
 
     interface OnTipLoadCompleteListener {
         void onTipsLoadComplete(TipsLoader tipsLoader);
     }
 
-
     Query getQuery() {
         return query;
     }
 
+    public List<Tip> getTips() {
+        return tips;
+    }
 }
