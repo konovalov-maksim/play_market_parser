@@ -46,7 +46,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
             for (char letter : getAlphabet(query.getText()))
                 unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
-        if (unprocessed.isEmpty() && threadsCount == 0 || !isAborted) tipsLoadingListener.onFinish();
+        if ((unprocessed.isEmpty() && threadsCount == 0) || isAborted) tipsLoadingListener.onFinish();
         else attachQueriesToLoaders();
     }
 

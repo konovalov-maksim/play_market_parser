@@ -16,8 +16,10 @@ public class PrefsController implements Initializable {
 
     @FXML private Spinner<Integer> posChecksCntSpin;
     @FXML private Spinner<Integer> posThreadsCntSpin;
+    @FXML private Spinner<Integer> tipsThreadsCntSpin;
+    @FXML private Spinner<Integer> tipsParsingDepthSpin;
 
-    Prefs prefs;
+    private Prefs prefs;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -25,6 +27,9 @@ public class PrefsController implements Initializable {
 
         posChecksCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("pos_checks_cnt")));
         posThreadsCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("pos_threads_cnt")));
+
+        tipsThreadsCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("tips_threads_cnt")));
+        tipsParsingDepthSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("tips_parsing_depth")));
     }
 
 
@@ -38,6 +43,8 @@ public class PrefsController implements Initializable {
     private void onApplyClick() {
         prefs.put("pos_checks_cnt", posChecksCntSpin.getValue());
         prefs.put("pos_threads_cnt", posThreadsCntSpin.getValue());
+        prefs.put("tips_threads_cnt", tipsThreadsCntSpin.getValue());
+        prefs.put("tips_parsing_depth", tipsParsingDepthSpin.getValue());
     }
 
     @FXML
