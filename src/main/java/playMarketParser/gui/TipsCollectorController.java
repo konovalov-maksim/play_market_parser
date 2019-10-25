@@ -18,13 +18,14 @@ import playMarketParser.tipsCollector.Tip;
 import playMarketParser.tipsCollector.TipsCollector;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static playMarketParser.Global.showAlert;
@@ -108,6 +109,38 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
     @FXML
     private void exportResults() {
+        if (tips == null || tips.size() == 0) {
+            showAlert(rb.getString("error"), rb.getString("noResults"));
+            return;
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+        fileChooser.setInitialFileName(rb.getString("outTips"));
+        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "output_path"));
+        File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
+        if (outputFile == null) return;
+        prefs.put("output_path", outputFile.getParentFile().toString());
+
+        try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
+            //Указываем кодировку файла UTF-8
+            ps.write('\ufeef');
+            ps.write('\ufebb');
+            ps.write('\ufebf');
+
+            //Добавляем заголовок
+            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("tip") + "\n";
+            Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+
+            List<String> newContent = new ArrayList<>();
+            for (Tip tip : tips)
+                newContent.add(tip.getQueryText() + Global.CSV_DELIMITER + tip.getText());
+            Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            showAlert(rb.getString("saved"), rb.getString("fileSaved"));
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            showAlert(rb.getString("error"), rb.getString("fileNotSaved"));
+        }
 
     }
 

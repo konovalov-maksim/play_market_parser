@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
 <VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.TipsCollectorController" fx:id="rootPane">
     <HBox spacing="10.0">
@@ -44,6 +45,9 @@
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </GridPane.margin>
+            <placeholder>
+                <Label text="%noQueries"/>
+            </placeholder>
         </TableView>
 
         <TableView  GridPane.columnIndex="1" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="400.0"
@@ -55,6 +59,9 @@
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </GridPane.margin>
+            <placeholder>
+                <Label text="%noTips"/>
+            </placeholder>
         </TableView>
     </GridPane>
 </VBox>

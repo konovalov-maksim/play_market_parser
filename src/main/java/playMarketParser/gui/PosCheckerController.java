@@ -162,8 +162,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
             ps.write('\ufebf');
 
             //Добавляем заголовок
-            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("position") + " " +
-                        new SimpleDateFormat("dd-MM-yyyy").format(new Date(System.currentTimeMillis())) + "\n";
+            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("position") + " " + curDate + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
             List<String> newContent = new ArrayList<>();
