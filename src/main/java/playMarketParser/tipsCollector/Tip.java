@@ -19,10 +19,6 @@ public class Tip {
         return queryText;
     }
 
-    public boolean isCorrected() {
-        return (text.length() >= queryText.length() && text.substring(0, queryText.length()).equals(text));
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

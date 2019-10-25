@@ -9,11 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
-import playMarketParser.tipsCollector.Query;
 import playMarketParser.tipsCollector.Tip;
 import playMarketParser.tipsCollector.TipsCollector;
 
@@ -41,15 +41,17 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private CheckBox titleFirstChb;
     @FXML private TableView<String> inputTable;
     @FXML private TableColumn<String, String> inputQueryCol;
-    @FXML private TableView<Query> outputTable;
-    @FXML private TableColumn outputQueryCol;
-    @FXML private TableColumn tipCol;
+    @FXML private TableView<Tip> outputTable;
+    @FXML private TableColumn<Tip, String> outputQueryCol;
+    @FXML private TableColumn<Tip, String> tipCol;
     @FXML private VBox rootPane;
 
     private ResourceBundle rb;
     private Prefs prefs;
+    private TipsCollector tipsCollector;
 
-    private ObservableList<String> inputQueries = FXCollections.observableArrayList();
+    private ObservableList<String> queries = FXCollections.observableArrayList();
+    private ObservableList<Tip> tips = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,10 +64,12 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         //inputTable
         inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
         inputQueryCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue()));
-        inputTable.setItems(inputQueries);
+        inputTable.setItems(queries);
         //outputTable
         outputQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.4));
         tipCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.6));
+        outputQueryCol.setCellValueFactory(new PropertyValueFactory<>("queryText"));
+        tipCol.setCellValueFactory(new PropertyValueFactory<>("text"));
     }
 
     @FXML
@@ -77,7 +81,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
             System.out.println(result.get());
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
                     .distinct()
-                    .forEachOrdered(s -> inputQueries.add(s));
+                    .forEachOrdered(s -> queries.add(s));
         }
     }
 
@@ -95,7 +99,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         try (Stream<String> lines = Files.lines(inputFile.toPath(), StandardCharsets.UTF_8)) {
             lines.skip(titleFirstChb.isSelected() ? 1 : 0)
                     .distinct()
-                    .forEachOrdered(s -> inputQueries.add(s));
+                    .forEachOrdered(s -> queries.add(s));
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("unableToReadFile"));
@@ -109,12 +113,20 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
     @FXML
     private void startTipsCollecting() {
+        if (queries.size() == 0) {
+            showAlert(rb.getString("error"), rb.getString("noQueries"));
+            return;
+        }
+        outputTable.getItems().clear();
 
+        tipsCollector = new TipsCollector(queries, prefs.getInt("tips_threads_cnt"), this);
+        enableLoadingMode();
+        tipsCollector.start();
     }
 
     @FXML
     private void abortTipsCollecting() {
-
+        tipsCollector.abort();
     }
 
     @FXML
@@ -129,8 +141,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
-        startBtn.setManaged(true);
-        abortBtn.setManaged(false);
+//        startBtn.setManaged(true);
+//        abortBtn.setManaged(false);
     }
 
     private void enableLoadingMode() {
@@ -139,8 +151,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
-        startBtn.setManaged(false);
-        abortBtn.setManaged(true);
+//        startBtn.setManaged(false);
+//        abortBtn.setManaged(true);
     }
 
     private void enableCompleteMode() {
@@ -149,12 +161,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
-        startBtn.setManaged(true);
-        abortBtn.setManaged(false);
+//        startBtn.setManaged(true);
+//        abortBtn.setManaged(false);
     }
 
     @Override
-    public void onFinish(List<Tip> tips) {
-
+    public void onFinish(List<Tip> collectedTips) {
+        tips = FXCollections.observableArrayList(collectedTips);
+        outputTable.setItems(tips);
+        enableCompleteMode();
     }
 }

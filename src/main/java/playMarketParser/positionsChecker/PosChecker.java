@@ -10,7 +10,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private PosCheckCompleteListener posCheckCompleteListener;
 
     private final int MAX_THREADS_COUNT;
-    private final boolean isTitleInFirstRow = true;
     private int threadsCount;
     private int processedCount;
     private boolean isAborted;
@@ -49,8 +48,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
             threadsCount++;
         }
     }
-
-
 
     @Override
     public synchronized void onPosLoadComplete(PosLoader posLoader) {

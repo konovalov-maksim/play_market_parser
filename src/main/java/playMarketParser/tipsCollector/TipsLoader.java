@@ -45,7 +45,7 @@ class TipsLoader extends Thread {
         //Извлекаем из строки нужные данные в массив, а затем в список
         String[] tipsArray = content.split(",t:q},s:");
         for (String tip : tipsArray) {
-            tips.add(new Tip(queryText, tip));
+            if (isUncorrected(queryText, tip)) tips.add(new Tip(query.getRootQueryText(), tip));
             System.out.printf("%-35s%-50s%n", queryText, tip);
         }
     }
@@ -58,7 +58,11 @@ class TipsLoader extends Thread {
         return query;
     }
 
-    public List<Tip> getTips() {
+    List<Tip> getTips() {
         return tips;
+    }
+
+    private static boolean isUncorrected(String query, String tip) {
+        return (tip.length() > query.length() && tip.substring(0, query.length()).equals(query));
     }
 }

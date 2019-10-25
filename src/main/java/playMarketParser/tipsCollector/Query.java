@@ -15,10 +15,10 @@ public class Query {
         return text;
     }
 
-//    String getRootQueryText() {
-//        if (parentQuery == null) return text.trim();
-//        else return parentQuery.getRootQueryText();
-//    }
+    String getRootQueryText() {
+        if (parentQuery == null) return text.trim();
+        else return parentQuery.getRootQueryText();
+    }
 
     boolean isRoot() {
         return parentQuery == null;

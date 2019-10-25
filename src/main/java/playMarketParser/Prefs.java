@@ -42,5 +42,6 @@ public class Prefs {
         defaults.put("pos_threads_cnt", 5);
         defaults.put("pos_checks_cnt", 5);
         defaults.put("title_first", true);
+        defaults.put("tips_threads_cnt", 5);
     }
 }

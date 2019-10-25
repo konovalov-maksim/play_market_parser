@@ -1,42 +1,24 @@
 package playMarketParser.tipsCollector;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
 
-    private static final int MAX_THREADS_COUNT = 5;
+    private final int MAX_THREADS_COUNT;
     private int threadsCount;
     private TipsLoadingListener tipsLoadingListener;
 
     private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Tip> tips = Collections.synchronizedList(new ArrayList<>());
 
-    public TipsCollector(List<String> queriesStrings, int threadsCount, TipsLoadingListener tipsLoadingListener) {
+    public TipsCollector(List<String> queriesStrings, int maxThreadsCount, TipsLoadingListener tipsLoadingListener) {
         for (String queryString : queriesStrings) unprocessed.addLast(new Query(queryString + " ", null));
-        this.threadsCount = threadsCount;
+        this.MAX_THREADS_COUNT = maxThreadsCount;
         this.tipsLoadingListener = tipsLoadingListener;
     }
-
-/*    private void readQueries() {
-        Path inputPath = Paths.get("inputTips.txt");
-        try (Stream<String> lines = Files.lines(inputPath, StandardCharsets.UTF_8)) {
-            lines.distinct().forEachOrdered(text -> unprocessed.addLast(new Query(text + " ", null)));
-            System.out.println("File reading completed");
-        } catch (IOException e) {
-            System.out.println("File reading error");
-        }
-    }*/
 
     public void start() {
         attachQueriesToLoaders();
@@ -50,14 +32,16 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         }
     }
 
+    public void abort() {
+
+    }
+
     @Override
     public synchronized void onTipsLoadComplete(TipsLoader tipsLoader) {
         Query query = tipsLoader.getQuery();
         tips.addAll(tipsLoader.getTips());
-//        processed.add(query);
-//        if (tipsLoader.getTips().size() >= 5)
-        //Добавляем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
-        if (tipsLoader.getTips().stream().filter(s -> !s.isCorrected()).count() >= 5)
+        if (tipsLoader.getTips().size() >= 5)
+            //Добавляем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
             for (char letter : getAlphabet(query.getText()))
                 unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
