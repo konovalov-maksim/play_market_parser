@@ -71,6 +71,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         tipCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.6));
         outputQueryCol.setCellValueFactory(new PropertyValueFactory<>("queryText"));
         tipCol.setCellValueFactory(new PropertyValueFactory<>("text"));
+        outputTable.setItems(tips);
     }
 
     @FXML
@@ -199,9 +200,12 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     @Override
-    public void onFinish(List<Tip> collectedTips) {
-        tips = FXCollections.observableArrayList(collectedTips);
-        outputTable.setItems(tips);
+    public synchronized void onQueryProcessed(List<Tip> collectedTips) {
+        tips.addAll(collectedTips);
+    }
+
+    @Override
+    public void onFinish() {
         enableCompleteMode();
     }
 }

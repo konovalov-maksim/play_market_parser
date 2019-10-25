@@ -32,7 +32,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     public synchronized void abort(){
-        unprocessed.clear();
         isAborted = true;
     }
 
