@@ -1,14 +1,13 @@
 package playMarketParser.gui;
 
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -40,7 +39,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private Button startBtn;
     @FXML private Button stopBtn;
     @FXML private Button pauseBtn;
+    @FXML private Button resumeBtn;
     @FXML private CheckBox titleFirstChb;
+    @FXML private Label queriesCntLbl;
+    @FXML private Label tipsCntLbl;
     @FXML private TableView<String> inputTable;
     @FXML private TableColumn<String, String> inputQueryCol;
     @FXML private TableView<Tip> outputTable;
@@ -73,6 +75,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         outputQueryCol.setCellValueFactory(new PropertyValueFactory<>("queryText"));
         tipCol.setCellValueFactory(new PropertyValueFactory<>("text"));
         outputTable.setItems(tips);
+
+        queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
     }
 
     @FXML
@@ -165,12 +169,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
     @FXML
     private void resume() {
+        enableLoadingMode();
         tipsCollector.start();
     }
 
     @FXML
     private void stop() {
-//        tipsCollector
+        tipsCollector.stop();
     }
 
     @FXML
@@ -185,8 +190,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
-//        startBtn.setManaged(true);
-//        abortBtn.setManaged(false);
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        resumeBtn.setDisable(true);
+        stopBtn.setDisable(true);
     }
 
     private void enableLoadingMode() {
@@ -195,8 +202,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
-//        startBtn.setManaged(false);
-//        abortBtn.setManaged(true);
+        startBtn.setDisable(true);
+        pauseBtn.setDisable(false);
+        resumeBtn.setDisable(true);
+        stopBtn.setDisable(false);
     }
 
     private void enableCompleteMode() {
@@ -205,8 +214,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
-//        startBtn.setManaged(true);
-//        abortBtn.setManaged(false);
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        resumeBtn.setDisable(true);
+        stopBtn.setDisable(true);
     }
 
     private void enablePauseMode() {
@@ -215,11 +226,16 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(false);
+        startBtn.setDisable(true);
+        pauseBtn.setDisable(true);
+        resumeBtn.setDisable(false);
+        stopBtn.setDisable(false);
     }
 
     @Override
     public synchronized void onQueryProcessed(List<Tip> collectedTips) {
         tips.addAll(collectedTips);
+        Platform.runLater(() -> tipsCntLbl.setText(String.valueOf(tips.size())));
     }
 
     @Override

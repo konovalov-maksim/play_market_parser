@@ -12,19 +12,29 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.TipsCollectorController" fx:id="rootPane">
     <HBox spacing="10.0">
         <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries"/>
-        <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%importQueries"/>
-        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst"/>
+        <VBox spacing="5">
+            <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%importQueries"/>
+            <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst"/>
+        </VBox>
         <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" prefHeight="25.0" text="%clear"/>
         <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" prefHeight="25.0"
                 text="%exportResults"/>
-        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#startTipsCollecting" prefHeight="25.0"
-                text="%startPosChecking"/>
-        <Button fx:id="abortBtn" mnemonicParsing="false" onAction="#abortTipsCollecting" prefHeight="25.0"
-                text="%abort"/>
+        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" prefWidth="100" prefHeight="25.0"
+                text="%start"/>
+        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" prefWidth="100" prefHeight="25.0"
+                text="%resume"/>
+        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" prefWidth="100" prefHeight="25.0"
+                text="%pause"/>
+        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" prefWidth="100" prefHeight="25.0"
+                text="%stop"/>
+        <!-- <graphic><ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true"><Image url="/images/icons/play.png"/></ImageView></graphic>-->
+
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
@@ -36,8 +46,25 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints/>
+            <RowConstraints/>
         </rowConstraints>
-        <TableView GridPane.columnIndex="0" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="200.0"
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="5">
+            <Label text="%queriesQuantity"/>
+            <Label text="0" fx:id="queriesCntLbl"/>
+            <GridPane.margin>
+                <Insets left="10.0" right="10.0"/>
+            </GridPane.margin>
+        </HBox>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="5">
+            <Label text="%tipsQuantity"/>
+            <Label text="0" fx:id="tipsCntLbl"/>
+            <GridPane.margin>
+                <Insets left="10.0" right="10.0"/>
+            </GridPane.margin>
+        </HBox>
+
+        <TableView GridPane.columnIndex="0" GridPane.rowIndex="1" minWidth="150" minHeight="200" prefHeight="300.0"
+                   prefWidth="200.0"
                    fx:id="inputTable">
             <columns>
                 <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="inputQueryCol"/>
@@ -50,7 +77,8 @@
             </placeholder>
         </TableView>
 
-        <TableView  GridPane.columnIndex="1" minWidth="150" minHeight="200" prefHeight="300.0" prefWidth="400.0"
+        <TableView GridPane.columnIndex="1" GridPane.rowIndex="1" minWidth="150" minHeight="200" prefHeight="300.0"
+                   prefWidth="400.0"
                    fx:id="outputTable">
             <columns>
                 <TableColumn prefWidth="75.0" text="%query" fx:id="outputQueryCol"/>

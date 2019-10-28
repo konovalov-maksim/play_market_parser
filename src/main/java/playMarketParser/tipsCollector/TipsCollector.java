@@ -12,6 +12,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     private int threadsCount;
     private TipsLoadingListener tipsLoadingListener;
     private boolean isPaused;
+    private boolean isStopped;
 
     private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
 
@@ -19,6 +20,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         for (String queryString : queriesStrings) unprocessed.addLast(new Query(queryString + " ", null));
         this.maxThreadsCount = maxThreadsCount;
         this.tipsLoadingListener = tipsLoadingListener;
+        isStopped = false;
     }
 
     public void start() {
@@ -38,7 +40,11 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         isPaused = true;
     }
 
-//    public voi
+    public void stop() {
+        isStopped = true;
+        unprocessed.clear();
+        if (threadsCount == 0) tipsLoadingListener.onFinish();
+    }
 
     @Override
     public synchronized void onTipsLoadComplete(TipsLoader tipsLoader) {
@@ -47,7 +53,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         if (tipsLoader.getTips().size() >= 5)
             //ƒобавл€ем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
             for (char letter : getAlphabet(query.getText()))
-                unprocessed.addLast(new Query(query.getText() + letter, query));
+                if (!isStopped) unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
         if (isPaused) {
             if (threadsCount == 0) tipsLoadingListener.onPause();
