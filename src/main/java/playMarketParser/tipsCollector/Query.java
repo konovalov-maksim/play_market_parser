@@ -20,6 +20,11 @@ public class Query {
         else return parentQuery.getRootQueryText();
     }
 
+    int getDepth() {
+        if (parentQuery == null) return 1;
+        return parentQuery.getDepth() + 1;
+    }
+
     boolean isRoot() {
         return parentQuery == null;
     }

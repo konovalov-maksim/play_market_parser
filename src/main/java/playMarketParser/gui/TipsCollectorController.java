@@ -157,7 +157,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         }
         outputTable.getItems().clear();
 
-        tipsCollector = new TipsCollector(queries, prefs.getInt("tips_threads_cnt"), this);
+        tipsCollector = new TipsCollector(queries,
+                prefs.getInt("tips_threads_cnt"),
+                prefs.getInt("tips_parsing_depth"),
+                this);
         enableLoadingMode();
         tipsCollector.start();
     }

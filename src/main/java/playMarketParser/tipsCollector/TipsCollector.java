@@ -10,15 +10,17 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
 
     private int maxThreadsCount;
     private int threadsCount;
+    private int maxDepth;
     private TipsLoadingListener tipsLoadingListener;
     private boolean isPaused;
     private boolean isStopped;
 
     private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
 
-    public TipsCollector(List<String> queriesStrings, int maxThreadsCount, TipsLoadingListener tipsLoadingListener) {
+    public TipsCollector(List<String> queriesStrings, int maxThreadsCount, int maxDepth, TipsLoadingListener tipsLoadingListener) {
         for (String queryString : queriesStrings) unprocessed.addLast(new Query(queryString + " ", null));
         this.maxThreadsCount = maxThreadsCount;
+        this.maxDepth = maxDepth;
         this.tipsLoadingListener = tipsLoadingListener;
         isStopped = false;
     }
@@ -53,7 +55,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         if (tipsLoader.getTips().size() >= 5)
             //ƒобавл€ем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
             for (char letter : getAlphabet(query.getText()))
-                if (!isStopped) unprocessed.addLast(new Query(query.getText() + letter, query));
+                if (!isStopped && query.getDepth() < maxDepth) unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
         if (isPaused) {
             if (threadsCount == 0) tipsLoadingListener.onPause();
