@@ -1,65 +1,73 @@
 package playMarketParser.tipsCollector;
 
 
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 
 public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
 
-    private final int MAX_THREADS_COUNT;
+    private int maxThreadsCount;
     private int threadsCount;
     private TipsLoadingListener tipsLoadingListener;
-    private boolean isAborted;
+    private boolean isPaused;
 
     private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
 
     public TipsCollector(List<String> queriesStrings, int maxThreadsCount, TipsLoadingListener tipsLoadingListener) {
         for (String queryString : queriesStrings) unprocessed.addLast(new Query(queryString + " ", null));
-        this.MAX_THREADS_COUNT = maxThreadsCount;
+        this.maxThreadsCount = maxThreadsCount;
         this.tipsLoadingListener = tipsLoadingListener;
     }
 
     public void start() {
-        isAborted = false;
+        isPaused = false;
         attachQueriesToLoaders();
     }
 
-    //Р Р°СЃРїСЂРµРґРµР»СЏРµРј Р·Р°РїСЂРѕСЃС‹ РїРѕ РїРѕС‚РѕРєР°Рј
+    //Распределяем запросы по потокам
     private synchronized void attachQueriesToLoaders() {
-        while (threadsCount < MAX_THREADS_COUNT && unprocessed.size() > 0) {
+        while (threadsCount < maxThreadsCount && unprocessed.size() > 0) {
             new TipsLoader(unprocessed.pop(), this).start();
             threadsCount++;
         }
     }
 
-    public void abort() {
-        isAborted = true;
+    public void pause() {
+        isPaused = true;
     }
+
+//    public voi
 
     @Override
     public synchronized void onTipsLoadComplete(TipsLoader tipsLoader) {
         Query query = tipsLoader.getQuery();
         tipsLoadingListener.onQueryProcessed(tipsLoader.getTips());
         if (tipsLoader.getTips().size() >= 5)
-            //Р”РѕР±Р°РІР»СЏРµРј РІ РѕС‡РµСЂРµРґСЊ РЅРѕРІС‹Рµ Р·Р°РїСЂРѕСЃС‹, РµСЃР»Рё РЅР°Р№РґРµРЅРѕ РЅРµ РјРµРЅРµРµ 5 РЅРµРёСЃРїСЂР°РІР»РµРЅРЅС‹С… РїРѕРґСЃРєР°Р·РѕРє
+            //Добавляем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
             for (char letter : getAlphabet(query.getText()))
                 unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
-        if ((unprocessed.isEmpty() && threadsCount == 0) || isAborted) tipsLoadingListener.onFinish();
-        else attachQueriesToLoaders();
+        if (isPaused) {
+            if (threadsCount == 0) tipsLoadingListener.onPause();
+        }
+        else
+            if (unprocessed.isEmpty() && threadsCount == 0) tipsLoadingListener.onFinish();
+            else attachQueriesToLoaders();
     }
 
     public interface TipsLoadingListener {
         void onQueryProcessed(List<Tip> tips);
         void onFinish();
+        void onPause();
     }
 
-    //РџРѕР»СѓС‡Р°РµРј Р°Р»С„Р°РІРёС‚ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЏР·С‹РєР° Р·Р°РїСЂРѕСЃР° (РїРѕ РїРѕСЃР»РµРґРЅРёРј Р±СѓРєРІР°Рј Р·Р°РїСЂРѕСЃР°)
+    //Получаем алфавит в зависимости от языка запроса (по последним буквам запроса)
     private static List<Character> getAlphabet(String text) {
         List<Character> latin = "abcdefghijklmnopqrstuvwxyz".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        List<Character> cyrillic = "Р°Р±РІРіРґРµС‘Р¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        //Р•СЃР»Рё Р·Р°РїСЂРѕСЃ РЅРµ РѕРєР°РЅС‡РёРІР°РµС‚СЃСЏ РїСЂРѕР±РµР»РѕРј, РґРѕР±Р°РІР»СЏРµРј РІ Р°Р»С„Р°РІРёС‚С‹ РїСЂРѕР±РµР»
+        List<Character> cyrillic = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+        //Если запрос не оканчивается пробелом, добавляем в алфавиты пробел
         if (text.charAt(text.length() - 1) != ' ') {
             latin.add(' ');
             cyrillic.add(' ');
@@ -70,7 +78,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
                 if (cyrillic.contains(text.charAt(i))) return cyrillic;
             }
         }
-        //Р•СЃР»Рё СЏР·С‹Рє РѕРїСЂРµРґРµР»РёС‚СЊ РЅРµ РїРѕР»СѓС‡РёР»РѕСЃСЊ, РІРѕР·РІСЂР°С‰Р°РµРј РѕР±Р° Р°Р»С„Р°РІРёС‚Р°
+        //Если язык определить не получилось, возвращаем оба алфавита
         latin.addAll(cyrillic);
         return latin;
     }

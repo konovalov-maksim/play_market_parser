@@ -38,7 +38,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private Button clearBtn;
     @FXML private Button exportBtn;
     @FXML private Button startBtn;
-    @FXML private Button abortBtn;
+    @FXML private Button stopBtn;
+    @FXML private Button pauseBtn;
     @FXML private CheckBox titleFirstChb;
     @FXML private TableView<String> inputTable;
     @FXML private TableColumn<String, String> inputQueryCol;
@@ -142,11 +143,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("fileNotSaved"));
         }
-
     }
 
     @FXML
-    private void startTipsCollecting() {
+    private void start() {
         if (queries.size() == 0) {
             showAlert(rb.getString("error"), rb.getString("noQueries"));
             return;
@@ -159,8 +159,18 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     @FXML
-    private void abortTipsCollecting() {
-        tipsCollector.abort();
+    private void pause() {
+        tipsCollector.pause();
+    }
+
+    @FXML
+    private void resume() {
+        tipsCollector.start();
+    }
+
+    @FXML
+    private void stop() {
+//        tipsCollector
     }
 
     @FXML
@@ -199,6 +209,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 //        abortBtn.setManaged(false);
     }
 
+    private void enablePauseMode() {
+        addQueriesBtn.setDisable(true);
+        importQueriesBtn.setDisable(true);
+        titleFirstChb.setDisable(true);
+        clearBtn.setDisable(true);
+        exportBtn.setDisable(false);
+    }
+
     @Override
     public synchronized void onQueryProcessed(List<Tip> collectedTips) {
         tips.addAll(collectedTips);
@@ -207,5 +225,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @Override
     public void onFinish() {
         enableCompleteMode();
+    }
+
+    @Override
+    public void onPause() {
+        enablePauseMode();
     }
 }

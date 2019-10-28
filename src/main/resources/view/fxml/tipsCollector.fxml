@@ -21,10 +21,13 @@
         <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" prefHeight="25.0" text="%clear"/>
         <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" prefHeight="25.0"
                 text="%exportResults"/>
-        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#startTipsCollecting" prefHeight="25.0"
-                text="%startPosChecking"/>
-        <Button fx:id="abortBtn" mnemonicParsing="false" onAction="#abortTipsCollecting" prefHeight="25.0"
-                text="%abort"/>
+        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" prefHeight="25.0"
+                text="%startTipsCollecting"/>
+        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" prefHeight="25.0"
+                text="%pause"/>
+        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" prefHeight="25.0"
+                text="%stop"/>
+
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
