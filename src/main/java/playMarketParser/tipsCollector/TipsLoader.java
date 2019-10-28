@@ -21,7 +21,7 @@ class TipsLoader extends Thread {
     public void run() {
         super.run();
         collectTips();
-        onTipLoadCompleteListener.onTipsLoadComplete(this);
+        onTipLoadCompleteListener.onTipsLoadingComplete(this);
     }
 
     private void collectTips() {
@@ -51,7 +51,7 @@ class TipsLoader extends Thread {
     }
 
     interface OnTipLoadCompleteListener {
-        void onTipsLoadComplete(TipsLoader tipsLoader);
+        void onTipsLoadingComplete(TipsLoader tipsLoader);
     }
 
     Query getQuery() {

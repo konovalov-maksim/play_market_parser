@@ -7,7 +7,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private final int CHECKS_COUNT;
     private String appId;
 
-    private PosCheckCompleteListener posCheckCompleteListener;
+    private PosCheckListener posCheckListener;
 
     private final int MAX_THREADS_COUNT;
     private int threadsCount;
@@ -17,10 +17,10 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Query> queries;
 
-    public PosChecker(String appId, List<Query> queries, int threadsCount, int checksCount, PosCheckCompleteListener posCheckCompleteListener) {
+    public PosChecker(String appId, List<Query> queries, int threadsCount, int checksCount, PosCheckListener posCheckListener) {
         this.appId = appId;
         this.queries = Collections.synchronizedList(queries);
-        this.posCheckCompleteListener = posCheckCompleteListener;
+        this.posCheckListener = posCheckListener;
         this.MAX_THREADS_COUNT = threadsCount;
         this.CHECKS_COUNT = checksCount;
     }
@@ -49,18 +49,20 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     @Override
-    public synchronized void onPosLoadComplete(PosLoader posLoader) {
+    public synchronized void onPosLoadingComplete(PosLoader posLoader) {
         threadsCount--;
         processedCount++;
+        posCheckListener.onPositionChecked();
         if (processedCount < queries.size() * CHECKS_COUNT && !isAborted)
             startNewLoaders();
         else {
-            for (Query query : queries) query.calcRealPos();
-            posCheckCompleteListener.onPosCheckingComplete(queries);
+//            for (Query query : queries) query.calcRealPos();
+            posCheckListener.onAllPositionsChecked();
         }
     }
 
-    public interface PosCheckCompleteListener {
-        void onPosCheckingComplete(List<Query> processedQueries);
+    public interface PosCheckListener {
+        void onPositionChecked();
+        void onAllPositionsChecked();
     }
 }

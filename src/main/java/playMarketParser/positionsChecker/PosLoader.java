@@ -25,7 +25,7 @@ public class PosLoader extends Thread {
     public void run() {
         super.run();
         query.addPseudoPos(getPos());
-        onPosLoadCompleteListener.onPosLoadComplete(this);
+        onPosLoadCompleteListener.onPosLoadingComplete(this);
     }
 
     private int getPos() {
@@ -56,7 +56,7 @@ public class PosLoader extends Thread {
     }
 
     interface OnPosLoadCompleteListener {
-        void onPosLoadComplete(PosLoader posLoader);
+        void onPosLoadingComplete(PosLoader posLoader);
     }
 
 }

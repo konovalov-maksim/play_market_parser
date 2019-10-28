@@ -9,6 +9,7 @@ public class Query {
     private List<Integer> pseudoPos = Collections.synchronizedList(new ArrayList<>());
     private String fullRowText;
     private Integer realPos;
+    private String pseudoPosString = "";
 
     public Query(String fullRowText) {
         this.fullRowText = fullRowText;
@@ -17,9 +18,12 @@ public class Query {
 
     synchronized void addPseudoPos(int pos) {
         pseudoPos.add(pos);
+        calcRealPos();
+        String appendix = pos > 9 ? String.valueOf(pos) : "  " + pos;
+        pseudoPosString += pseudoPos.size() == 1 ? appendix : "; " + appendix;
     }
 
-    void calcRealPos() {
+    private void calcRealPos() {
         Map<Integer, Integer> positionsFreqs = new HashMap<>();
         for (Integer pos : pseudoPos) {
             Integer freq = positionsFreqs.get(pos) == null ? 1 : positionsFreqs.get(pos) + 1;
@@ -34,6 +38,10 @@ public class Query {
                 return;
             }
         realPos = 0;
+    }
+
+    public String getPseudoPosString() {
+        return pseudoPosString;
     }
 
     public String getRealPosString() {

@@ -49,7 +49,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     }
 
     @Override
-    public synchronized void onTipsLoadComplete(TipsLoader tipsLoader) {
+    public synchronized void onTipsLoadingComplete(TipsLoader tipsLoader) {
         Query query = tipsLoader.getQuery();
         tipsLoadingListener.onQueryProcessed(tipsLoader.getTips());
         if (tipsLoader.getTips().size() >= 5)

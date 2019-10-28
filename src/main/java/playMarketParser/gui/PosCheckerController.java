@@ -2,7 +2,6 @@ package playMarketParser.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -29,7 +28,7 @@ import java.util.stream.Stream;
 import static playMarketParser.Global.showAlert;
 
 
-public class PosCheckerController implements Initializable, PosChecker.PosCheckCompleteListener {
+public class PosCheckerController implements Initializable, PosChecker.PosCheckListener {
 
     @FXML private Button addQueriesBtn;
     @FXML private Button importQueriesBtn;
@@ -42,7 +41,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
     @FXML private VBox rootPane;
     @FXML private TableView<Query> table;
     @FXML private TableColumn<Query, String> queryCol;
-    @FXML private TableColumn<Query, String> posCol;
+    @FXML private TableColumn<Query, String> pseudoPosCol;
+    @FXML private TableColumn<Query, String> realPosCol;
 
     private PosChecker posChecker;
     private ResourceBundle rb;
@@ -60,15 +60,17 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         titleFirstChb.setSelected(prefs.getBoolean("title_first"));
 
         //Таблица
-        queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.8));
-        posCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        pseudoPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
+        realPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
         queryCol.setCellValueFactory(new PropertyValueFactory<>("text"));
-        posCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
+        pseudoPosCol.setCellValueFactory(new PropertyValueFactory<>("pseudoPosString"));
+        realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
         table.setItems(queries);
     }
 
     @FXML
-    private void addQueries(ActionEvent event) {
+    private void addQueries() {
         TextAreaDialog dialog = new TextAreaDialog("", rb.getString("enterQueries"), rb.getString("addingQueries"), "");
 
         Optional result = dialog.showAndWait();
@@ -115,7 +117,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         table.refresh();
 
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
-        //https://play.google.com/store/apps/details?id=com.appgrade.cinemaguru
         prefs.put("pos_app_url", appUrlTf.getText());
 
         posChecker = new PosChecker(appId, queries, prefs.getInt("pos_threads_cnt"),
@@ -130,15 +131,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         posChecker.abort();
     }
 
-    @Override
-    public void onPosCheckingComplete(List<Query> processedQueries) {
-        queries = FXCollections.observableArrayList(processedQueries);
-        table.refresh();
-        enableCompleteMode();
-    }
-
     @FXML
-    private void exportResults(ActionEvent event){
+    private void exportResults(){
         if (queries == null || queries.size() == 0) {
             showAlert(rb.getString("error"), rb.getString("noResults"));
             return;
@@ -162,7 +156,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
             ps.write('\ufebf');
 
             //Добавляем заголовок
-            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("position") + " " + curDate + "\n";
+            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("finalPos") + " " + curDate + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
             List<String> newContent = new ArrayList<>();
@@ -213,6 +207,14 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckC
         abortBtn.setManaged(false);
     }
 
+    @Override
+    public void onPositionChecked() {
+        table.refresh();
+    }
 
+    @Override
+    public void onAllPositionsChecked() {
+        enableCompleteMode();
+    }
 
 }

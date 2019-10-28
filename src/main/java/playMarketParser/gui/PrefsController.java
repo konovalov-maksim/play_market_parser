@@ -29,7 +29,7 @@ public class PrefsController implements Initializable {
         posThreadsCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("pos_threads_cnt")));
 
         tipsThreadsCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("tips_threads_cnt")));
-        tipsParsingDepthSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, prefs.getInt("tips_parsing_depth")));
+        tipsParsingDepthSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, prefs.getInt("tips_parsing_depth")));
     }
 
 

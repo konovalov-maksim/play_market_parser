@@ -44,7 +44,8 @@
             </placeholder>
             <columns>
                 <TableColumn fx:id="queryCol" text="%inputQuery"/>
-                <TableColumn fx:id="posCol" text="%position"/>
+                <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
+                <TableColumn fx:id="realPosCol" text="%finalPos"/>
             </columns>
         </TableView>
     </AnchorPane>
