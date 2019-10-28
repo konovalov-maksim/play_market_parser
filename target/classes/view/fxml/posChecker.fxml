@@ -15,7 +15,8 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController">
     <HBox spacing="10.0">
         <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries"/>
-        <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" prefHeight="25.0" text="%importQueries"/>
+        <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" prefHeight="25.0"
+                text="%importQueries"/>
         <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst"/>
         <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" prefHeight="25.0" text="%clear"/>
         <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults"
@@ -33,7 +34,16 @@
         <Button minWidth="150" fx:id="abortBtn" mnemonicParsing="false" onAction="#abortPosChecking" prefHeight="25.0"
                 text="%stop"/>
         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            <Insets left="10.0" right="10.0"/>
+        </padding>
+    </HBox>
+    <HBox spacing="10">
+        <HBox>
+            <Label fx:id="processedQueriesCntLbl"/>
+            <Label fx:id="allQueriesCntLbl" minWidth="10"/>
+        </HBox>
+        <padding>
+            <Insets left="10.0" right="10.0"/>
         </padding>
     </HBox>
     <AnchorPane>

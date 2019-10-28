@@ -40,6 +40,10 @@ public class Query {
         realPos = 0;
     }
 
+    public List<Integer> getPseudoPos() {
+        return pseudoPos;
+    }
+
     public String getPseudoPosString() {
         return pseudoPosString;
     }

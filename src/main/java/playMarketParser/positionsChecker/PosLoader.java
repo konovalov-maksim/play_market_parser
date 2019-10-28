@@ -10,7 +10,6 @@ public class PosLoader extends Thread {
 
     private final static int CHECKED_POS_COUNT = 50;
     private final String appURL;
-    private final String format = "%-30s%-2s%n";
 
     private OnPosLoadCompleteListener onPosLoadCompleteListener;
     private Query query;
@@ -25,7 +24,7 @@ public class PosLoader extends Thread {
     public void run() {
         super.run();
         query.addPseudoPos(getPos());
-        onPosLoadCompleteListener.onPosLoadingComplete(this);
+        onPosLoadCompleteListener.onPosLoadingComplete(query);
     }
 
     private int getPos() {
@@ -35,6 +34,7 @@ public class PosLoader extends Thread {
         String url = "https://play.google.com/store/search?q=" + query.getText() + "&c=apps";
         Document doc = DocReader.readDocByURL(url);
         Elements appsLinksDivs;
+        String format = "%-30s%-2s%n";
         if (doc != null)
             //ѕолучаем список div-ов со ссылками на приложени€
             appsLinksDivs = doc.getElementsByClass(appLinkClass);
@@ -43,7 +43,6 @@ public class PosLoader extends Thread {
             return 0;
         }
         //ѕолучаем список ссылок на приложени€
-        List<String> appsURLs = new ArrayList<>();
         for (int i = 0; i < Math.min(appsLinksDivs.size(), CHECKED_POS_COUNT); i++) {
             String curURL = appsLinksDivs.get(i).child(0).attr("href");
             if (appURL.equals(curURL)) {
@@ -56,7 +55,7 @@ public class PosLoader extends Thread {
     }
 
     interface OnPosLoadCompleteListener {
-        void onPosLoadingComplete(PosLoader posLoader);
+        void onPosLoadingComplete(Query query);
     }
 
 }

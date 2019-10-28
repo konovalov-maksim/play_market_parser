@@ -1,5 +1,7 @@
 package playMarketParser.gui;
 
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,6 +40,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private Button abortBtn;
     @FXML private CheckBox titleFirstChb;
     @FXML private TextField appUrlTf;
+    @FXML private Label processedQueriesCntLbl;
+    @FXML private Label allQueriesCntLbl;
     @FXML private VBox rootPane;
     @FXML private TableView<Query> table;
     @FXML private TableColumn<Query, String> queryCol;
@@ -67,6 +71,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         pseudoPosCol.setCellValueFactory(new PropertyValueFactory<>("pseudoPosString"));
         realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
         table.setItems(queries);
+
+        //Подписи
+        refreshProcessedCnt(0);
+        allQueriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
     }
 
     @FXML
@@ -177,6 +185,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         enableReadyMode();
     }
 
+    private void refreshProcessedCnt(int processed) {
+        Platform.runLater(() -> processedQueriesCntLbl.setText(rb.getString("processedQueries") + " " + processed + "/"));
+    }
+
     private void enableReadyMode() {
         addQueriesBtn.setDisable(false);
         importQueriesBtn.setDisable(false);
@@ -210,6 +222,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @Override
     public void onPositionChecked() {
         table.refresh();
+        Platform.runLater(() -> processedQueriesCntLbl.setText(rb.getString("processedQueries") + ": "
+                + posChecker.getProcessedQueriesCount() + "/"));
     }
 
     @Override
