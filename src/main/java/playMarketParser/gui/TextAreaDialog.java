@@ -1,12 +1,14 @@
 
 package playMarketParser.gui;
 
-import com.sun.istack.internal.Nullable;
 import javafx.application.Platform;
 import javafx.beans.NamedArg;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
@@ -58,6 +60,11 @@ public class TextAreaDialog extends Dialog<String> {
         if (header.length() > 0) dialogPane.setHeaderText(header);
         dialogPane.getStyleClass().add("text-input-dialog");
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialogPane.getScene().getAccelerators().put(
+                new KeyCodeCombination(KeyCode.ENTER, KeyCombination.CONTROL_DOWN),
+                () -> ((Button) dialogPane.lookupButton(ButtonType.OK)).fire()
+        );
 
         updateGrid();
 
