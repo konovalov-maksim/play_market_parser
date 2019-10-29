@@ -11,8 +11,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
 
     private final int MAX_THREADS_COUNT;
     private int threadsCount;
-    private int processedLoadersCount;
-    private int processedQueriesCount;
+    private int processedCount;
     private boolean isAborted;
 
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
@@ -52,10 +51,9 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     @Override
     public synchronized void onPosLoadingComplete(Query query) {
         threadsCount--;
-        processedLoadersCount++;
-        if (query.getPseudoPos().size() == CHECKS_COUNT) processedQueriesCount++;
+        processedCount++;
         posCheckListener.onPositionChecked();
-        if (processedLoadersCount < queries.size() * CHECKS_COUNT && !isAborted)
+        if (processedCount < queries.size() * CHECKS_COUNT && !isAborted)
             startNewLoaders();
         else {
             posCheckListener.onAllPositionsChecked();
@@ -67,11 +65,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         void onAllPositionsChecked();
     }
 
-    public int getProcessedQueriesCount() {
-        return processedQueriesCount;
-    }
-
     public double getProgress() {
-        return processedLoadersCount / (queries.size() * CHECKS_COUNT);
+        return processedCount * 1.0 / (queries.size() * CHECKS_COUNT);
     }
 }

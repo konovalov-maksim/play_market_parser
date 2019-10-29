@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,51 +12,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController">
+<VBox spacing="10" fx:id="rootPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController">
     <HBox spacing="10.0">
-        <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries"/>
-        <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" prefHeight="25.0"
-                text="%importQueries"/>
-        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst"/>
-        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" prefHeight="25.0" text="%clear"/>
-        <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults"
-                prefHeight="25.0" prefWidth="133.0" text="%exportResults"/>
+        <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries" />
+        <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" prefHeight="25.0" text="%importQueries" />
+        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" />
+        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" prefHeight="25.0" text="%clear" />
+        <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" prefHeight="25.0" prefWidth="133.0" text="%exportResults" />
         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </padding>
     </HBox>
     <HBox spacing="10.0">
-        <Label text="%appUrl" minWidth="90"/>
-        <TextField promptText="https://play.google.com/store/apps/details?id=app.package.name" minWidth="400.0"
-                   fx:id="appUrlTf"/>
-        <Button minWidth="150" fx:id="startBtn" mnemonicParsing="false" onAction="#startPosChecking" prefHeight="25.0"
-                text="%startPosChecking"/>
-        <Button minWidth="150" fx:id="abortBtn" mnemonicParsing="false" onAction="#abortPosChecking" prefHeight="25.0"
-                text="%stop"/>
+        <Label text="%appUrl" />
+        <TextField fx:id="appUrlTf" minWidth="400.0" promptText="https://play.google.com/store/apps/details?id=app.package.name" />
+        <Button fx:id="startBtn" minWidth="150" mnemonicParsing="false" onAction="#startPosChecking" prefHeight="25.0" text="%startPosChecking" />
+        <Button fx:id="abortBtn" minWidth="150" mnemonicParsing="false" onAction="#abortPosChecking" prefHeight="25.0" text="%stop" />
         <padding>
-            <Insets left="10.0" right="10.0"/>
+            <Insets left="10.0" right="10.0" />
         </padding>
     </HBox>
     <HBox spacing="10">
-        <HBox>
-            <Label fx:id="processedQueriesCntLbl"/>
-            <Label fx:id="allQueriesCntLbl" minWidth="10"/>
+        <HBox spacing="4">
+            <Label text="%queriesQuantity" />
+            <Label fx:id="queriesCntLbl" minWidth="10" />
         </HBox>
+      <ProgressBar fx:id="progBar" minWidth="200" prefHeight="18.0" prefWidth="500.0" progress="0.0"/>
+
         <padding>
-            <Insets left="10.0" right="10.0"/>
+            <Insets left="10.0" right="10.0" />
         </padding>
     </HBox>
     <AnchorPane>
-        <TableView fx:id="table" minHeight="200" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-                   AnchorPane.topAnchor="10.0">
+        <TableView fx:id="table" minHeight="200" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <placeholder>
-                <Label text="%noQueries"/>
+                <Label text="%noQueries" />
             </placeholder>
             <columns>
-                <TableColumn fx:id="queryCol" text="%inputQuery"/>
-                <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
-                <TableColumn fx:id="realPosCol" text="%finalPos"/>
+                <TableColumn fx:id="queryCol" text="%inputQuery" />
+                <TableColumn fx:id="pseudoPosCol" text="%interPos" />
+                <TableColumn fx:id="realPosCol" text="%finalPos" />
             </columns>
         </TableView>
     </AnchorPane>

@@ -40,9 +40,9 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private Button abortBtn;
     @FXML private CheckBox titleFirstChb;
     @FXML private TextField appUrlTf;
-    @FXML private Label processedQueriesCntLbl;
-    @FXML private Label allQueriesCntLbl;
+    @FXML private Label queriesCntLbl;
     @FXML private VBox rootPane;
+    @FXML private ProgressBar progBar;
     @FXML private TableView<Query> table;
     @FXML private TableColumn<Query, String> queryCol;
     @FXML private TableColumn<Query, String> pseudoPosCol;
@@ -63,7 +63,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         appUrlTf.setText(prefs.getString("pos_app_url"));
         titleFirstChb.setSelected(prefs.getBoolean("title_first"));
 
-        //Таблица
+        //Tables
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
         pseudoPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
         realPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
@@ -72,9 +72,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
         table.setItems(queries);
 
-        //Подписи
-        refreshProcessedCnt(0);
-        allQueriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+        //Labels
+        queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
     }
 
     @FXML
@@ -185,10 +184,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         enableReadyMode();
     }
 
-    private void refreshProcessedCnt(int processed) {
-        Platform.runLater(() -> processedQueriesCntLbl.setText(rb.getString("processedQueries") + " " + processed + "/"));
-    }
-
     private void enableReadyMode() {
         addQueriesBtn.setDisable(false);
         importQueriesBtn.setDisable(false);
@@ -222,8 +217,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @Override
     public void onPositionChecked() {
         table.refresh();
-        Platform.runLater(() -> processedQueriesCntLbl.setText(rb.getString("processedQueries") + ": "
-                + posChecker.getProcessedQueriesCount() + "/"));
+        progBar.setProgress(posChecker.getProgress());
+//        Platform.runLater(() -> processedQueriesCntLbl.setText("test");
     }
 
     @Override
