@@ -14,6 +14,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ProgressBar?>
 <VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.TipsCollectorController" fx:id="rootPane">
     <HBox spacing="10.0">
@@ -58,6 +60,10 @@
         <HBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="5">
             <Label text="%tipsQuantity"/>
             <Label text="0" fx:id="tipsCntLbl"/>
+            <StackPane>
+                <ProgressBar fx:id="progBar" minWidth="200" prefHeight="18.0" prefWidth="500.0" progress="0.0"/>
+                <Label fx:id="progLbl" text="0.0%"/>
+            </StackPane>
             <GridPane.margin>
                 <Insets left="10.0" right="10.0"/>
             </GridPane.margin>

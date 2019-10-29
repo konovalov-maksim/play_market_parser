@@ -41,12 +41,13 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private CheckBox titleFirstChb;
     @FXML private TextField appUrlTf;
     @FXML private Label queriesCntLbl;
-    @FXML private VBox rootPane;
+    @FXML private Label progLbl;
     @FXML private ProgressBar progBar;
     @FXML private TableView<Query> table;
     @FXML private TableColumn<Query, String> queryCol;
     @FXML private TableColumn<Query, String> pseudoPosCol;
     @FXML private TableColumn<Query, String> realPosCol;
+    @FXML private VBox rootPane;
 
     private PosChecker posChecker;
     private ResourceBundle rb;
@@ -218,7 +219,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     public void onPositionChecked() {
         table.refresh();
         progBar.setProgress(posChecker.getProgress());
-//        Platform.runLater(() -> processedQueriesCntLbl.setText("test");
+        Platform.runLater(() -> progLbl.setText( String.format("%.1f", posChecker.getProgress()*100) + "%"));
     }
 
     @Override

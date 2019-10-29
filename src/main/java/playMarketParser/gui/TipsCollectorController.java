@@ -43,6 +43,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private CheckBox titleFirstChb;
     @FXML private Label queriesCntLbl;
     @FXML private Label tipsCntLbl;
+    @FXML private Label progLbl;
+    @FXML private ProgressBar progBar;
     @FXML private TableView<String> inputTable;
     @FXML private TableColumn<String, String> inputQueryCol;
     @FXML private TableView<Tip> outputTable;
@@ -239,6 +241,9 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     public synchronized void onQueryProcessed(List<Tip> collectedTips) {
         tips.addAll(collectedTips);
         Platform.runLater(() -> tipsCntLbl.setText(String.valueOf(tips.size())));
+
+        progBar.setProgress(tipsCollector.getProgress());
+        Platform.runLater(() -> progLbl.setText( String.format("%.1f", tipsCollector.getProgress()*100) + "%"));
     }
 
     @Override
