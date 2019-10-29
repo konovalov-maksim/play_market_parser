@@ -12,8 +12,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ProgressBar?>
 <VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
@@ -27,13 +25,13 @@
         <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" prefHeight="25.0" text="%clear"/>
         <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" prefHeight="25.0"
                 text="%exportResults"/>
-        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" prefWidth="100" prefHeight="25.0"
+        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" prefWidth="80" prefHeight="25.0"
                 text="%start"/>
-        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" prefWidth="100" prefHeight="25.0"
+        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" prefWidth="80" prefHeight="25.0"
                 text="%resume"/>
-        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" prefWidth="100" prefHeight="25.0"
+        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" prefWidth="80" prefHeight="25.0"
                 text="%pause"/>
-        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" prefWidth="100" prefHeight="25.0"
+        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" prefWidth="80" prefHeight="25.0"
                 text="%stop"/>
         <!-- <graphic><ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true"><Image url="/images/icons/play.png"/></ImageView></graphic>-->
 
