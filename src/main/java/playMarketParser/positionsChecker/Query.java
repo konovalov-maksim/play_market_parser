@@ -40,6 +40,12 @@ public class Query {
         realPos = 0;
     }
 
+    public void reset() {
+        realPos = null;
+        pseudoPos.clear();
+        pseudoPosString = "";
+    }
+
     public List<Integer> getPseudoPos() {
         return pseudoPos;
     }
@@ -62,11 +68,6 @@ public class Query {
 
     public String getFullRowText() {
         return fullRowText;
-    }
-
-    public void clearPositions() {
-        pseudoPos.clear();
-        realPos = null;
     }
 
     @Override

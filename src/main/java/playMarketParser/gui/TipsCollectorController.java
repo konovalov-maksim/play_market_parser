@@ -247,12 +247,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     @Override
-    public void onFinish() {
-        enableCompleteMode();
+    public void onPause() {
+        enablePauseMode();
     }
 
     @Override
-    public void onPause() {
-        enablePauseMode();
+    public void onFinish() {
+        enableCompleteMode();
+        progBar.setProgress(tipsCollector.getProgress());
+        Platform.runLater(() -> progLbl.setText( String.format("%.1f", tipsCollector.getProgress()*100) + "%"));
     }
 }

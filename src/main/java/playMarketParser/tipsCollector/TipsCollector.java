@@ -60,7 +60,9 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
                 if (!isStopped && query.getDepth() < maxDepth) unprocessed.addLast(new Query(query.getText() + letter, query));
         threadsCount--;
         if (isPaused) {
-            if (threadsCount == 0) tipsLoadingListener.onPause();
+            if (threadsCount == 0)
+                if (unprocessed.size() > 0) tipsLoadingListener.onPause();
+                else tipsLoadingListener.onFinish();
         }
         else
             if (unprocessed.isEmpty() && threadsCount == 0) tipsLoadingListener.onFinish();

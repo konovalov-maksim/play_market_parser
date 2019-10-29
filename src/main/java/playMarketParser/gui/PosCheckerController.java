@@ -37,7 +37,9 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private Button startBtn;
     @FXML private Button exportBtn;
     @FXML private Button clearBtn;
-    @FXML private Button abortBtn;
+    @FXML private Button stopBtn;
+    @FXML private Button pauseBtn;
+    @FXML private Button resumeBtn;
     @FXML private CheckBox titleFirstChb;
     @FXML private TextField appUrlTf;
     @FXML private Label queriesCntLbl;
@@ -112,7 +114,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     @FXML
-    private void startPosChecking() {
+    private void start() {
         if (queries.size() == 0) {
             showAlert(rb.getString("error"), rb.getString("noQueries"));
             return;
@@ -121,7 +123,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
             showAlert(rb.getString("error"), rb.getString("noAppUrl"));
             return;
         }
-        for (Query query : queries) query.clearPositions();
+        for (Query query : queries) query.reset();
         table.refresh();
 
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
@@ -135,8 +137,19 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     @FXML
-    private void abortPosChecking() {
-        posChecker.abort();
+    private void pause() {
+        posChecker.pause();
+    }
+
+    @FXML
+    private void resume() {
+        enableLoadingMode();
+        posChecker.start();
+    }
+
+    @FXML
+    private void stop() {
+        posChecker.stop();
     }
 
     @FXML
@@ -191,8 +204,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
-        startBtn.setManaged(true);
-        abortBtn.setManaged(false);
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        resumeBtn.setDisable(true);
+        stopBtn.setDisable(true);
     }
 
     private void enableLoadingMode() {
@@ -201,8 +216,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
-        startBtn.setManaged(false);
-        abortBtn.setManaged(true);
+        startBtn.setDisable(true);
+        pauseBtn.setDisable(false);
+        resumeBtn.setDisable(true);
+        stopBtn.setDisable(false);
     }
 
     private void enableCompleteMode() {
@@ -211,8 +228,22 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
-        startBtn.setManaged(true);
-        abortBtn.setManaged(false);
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        resumeBtn.setDisable(true);
+        stopBtn.setDisable(true);
+    }
+
+    private void enablePauseMode() {
+        addQueriesBtn.setDisable(true);
+        importQueriesBtn.setDisable(true);
+        titleFirstChb.setDisable(true);
+        clearBtn.setDisable(true);
+        exportBtn.setDisable(false);
+        startBtn.setDisable(true);
+        pauseBtn.setDisable(true);
+        resumeBtn.setDisable(false);
+        stopBtn.setDisable(false);
     }
 
     @Override
@@ -223,8 +254,15 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     @Override
-    public void onAllPositionsChecked() {
+    public void onPause() {
+        enablePauseMode();
+    }
+
+    @Override
+    public void onFinish() {
         enableCompleteMode();
+        progBar.setProgress(posChecker.getProgress());
+        Platform.runLater(() -> progLbl.setText( String.format("%.1f", posChecker.getProgress()*100) + "%"));
     }
 
 }

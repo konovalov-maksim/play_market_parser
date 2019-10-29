@@ -27,8 +27,10 @@
     <HBox spacing="10.0">
         <Label text="%appUrl" />
         <TextField fx:id="appUrlTf" minWidth="400.0" promptText="https://play.google.com/store/apps/details?id=app.package.name" />
-        <Button fx:id="startBtn" minWidth="150" mnemonicParsing="false" onAction="#startPosChecking" prefHeight="25.0" text="%startPosChecking" />
-        <Button fx:id="abortBtn" minWidth="150" mnemonicParsing="false" onAction="#abortPosChecking" prefHeight="25.0" text="%stop" />
+        <Button fx:id="startBtn" minWidth="100" mnemonicParsing="false" onAction="#start" prefHeight="25.0" text="%start" />
+        <Button fx:id="pauseBtn" minWidth="100" mnemonicParsing="false" onAction="#pause" prefHeight="25.0" text="%pause" />
+        <Button fx:id="resumeBtn" minWidth="100" mnemonicParsing="false" onAction="#resume" prefHeight="25.0" text="%resume" />
+        <Button fx:id="stopBtn" minWidth="100" mnemonicParsing="false" onAction="#stop" prefHeight="25.0" text="%stop" />
         <padding>
             <Insets left="10.0" right="10.0" />
         </padding>

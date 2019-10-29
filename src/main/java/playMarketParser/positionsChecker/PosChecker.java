@@ -12,7 +12,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private final int MAX_THREADS_COUNT;
     private int threadsCount;
     private int processedCount;
-    private boolean isAborted;
+    private boolean isPaused;
 
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Query> queries;
@@ -23,16 +23,12 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         this.posCheckListener = posCheckListener;
         this.MAX_THREADS_COUNT = threadsCount;
         CHECKS_COUNT = checksCount;
+        createThreads();
     }
 
     public void start() {
-        isAborted = false;
-        createThreads();
+        isPaused = false;
         startNewLoaders();
-    }
-
-    public synchronized void abort(){
-        isAborted = true;
     }
 
     private void createThreads() {
@@ -48,24 +44,36 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         }
     }
 
+    public void pause() {
+        isPaused = true;
+    }
+
+    public synchronized void stop(){
+        unprocessed.clear();
+        if (threadsCount == 0) posCheckListener.onFinish();
+    }
+
     @Override
     public synchronized void onPosLoadingComplete(Query query) {
         threadsCount--;
         processedCount++;
         posCheckListener.onPositionChecked();
-        if (processedCount < queries.size() * CHECKS_COUNT && !isAborted)
-            startNewLoaders();
-        else {
-            posCheckListener.onAllPositionsChecked();
-        }
+        if (isPaused) {
+            if (threadsCount == 0)
+                if (unprocessed.size() > 0) posCheckListener.onPause();
+                else posCheckListener.onFinish();
+        } else
+            if (unprocessed.size() == 0 && threadsCount == 0) posCheckListener.onFinish();
+            else startNewLoaders();
     }
 
     public interface PosCheckListener {
         void onPositionChecked();
-        void onAllPositionsChecked();
+        void onFinish();
+        void onPause();
     }
 
     public double getProgress() {
-        return processedCount * 1.0 / (queries.size() * CHECKS_COUNT);
+        return ((queries.size() * CHECKS_COUNT) - unprocessed.size()) * 1.0 / (queries.size() * CHECKS_COUNT);
     }
 }
