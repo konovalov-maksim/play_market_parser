@@ -11,7 +11,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
 
     private final int MAX_THREADS_COUNT;
     private int threadsCount;
-    private int processedCount;
     private boolean isPaused;
 
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
@@ -56,7 +55,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     @Override
     public synchronized void onPosLoadingComplete(Query query) {
         threadsCount--;
-        processedCount++;
         posCheckListener.onPositionChecked();
         if (isPaused) {
             if (threadsCount == 0)
