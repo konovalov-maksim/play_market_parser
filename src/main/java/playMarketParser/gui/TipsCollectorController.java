@@ -52,7 +52,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
     private MenuItem removeItem;
     private ResourceBundle rb;
-    private Prefs prefs;
     private TipsCollector tipsCollector;
 
     private ObservableList<String> queries = FXCollections.observableArrayList();
@@ -61,9 +60,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
-        prefs = new Prefs();
 
-        titleFirstChb.setSelected(prefs.getBoolean("title_first"));
+        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
 
         //inputTable
         inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
@@ -115,11 +113,11 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("txtDescr"), "*.txt"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("csvDescr"), "*.csv"));
-        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "input_path"));
+        fileChooser.setInitialDirectory(Global.getInitDir("input_path"));
         File inputFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         if (inputFile == null) return;
-        prefs.put("input_path", inputFile.getParentFile().toString());
-        prefs.put("title_first", titleFirstChb.isSelected());
+        Prefs.put("input_path", inputFile.getParentFile().toString());
+        Prefs.put("title_first", titleFirstChb.isSelected());
 
         try (Stream<String> lines = Files.lines(inputFile.toPath(), StandardCharsets.UTF_8)) {
             lines.skip(titleFirstChb.isSelected() ? 1 : 0)
@@ -141,7 +139,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
         fileChooser.setInitialFileName(rb.getString("outTips"));
-        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "output_path"));
+        fileChooser.setInitialDirectory(Global.getInitDir("output_path"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
         if (!outputFile.getParentFile().canWrite()) {
@@ -149,7 +147,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
             return;
         }
 
-        prefs.put("output_path", outputFile.getParentFile().toString());
+        Prefs.put("output_path", outputFile.getParentFile().toString());
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
             //”казываем кодировку файла UTF-8
@@ -184,8 +182,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         outputTable.getItems().clear();
 
         tipsCollector = new TipsCollector(queries,
-                prefs.getInt("tips_threads_cnt"),
-                prefs.getInt("tips_parsing_depth"),
+                Prefs.getInt("tips_threads_cnt"),
+                Prefs.getInt("tips_parsing_depth"),
                 this);
         enableLoadingMode();
         tipsCollector.start();

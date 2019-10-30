@@ -38,11 +38,11 @@ public class Global {
         return initDir;
     }
 
-    public static File getInitDir(Prefs prefs, String pathType) {
-        String pathString = prefs.getString(pathType);
+    public static File getInitDir(String pathType) {
+        String pathString = Prefs.getString(pathType);
         if (pathString == null) return getUserDir();
 
-        File initPath = new File(prefs.getString(pathType));
+        File initPath = new File(Prefs.getString(pathType));
         if (initPath.isDirectory() && initPath.canRead() && initPath.canWrite()) return initPath;
         return getUserDir();
     }

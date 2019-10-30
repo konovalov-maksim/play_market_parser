@@ -4,23 +4,31 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
 
 public class DocReader {
-    private final static String USER_AGENT =
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36";
-    private final static String REFERRER = "https://play.google.com/";
-    private final static String ACCEPT_LANGUAGE = "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3";
+    private final static String referrer = "https://play.google.com/";
 
+    private static String userAgent;
+    private static String acceptLanguage;
+    private static Proxy proxy;
+    private static int timeout;
+
+    static {
+        reloadPrefs();
+    }
 
     public static Document readDocByURL(String url) {
         try {
             return Jsoup.connect(url)
-                    .userAgent(USER_AGENT)
-                    .header("Accept-Language", ACCEPT_LANGUAGE)
-                    .referrer(REFERRER)
+                    .userAgent(userAgent)
+                    .header("Accept-Language", acceptLanguage)
+                    .referrer(referrer)
                     .ignoreContentType(true)
+                    .proxy(proxy)
+                    .timeout(timeout)
                     .get();
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,5 +37,14 @@ public class DocReader {
 
     }
 
-
+    public static void reloadPrefs() {
+        userAgent = Prefs.getString("user_agent");
+        acceptLanguage = Prefs.getString("accept_language");
+        timeout = Prefs.getInt("timeout");
+        if (Prefs.getString("proxy").equals("direct"))
+            proxy = Proxy.NO_PROXY;
+        else
+            proxy = new Proxy(Proxy.Type.HTTP,
+                    new InetSocketAddress(Prefs.getString("proxy_address"), Prefs.getInt("proxy_port")));
+    }
 }

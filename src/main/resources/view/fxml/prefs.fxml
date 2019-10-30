@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
+
 <AnchorPane maxHeight="700" maxWidth="700" minHeight="700" minWidth="700" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PrefsController">
     <VBox AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <TitledPane collapsible="false" text="%general">
@@ -25,6 +27,14 @@
                 <rowConstraints>
                     <RowConstraints />
                 </rowConstraints>
+                <Label text="%timeout" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <Label text="%proxy" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <Label text="%userAgent" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <Label text="%acceptLang" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
             </GridPane>
         </TitledPane>
         <TitledPane collapsible="false" text="%posChecking">

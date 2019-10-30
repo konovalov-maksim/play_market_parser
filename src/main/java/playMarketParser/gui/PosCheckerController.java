@@ -52,7 +52,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     private MenuItem removeItem;
     private PosChecker posChecker;
     private ResourceBundle rb;
-    private Prefs prefs;
 
     private String titleRow = "";
 
@@ -61,10 +60,9 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
-        prefs = new Prefs();
 
-        appUrlTf.setText(prefs.getString("pos_app_url"));
-        titleFirstChb.setSelected(prefs.getBoolean("title_first"));
+        appUrlTf.setText(Prefs.getString("pos_app_url"));
+        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
 
         //Tables
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
@@ -119,11 +117,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("csvDescr"), "*.csv"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("txtDescr"), "*.txt"));
-        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "input_path"));
+        fileChooser.setInitialDirectory(Global.getInitDir("input_path"));
         File inputFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         if (inputFile == null) return;
-        prefs.put("input_path", inputFile.getParentFile().toString());
-        prefs.put("title_first", titleFirstChb.isSelected());
+        Prefs.put("input_path", inputFile.getParentFile().toString());
+        Prefs.put("title_first", titleFirstChb.isSelected());
 
         enableReadyMode();
         queries.clear();
@@ -157,10 +155,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         table.refresh();
 
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
-        prefs.put("pos_app_url", appUrlTf.getText());
+        Prefs.put("pos_app_url", appUrlTf.getText());
 
-        posChecker = new PosChecker(appId, queries, prefs.getInt("pos_threads_cnt"),
-                prefs.getInt("pos_checks_cnt"), this);
+        posChecker = new PosChecker(appId, queries, Prefs.getInt("pos_threads_cnt"),
+                Prefs.getInt("pos_checks_cnt"), this);
 
         enableLoadingMode();
         posChecker.start();
@@ -194,14 +192,14 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
         fileChooser.setInitialFileName(rb.getString("outPositions") + " " + curDate);
-        fileChooser.setInitialDirectory(Global.getInitDir(prefs, "output_path"));
+        fileChooser.setInitialDirectory(Global.getInitDir("output_path"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
         if (!outputFile.getParentFile().canWrite()) {
             showAlert(rb.getString("error"), rb.getString("cantWrite"));
             return;
         }
-        prefs.put("output_path", outputFile.getParentFile().toString());
+        Prefs.put("output_path", outputFile.getParentFile().toString());
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
             //”казываем кодировку файла UTF-8
