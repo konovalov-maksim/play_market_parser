@@ -3,3 +3,4 @@
 *.iws
 /*.csv
 /*.txt
+/target/
