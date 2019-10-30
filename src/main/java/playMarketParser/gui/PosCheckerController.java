@@ -16,10 +16,7 @@ import playMarketParser.Prefs;
 import playMarketParser.positionsChecker.PosChecker;
 import playMarketParser.positionsChecker.Query;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -200,6 +197,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         fileChooser.setInitialDirectory(Global.getInitDir(prefs, "output_path"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
+        if (!outputFile.getParentFile().canWrite()) {
+            showAlert(rb.getString("error"), rb.getString("cantWrite"));
+            return;
+        }
         prefs.put("output_path", outputFile.getParentFile().toString());
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
@@ -219,7 +220,10 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                                 + Global.CSV_DELIMITER + query.getRealPos());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             showAlert(rb.getString("saved"), rb.getString("fileSaved"));
-        } catch (IOException | NullPointerException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            showAlert(rb.getString("error"), rb.getString("alreadyUsing"));
+        } catch (IOException e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("fileNotSaved"));
         }
