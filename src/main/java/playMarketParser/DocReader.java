@@ -41,7 +41,7 @@ public class DocReader {
         userAgent = Prefs.getString("user_agent");
         acceptLanguage = Prefs.getString("accept_language");
         timeout = Prefs.getInt("timeout");
-        if (Prefs.getString("proxy").equals("direct"))
+        if (Prefs.getString("proxy").equals(""))
             proxy = Proxy.NO_PROXY;
         else
             proxy = new Proxy(Proxy.Type.HTTP,

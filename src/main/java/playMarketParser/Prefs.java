@@ -21,7 +21,7 @@ public class Prefs {
         defaults.put("user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
         defaults.put("accept_language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");
         defaults.put("timeout", 3000);
-        defaults.put("proxy", "direct");
+        defaults.put("proxy", "");
     }
 
     public static int getInt(String propName) {

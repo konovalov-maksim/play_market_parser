@@ -5,9 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import playMarketParser.Global;
 
@@ -18,16 +15,12 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    private ResourceBundle bundle;
+    private ResourceBundle rb;
 
-    @FXML
-    private Button addQueriesBtn;
-    @FXML
-    private Button importQueriesBtn;
-    @FXML
-    private TableView<String> table;
-    @FXML
-    private TableColumn<String, String> queryCol;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        rb = Global.getBundle();
+    }
 
     @FXML
     private void openPrefs() {
@@ -35,18 +28,17 @@ public class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/prefs.fxml"), Global.getBundle());
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle(bundle.getString("prefs"));
+            stage.setTitle(rb.getString("prefs"));
             stage.setScene(new Scene(root));
             stage.show();
+            PrefsController controller = loader.getController();
+            controller.setScene(stage.getScene());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        bundle = resources;
-    }
+
 
 
 }
