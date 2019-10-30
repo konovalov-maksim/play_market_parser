@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
@@ -52,6 +53,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private TableColumn<Tip, String> tipCol;
     @FXML private VBox rootPane;
 
+    private MenuItem removeItem;
     private ResourceBundle rb;
     private Prefs prefs;
     private TipsCollector tipsCollector;
@@ -63,7 +65,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
         prefs = new Prefs();
-        enableReadyMode();
 
         titleFirstChb.setSelected(prefs.getBoolean("title_first"));
 
@@ -78,7 +79,25 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         tipCol.setCellValueFactory(new PropertyValueFactory<>("text"));
         outputTable.setItems(tips);
 
+        //Context menu
+        removeItem = new MenuItem(rb.getString("removeQuery"));
+        ImageView delIcon = new ImageView("/images/icons/delete.png");
+        delIcon.setFitHeight(20);
+        delIcon.setFitWidth(20);
+        removeItem.setGraphic(delIcon);
+        removeItem.setOnAction(e -> inputTable.getItems().remove(inputTable.getSelectionModel().getSelectedItem()));
+        ContextMenu rowMenu = new ContextMenu();
+        rowMenu.getItems().add(removeItem);
+        inputTable.setRowFactory(c -> {
+            TableRow<String> row = new TableRow<>();
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(rowMenu));
+            return row;
+        });
+
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+
+        enableReadyMode();
     }
 
     @FXML
@@ -199,6 +218,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         pauseBtn.setDisable(true);
         resumeBtn.setDisable(true);
         stopBtn.setDisable(true);
+        removeItem.setDisable(false);
     }
 
     private void enableLoadingMode() {
@@ -211,6 +231,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         pauseBtn.setDisable(false);
         resumeBtn.setDisable(true);
         stopBtn.setDisable(false);
+        removeItem.setDisable(true);
     }
 
     private void enableCompleteMode() {
@@ -223,6 +244,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         pauseBtn.setDisable(true);
         resumeBtn.setDisable(true);
         stopBtn.setDisable(true);
+        removeItem.setDisable(false);
     }
 
     private void enablePauseMode() {
@@ -235,6 +257,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         pauseBtn.setDisable(true);
         resumeBtn.setDisable(false);
         stopBtn.setDisable(false);
+        removeItem.setDisable(true);
     }
 
     @Override

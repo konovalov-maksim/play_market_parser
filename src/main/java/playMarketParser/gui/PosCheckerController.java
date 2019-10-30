@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
@@ -51,6 +52,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private TableColumn<Query, String> realPosCol;
     @FXML private VBox rootPane;
 
+    private MenuItem removeItem;
     private PosChecker posChecker;
     private ResourceBundle rb;
     private Prefs prefs;
@@ -63,7 +65,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
         prefs = new Prefs();
-        enableReadyMode();
 
         appUrlTf.setText(prefs.getString("pos_app_url"));
         titleFirstChb.setSelected(prefs.getBoolean("title_first"));
@@ -77,8 +78,26 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
         table.setItems(queries);
 
+        //Context menu
+        removeItem = new MenuItem(rb.getString("removeQuery"));
+        ImageView delIcon = new ImageView("/images/icons/delete.png");
+        delIcon.setFitHeight(20);
+        delIcon.setFitWidth(20);
+        removeItem.setGraphic(delIcon);
+        removeItem.setOnAction(e -> table.getItems().remove(table.getSelectionModel().getSelectedItem()));
+        ContextMenu rowMenu = new ContextMenu();
+        rowMenu.getItems().add(removeItem);
+        table.setRowFactory(c -> {
+            TableRow<Query> row = new TableRow<>();
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(rowMenu));
+            return row;
+        });
+
         //Labels
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+
+        enableReadyMode();
     }
 
     @FXML
@@ -224,6 +243,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         stopBtn.setDisable(true);
         savePrevResultsChb.setSelected(false);
         savePrevResultsChb.setDisable(true);
+        removeItem.setDisable(false);
     }
 
     private void enableLoadingMode() {
@@ -236,6 +256,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         pauseBtn.setDisable(false);
         resumeBtn.setDisable(true);
         stopBtn.setDisable(false);
+        removeItem.setDisable(true);
     }
 
     private void enableCompleteMode() {
@@ -248,6 +269,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         pauseBtn.setDisable(true);
         resumeBtn.setDisable(true);
         stopBtn.setDisable(true);
+        removeItem.setDisable(false);
     }
 
     private void enablePauseMode() {
@@ -260,6 +282,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         pauseBtn.setDisable(true);
         resumeBtn.setDisable(false);
         stopBtn.setDisable(false);
+        removeItem.setDisable(true);
     }
 
     @Override
