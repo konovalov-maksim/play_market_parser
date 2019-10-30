@@ -136,7 +136,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
             boolean manyColumns = lines.size() > 0 && lines.get(0).contains(Global.CSV_DELIMITER);
             savePrevResultsChb.setSelected(manyColumns);
             savePrevResultsChb.setDisable(!manyColumns);
-            for (String line : lines) queries.add(new Query(line));
+            lines.stream().distinct().map(Query::new).forEachOrdered(q -> queries.add(q));
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("unableToReadFile"));
