@@ -1,3 +1,5 @@
-.textFieldWrong {
-    -fx-background-color: #CCFF99;
+.fieldWrong {
+    -fx-border-color: #ff5050;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
 }

@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import playMarketParser.DocReader;
 import playMarketParser.Prefs;
@@ -54,26 +53,33 @@ public class PrefsController implements Initializable {
 
     @FXML
     private void onOkClick() {
-        onApplyClick();
-        onCancelClick();
-    }
-
-    @FXML
-    private void onApplyClick() {
+        //Валидация данных
         Pattern intPattern = Pattern.compile("\\d+");
+        Pattern proxyPattern = Pattern.compile("^$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$");
         if (!intPattern.matcher(timeoutTxt.getText()).matches()) {
-            timeoutTxt.setStyle("textFieldWrong");
+            timeoutTxt.getStyleClass().add("fieldWrong");
             return;
-        }
+        } else timeoutTxt.getStyleClass().remove("fieldWrong");
+        if (!proxyPattern.matcher(proxyTxt.getText()).matches()) {
+            proxyTxt.getStyleClass().add("fieldWrong");
+            return;
+        } else proxyTxt.getStyleClass().remove("fieldWrong");
 
+
+        //Сохранение данных
         Prefs.put("timeout", Integer.parseInt(timeoutTxt.getText()));
+        Prefs.put("proxy", proxyTxt.getText());
+        Prefs.put("user_agent", userAgentTxt.getText());
+        Prefs.put("accept_language", acceptLangTxt.getText());
 
         Prefs.put("pos_checks_cnt", posChecksCntSpin.getValue());
         Prefs.put("pos_threads_cnt", posThreadsCntSpin.getValue());
         Prefs.put("tips_threads_cnt", tipsThreadsCntSpin.getValue());
         Prefs.put("tips_parsing_depth", tipsParsingDepthSpin.getValue());
         DocReader.reloadPrefs();
+        onCancelClick();
     }
+
 
     @FXML
     private void onCancelClick() {

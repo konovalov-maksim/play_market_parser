@@ -20,8 +20,7 @@ public class DocReader {
         reloadPrefs();
     }
 
-    public static Document readDocByURL(String url) {
-        try {
+    public static Document readDocByURL(String url) throws IOException {
             return Jsoup.connect(url)
                     .userAgent(userAgent)
                     .header("Accept-Language", acceptLanguage)
@@ -30,21 +29,22 @@ public class DocReader {
                     .proxy(proxy)
                     .timeout(timeout)
                     .get();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
     }
 
     public static void reloadPrefs() {
         userAgent = Prefs.getString("user_agent");
         acceptLanguage = Prefs.getString("accept_language");
         timeout = Prefs.getInt("timeout");
-        if (Prefs.getString("proxy").equals(""))
-            proxy = Proxy.NO_PROXY;
+        String proxyString = Prefs.getString("proxy");
+        if (proxyString.equals("")) proxy = Proxy.NO_PROXY;
         else
-            proxy = new Proxy(Proxy.Type.HTTP,
-                    new InetSocketAddress(Prefs.getString("proxy_address"), Prefs.getInt("proxy_port")));
+            try {
+                proxy = new Proxy(Proxy.Type.HTTP,
+                        new InetSocketAddress(proxyString.split(":")[0], Integer.parseInt(proxyString.split(":")[1])));
+            } catch (Exception e) {
+                e.printStackTrace();
+                proxy = Proxy.NO_PROXY;
+                Prefs.put("proxy", "");
+            }
     }
 }

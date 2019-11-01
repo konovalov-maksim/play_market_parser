@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import playMarketParser.DocReader;
 
+import java.io.IOException;
 import java.util.*;
 
 public class PosLoader extends Thread {
@@ -23,11 +24,16 @@ public class PosLoader extends Thread {
     @Override
     public void run() {
         super.run();
-        query.addPseudoPos(getPos());
-        onPosLoadCompleteListener.onPosLoadingComplete(query);
+        try {
+            query.addPseudoPos(getPos());
+        } catch (IOException e) {
+            System.out.println(query.getText() + " - не удалось загрузить страницу результатов поиска");
+        } finally {
+            onPosLoadCompleteListener.onPosLoadingComplete(query);
+        }
     }
 
-    private int getPos() {
+    private int getPos() throws IOException {
         //CSS класс div-а со ссылкой на страницу приложения
         String appLinkClass = "b8cIId ReQCgd Q9MA7b";
         //Формируем url страницы поиска

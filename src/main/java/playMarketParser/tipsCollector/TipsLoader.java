@@ -3,6 +3,7 @@ package playMarketParser.tipsCollector;
 import org.jsoup.nodes.Document;
 import playMarketParser.DocReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,25 +29,28 @@ class TipsLoader extends Thread {
         String queryText = query.getText();
         //Формируем из запроса url
         String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText + "&hl=ru&gl=RU";
-        //Загружаем js документ
-        Document doc = DocReader.readDocByURL(url);
-        if (doc == null) return;
-        //Получаем контент документа в виде строки
-        String content = doc.text();
-        if (content.equals("[]")) {
-            System.out.println(queryText);
-            return;
-        }
-        //Парсим строку
-        content = content.replace("\"", "");
-        content = content.replace("{", "");
-        content = content.replace("[s:", "");
-        content = content.replace(",t:q}]", "");
-        //Извлекаем из строки нужные данные в массив, а затем в список
-        String[] tipsArray = content.split(",t:q},s:");
-        for (String tip : tipsArray) {
-            if (isUncorrected(queryText, tip)) tips.add(new Tip(query.getRootQueryText(), tip));
-            System.out.printf("%-35s%-50s%n", queryText, tip);
+        try {
+            //Загружаем js документ
+            Document doc = DocReader.readDocByURL(url);
+            //Получаем контент документа в виде строки
+            String content = doc.text();
+            if (content.equals("[]")) {
+                System.out.println(queryText);
+                return;
+            }
+            //Парсим строку
+            content = content.replace("\"", "");
+            content = content.replace("{", "");
+            content = content.replace("[s:", "");
+            content = content.replace(",t:q}]", "");
+            //Извлекаем из строки нужные данные в массив, а затем в список
+            String[] tipsArray = content.split(",t:q},s:");
+            for (String tip : tipsArray) {
+                if (isUncorrected(queryText, tip)) tips.add(new Tip(query.getRootQueryText(), tip));
+                System.out.printf("%-35s%-50s%n", queryText, tip);
+            }
+        } catch (IOException e) {
+            System.out.println(queryText + " - документ не был загружен");
         }
     }
 
