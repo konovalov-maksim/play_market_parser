@@ -11,7 +11,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     private int maxThreadsCount;
     private int threadsCount;
     private int maxDepth;
-    private int processedCount;
+    private int collectedCount;
     private TipsLoadingListener tipsLoadingListener;
     private boolean isPaused;
     private boolean isStopped;
@@ -53,7 +53,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     public synchronized void onTipsLoadingComplete(TipsLoader tipsLoader) {
         Query query = tipsLoader.getQuery();
         tipsLoadingListener.onQueryProcessed(tipsLoader.getTips());
-        processedCount += tipsLoader.getTips().size();
+        collectedCount += tipsLoader.getTips().size();
         if (tipsLoader.getTips().size() >= 5)
             //ƒобавл€ем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
             for (char letter : getAlphabet(query.getText()))
@@ -96,6 +96,6 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     }
 
     public double getProgress() {
-        return processedCount * 1.0 / (unprocessed.size() + processedCount);
+        return unprocessed.size() + collectedCount > 0 ? collectedCount * 1.0 / (unprocessed.size() + collectedCount) : 1;
     }
 }
