@@ -5,25 +5,28 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="800" prefHeight="600.0"
-            prefWidth="800.0" fx:controller="playMarketParser.gui.MainController"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <MenuBar prefHeight="25.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<?import javafx.scene.control.SplitPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="800" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.MainController">
+    <MenuBar prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Menu mnemonicParsing="false" text="%file">
-                <MenuItem mnemonicParsing="false" text="%exit"/>
+                <MenuItem mnemonicParsing="false" text="%exit" />
             </Menu>
             <Menu mnemonicParsing="false" text="%options">
-                <MenuItem mnemonicParsing="false" text="%prefs" onAction="#openPrefs"/>
+                <MenuItem mnemonicParsing="false" onAction="#openPrefs" text="%prefs" />
             </Menu>
     </MenuBar>
-    <TabPane layoutY="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" tabClosingPolicy="UNAVAILABLE">
+    <SplitPane orientation="VERTICAL" AnchorPane.topAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0" >
+    <TabPane tabClosingPolicy="UNAVAILABLE">
         <Tab text="%posChecking">
-            <fx:include source="posChecker.fxml"/>
+            <fx:include source="posChecker.fxml" />
         </Tab>
         <Tab text="%tipsCollecting">
-            <fx:include source="tipsCollector.fxml"/>
+            <fx:include source="tipsCollector.fxml" />
         </Tab>
     </TabPane>
+    <TextArea prefHeight="200.0"/>
+    </SplitPane>
 </AnchorPane>

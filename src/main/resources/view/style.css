@@ -1,5 +1,10 @@
-.fieldWrong {
+.field-wrong {
     -fx-border-color: #ff5050;
     -fx-border-width: 2;
     -fx-border-radius: 3;
+}
+
+.split-pane-divider {
+   -fx-border-color: transparent;
+   -fx-background-color: transparent;
 }

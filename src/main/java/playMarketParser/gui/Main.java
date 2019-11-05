@@ -21,6 +21,7 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/main.fxml"), bundle);
         Parent root = loader.load();
+        root.getStylesheets().add("/view/style.css");
         stage.setTitle(bundle.getString("appName"));
         stage.setScene(new Scene(root));
         stage.show();

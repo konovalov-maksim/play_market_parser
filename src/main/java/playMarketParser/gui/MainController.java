@@ -30,9 +30,8 @@ public class MainController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(rb.getString("prefs"));
             stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add("/view/style.css");
             stage.show();
-            PrefsController controller = loader.getController();
-            controller.setScene(stage.getScene());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,7 +2,6 @@ package playMarketParser.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -18,7 +17,6 @@ import java.util.regex.Pattern;
 
 public class PrefsController implements Initializable {
 
-    private Scene scene;
 
     @FXML private TextField timeoutTxt;
     @FXML private TextField proxyTxt;
@@ -33,7 +31,6 @@ public class PrefsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
         userAgentTxt.setText(Prefs.getString("user_agent"));
@@ -46,10 +43,6 @@ public class PrefsController implements Initializable {
         tipsParsingDepthSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, Prefs.getInt("tips_parsing_depth")));
     }
 
-    public void setScene(Scene scene) {
-        this.scene = scene;
-        scene.getStylesheets().add("/view/style.css");
-    }
 
     @FXML
     private void onOkClick() {
@@ -57,13 +50,13 @@ public class PrefsController implements Initializable {
         Pattern intPattern = Pattern.compile("\\d+");
         Pattern proxyPattern = Pattern.compile("^$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$");
         if (!intPattern.matcher(timeoutTxt.getText()).matches()) {
-            timeoutTxt.getStyleClass().add("fieldWrong");
+            timeoutTxt.getStyleClass().add("field-wrong");
             return;
-        } else timeoutTxt.getStyleClass().remove("fieldWrong");
+        } else timeoutTxt.getStyleClass().remove("field-wrong");
         if (!proxyPattern.matcher(proxyTxt.getText()).matches()) {
-            proxyTxt.getStyleClass().add("fieldWrong");
+            proxyTxt.getStyleClass().add("field-wrong");
             return;
-        } else proxyTxt.getStyleClass().remove("fieldWrong");
+        } else proxyTxt.getStyleClass().remove("field-wrong");
 
 
         //Сохранение данных
