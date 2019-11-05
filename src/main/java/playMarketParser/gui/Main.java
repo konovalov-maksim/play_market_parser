@@ -3,6 +3,7 @@ package playMarketParser.gui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import playMarketParser.Global;
@@ -14,7 +15,6 @@ public class Main extends Application {
         launch(args);
     }
 
-
     public void start(Stage stage) throws Exception {
         Global.setLocale(Global.Locale.EN);
         ResourceBundle bundle = Global.getBundle();
@@ -25,5 +25,7 @@ public class Main extends Application {
         stage.setTitle(bundle.getString("appName"));
         stage.setScene(new Scene(root));
         stage.show();
+
+        Global.setConsoleTa((TextArea) stage.getScene().lookup("#consoleTa"));
     }
 }

@@ -1,11 +1,17 @@
 package playMarketParser;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Global {
+
+    private static TextArea consoleTa;
     public final static String CSV_DELIMITER = ";";
 
     public static void setLocale(Locale locale) {
@@ -54,5 +60,18 @@ public class Global {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public static void setConsoleTa(TextArea consoleTa) {
+        Global.consoleTa = consoleTa;
+    }
+
+    public static void log(String logString) {
+        String curTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        Platform.runLater(() -> {
+            consoleTa.setText(consoleTa.getText() + curTime + ": " + logString +"\n");
+            //consoleTa.selectPositionCaret(consoleTa.getLength());
+        });
+
     }
 }

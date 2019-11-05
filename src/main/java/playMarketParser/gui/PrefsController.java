@@ -7,6 +7,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import playMarketParser.DocReader;
+import playMarketParser.Global;
 import playMarketParser.Prefs;
 
 
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
 
 
 public class PrefsController implements Initializable {
-
+    ResourceBundle rb;
 
     @FXML private TextField timeoutTxt;
     @FXML private TextField proxyTxt;
@@ -30,6 +31,7 @@ public class PrefsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        rb = Global.getBundle();
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
@@ -70,6 +72,7 @@ public class PrefsController implements Initializable {
         Prefs.put("tips_threads_cnt", tipsThreadsCntSpin.getValue());
         Prefs.put("tips_parsing_depth", tipsParsingDepthSpin.getValue());
         DocReader.reloadPrefs();
+        Global.log(rb.getString("prefsSaved"));
         onCancelClick();
     }
 

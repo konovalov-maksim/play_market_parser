@@ -9,24 +9,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.control.SplitPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="800" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.MainController">
+<?import javafx.geometry.Insets?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="800" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="playMarketParser.gui.MainController">
     <MenuBar prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <Menu mnemonicParsing="false" text="%file">
-                <MenuItem mnemonicParsing="false" text="%exit" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="%options">
-                <MenuItem mnemonicParsing="false" onAction="#openPrefs" text="%prefs" />
-            </Menu>
+        <Menu mnemonicParsing="false" text="%file">
+            <MenuItem mnemonicParsing="false" text="%exit"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="%options">
+            <MenuItem mnemonicParsing="false" onAction="#openPrefs" text="%prefs"/>
+        </Menu>
     </MenuBar>
-    <SplitPane orientation="VERTICAL" AnchorPane.topAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0" >
-    <TabPane tabClosingPolicy="UNAVAILABLE">
-        <Tab text="%posChecking">
-            <fx:include source="posChecker.fxml" />
-        </Tab>
-        <Tab text="%tipsCollecting">
-            <fx:include source="tipsCollector.fxml" />
-        </Tab>
-    </TabPane>
-    <TextArea prefHeight="200.0"/>
+    <SplitPane orientation="VERTICAL" dividerPositions="0.8" AnchorPane.topAnchor="25.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="%posChecking">
+                <fx:include source="posChecker.fxml"/>
+            </Tab>
+            <Tab text="%tipsCollecting">
+                <fx:include source="tipsCollector.fxml"/>
+            </Tab>
+        </TabPane>
+        <TextArea prefHeight="200.0" editable="false" fx:id="consoleTa">
+            <padding>
+                <Insets bottom="5" left="10.0" right="10.0"/>
+            </padding>
+        </TextArea>
     </SplitPane>
 </AnchorPane>

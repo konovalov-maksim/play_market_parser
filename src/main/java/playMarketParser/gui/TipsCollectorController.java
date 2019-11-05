@@ -186,6 +186,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
                 Prefs.getInt("tips_parsing_depth"),
                 this);
         enableLoadingMode();
+        Global.log(rb.getString("tipsStarted"));
         tipsCollector.start();
     }
 
@@ -196,6 +197,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
     @FXML
     private void resume() {
+        Global.log(rb.getString("tipsResumed"));
         enableLoadingMode();
         tipsCollector.start();
     }
@@ -274,11 +276,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
     @Override
     public void onPause() {
+        Global.log(rb.getString("tipsPaused"));
         enablePauseMode();
     }
 
     @Override
     public void onFinish() {
+        Global.log(rb.getString("tipsComplete"));
         enableCompleteMode();
         progBar.setProgress(tipsCollector.getProgress());
         Platform.runLater(() -> progLbl.setText( String.format("%.1f", tipsCollector.getProgress()*100) + "%"));
