@@ -50,9 +50,9 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     }
 
     @Override
-    public synchronized void onTipsLoadingComplete(TipsLoader tipsLoader) {
+    public synchronized void onTipsLoadingComplete(TipsLoader tipsLoader, boolean isSuccess) {
         Query query = tipsLoader.getQuery();
-        tipsLoadingListener.onQueryProcessed(tipsLoader.getTips());
+        tipsLoadingListener.onQueryProcessed(tipsLoader.getTips(), query.getText(), isSuccess);
         collectedCount += tipsLoader.getTips().size();
         if (tipsLoader.getTips().size() >= 5)
             //ƒобавл€ем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
@@ -70,7 +70,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     }
 
     public interface TipsLoadingListener {
-        void onQueryProcessed(List<Tip> tips);
+        void onQueryProcessed(List<Tip> tips, String queryText, boolean isSuccess);
         void onFinish();
         void onPause();
     }

@@ -30,25 +30,44 @@ import static playMarketParser.Global.showAlert;
 
 public class TipsCollectorController implements Initializable, TipsCollector.TipsLoadingListener {
 
-    @FXML private Button addQueriesBtn;
-    @FXML private Button importQueriesBtn;
-    @FXML private Button clearBtn;
-    @FXML private Button exportBtn;
-    @FXML private Button startBtn;
-    @FXML private Button stopBtn;
-    @FXML private Button pauseBtn;
-    @FXML private Button resumeBtn;
-    @FXML private CheckBox titleFirstChb;
-    @FXML private Label queriesCntLbl;
-    @FXML private Label tipsCntLbl;
-    @FXML private Label progLbl;
-    @FXML private ProgressBar progBar;
-    @FXML private TableView<String> inputTable;
-    @FXML private TableColumn<String, String> inputQueryCol;
-    @FXML private TableView<Tip> outputTable;
-    @FXML private TableColumn<Tip, String> outputQueryCol;
-    @FXML private TableColumn<Tip, String> tipCol;
-    @FXML private VBox rootPane;
+    @FXML
+    private Button addQueriesBtn;
+    @FXML
+    private Button importQueriesBtn;
+    @FXML
+    private Button clearBtn;
+    @FXML
+    private Button exportBtn;
+    @FXML
+    private Button startBtn;
+    @FXML
+    private Button stopBtn;
+    @FXML
+    private Button pauseBtn;
+    @FXML
+    private Button resumeBtn;
+    @FXML
+    private CheckBox titleFirstChb;
+    @FXML
+    private Label queriesCntLbl;
+    @FXML
+    private Label tipsCntLbl;
+    @FXML
+    private Label progLbl;
+    @FXML
+    private ProgressBar progBar;
+    @FXML
+    private TableView<String> inputTable;
+    @FXML
+    private TableColumn<String, String> inputQueryCol;
+    @FXML
+    private TableView<Tip> outputTable;
+    @FXML
+    private TableColumn<Tip, String> outputQueryCol;
+    @FXML
+    private TableColumn<Tip, String> tipCol;
+    @FXML
+    private VBox rootPane;
 
     private MenuItem removeItem;
     private ResourceBundle rb;
@@ -100,12 +119,10 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         TextAreaDialog dialog = new TextAreaDialog("", rb.getString("enterQueries"), rb.getString("addingQueries"), "");
 
         Optional result = dialog.showAndWait();
-        if (result.isPresent()) {
-            System.out.println(result.get());
+        if (result.isPresent())
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
                     .distinct()
                     .forEachOrdered(s -> queries.add(s));
-        }
     }
 
     @FXML
@@ -164,7 +181,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
                 newContent.add(tip.getQueryText() + Global.CSV_DELIMITER + tip.getText());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             showAlert(rb.getString("saved"), rb.getString("fileSaved"));
-        }  catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("alreadyUsing"));
         } catch (IOException e) {
@@ -186,7 +203,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
                 Prefs.getInt("tips_parsing_depth"),
                 this);
         enableLoadingMode();
-        Global.log(rb.getString("tipsStarted"));
+        Global.log(rb.getString("tipsStarted") + "\n" +
+                String.format("%-25s%s%n", rb.getString("threadsCount"), Prefs.getInt("tips_threads_cnt")) +
+                String.format("%-25s%s%n", rb.getString("tipsParsingDepth"), Prefs.getInt("tips_parsing_depth")) +
+                String.format("%-25s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
+                String.format("%-25s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
+                String.format("%-25s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
+                String.format("%-25s%s%n", rb.getString("userAgent"), Prefs.getString("user_agent"))
+        );
         tipsCollector.start();
     }
 
@@ -266,12 +290,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     @Override
-    public synchronized void onQueryProcessed(List<Tip> collectedTips) {
+    public synchronized void onQueryProcessed(List<Tip> collectedTips, String queryText, boolean isSuccess) {
+        if (!isSuccess) Global.log(String.format("%-30s%s", queryText, rb.getString("connTimeout")));
         tips.addAll(collectedTips);
         Platform.runLater(() -> tipsCntLbl.setText(String.valueOf(tips.size())));
 
         progBar.setProgress(tipsCollector.getProgress());
-        Platform.runLater(() -> progLbl.setText( String.format("%.1f", tipsCollector.getProgress()*100) + "%"));
+        Platform.runLater(() -> progLbl.setText(String.format("%.1f", tipsCollector.getProgress() * 100) + "%"));
     }
 
     @Override
@@ -285,6 +310,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         Global.log(rb.getString("tipsComplete"));
         enableCompleteMode();
         progBar.setProgress(tipsCollector.getProgress());
-        Platform.runLater(() -> progLbl.setText( String.format("%.1f", tipsCollector.getProgress()*100) + "%"));
+        Platform.runLater(() -> progLbl.setText(String.format("%.1f", tipsCollector.getProgress() * 100) + "%"));
     }
 }

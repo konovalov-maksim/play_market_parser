@@ -104,7 +104,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
             queries.clear();
             savePrevResultsChb.setSelected(false);
             savePrevResultsChb.setDisable(true);
-            System.out.println(result.get());
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
                     .distinct()
                     .forEachOrdered(s -> queries.add(new Query(s)));
@@ -161,6 +160,15 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 Prefs.getInt("pos_checks_cnt"), this);
 
         enableLoadingMode();
+        Global.log(rb.getString("posStarted") + "\n" +
+                String.format("%-25s%s%n", rb.getString("appUrl"), appUrlTf.getText()) +
+                String.format("%-25s%s%n", rb.getString("threadsCount"), Prefs.getInt("pos_threads_cnt")) +
+                String.format("%-25s%s%n", rb.getString("checksCount"), Prefs.getInt("pos_checks_cnt")) +
+                String.format("%-25s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
+                String.format("%-25s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
+                String.format("%-25s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
+                String.format("%-25s%s%n", rb.getString("userAgent"), Prefs.getString("user_agent"))
+        );
         posChecker.start();
     }
 
@@ -172,6 +180,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML
     private void resume() {
         enableLoadingMode();
+        Global.log(rb.getString("posResumed"));
         posChecker.start();
     }
 
@@ -234,6 +243,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     private void enableReadyMode() {
+        appUrlTf.setEditable(true);
         addQueriesBtn.setDisable(false);
         importQueriesBtn.setDisable(false);
         titleFirstChb.setDisable(false);
@@ -249,6 +259,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     private void enableLoadingMode() {
+        appUrlTf.setEditable(false);
         addQueriesBtn.setDisable(true);
         importQueriesBtn.setDisable(true);
         titleFirstChb.setDisable(true);
@@ -262,6 +273,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     private void enableCompleteMode() {
+        appUrlTf.setEditable(true);
         addQueriesBtn.setDisable(false);
         importQueriesBtn.setDisable(false);
         titleFirstChb.setDisable(false);
@@ -275,6 +287,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     private void enablePauseMode() {
+        appUrlTf.setEditable(false);
         addQueriesBtn.setDisable(true);
         importQueriesBtn.setDisable(true);
         titleFirstChb.setDisable(true);
@@ -288,7 +301,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     }
 
     @Override
-    public void onPositionChecked() {
+    public void onPositionChecked(Query query, boolean isSuccess) {
+        if (!isSuccess) Global.log(String.format("%-30s%s", query.getText(), rb.getString("connTimeout")));
         table.refresh();
         progBar.setProgress(posChecker.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", posChecker.getProgress() * 100) + "%"));
@@ -296,12 +310,14 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     @Override
     public void onPause() {
+        Global.log(rb.getString("posPaused"));
         enablePauseMode();
     }
 
     @Override
     public void onFinish() {
         enableCompleteMode();
+        Global.log(rb.getString("posComplete"));
         progBar.setProgress(posChecker.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", posChecker.getProgress() * 100) + "%"));
     }

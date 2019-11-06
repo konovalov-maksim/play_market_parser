@@ -8,3 +8,8 @@
    -fx-border-color: transparent;
    -fx-background-color: transparent;
 }
+
+.console {
+    -fx-font-family: Consolas;
+    -fx-text-fill: #555555;
+}

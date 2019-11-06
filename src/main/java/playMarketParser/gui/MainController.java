@@ -16,9 +16,6 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    @FXML
-    private TextArea consoleTa;
-
     private ResourceBundle rb;
 
     @Override

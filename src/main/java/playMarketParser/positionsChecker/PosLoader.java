@@ -3,6 +3,7 @@ package playMarketParser.positionsChecker;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import playMarketParser.DocReader;
+import playMarketParser.Global;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,10 +27,9 @@ public class PosLoader extends Thread {
         super.run();
         try {
             query.addPseudoPos(getPos());
+            onPosLoadCompleteListener.onPosLoadingComplete(query, true);
         } catch (IOException e) {
-            System.out.println(query.getText() + " - не удалось загрузить страницу результатов поиска");
-        } finally {
-            onPosLoadCompleteListener.onPosLoadingComplete(query);
+            onPosLoadCompleteListener.onPosLoadingComplete(query, false);
         }
     }
 
@@ -61,7 +61,7 @@ public class PosLoader extends Thread {
     }
 
     interface OnPosLoadCompleteListener {
-        void onPosLoadingComplete(Query query);
+        void onPosLoadingComplete(Query query, boolean isSuccess);
     }
 
 }

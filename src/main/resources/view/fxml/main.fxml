@@ -31,7 +31,7 @@
                 <fx:include source="tipsCollector.fxml"/>
             </Tab>
         </TabPane>
-        <TextArea prefHeight="200.0" editable="false" fx:id="consoleTa">
+        <TextArea prefHeight="200.0" editable="false" fx:id="consoleTa" styleClass="console">
             <padding>
                 <Insets bottom="5" left="10.0" right="10.0"/>
             </padding>

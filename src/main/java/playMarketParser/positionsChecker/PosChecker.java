@@ -53,9 +53,9 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     @Override
-    public synchronized void onPosLoadingComplete(Query query) {
+    public synchronized void onPosLoadingComplete(Query query, boolean isSuccess) {
         threadsCount--;
-        posCheckListener.onPositionChecked();
+        posCheckListener.onPositionChecked(query, isSuccess);
         if (isPaused) {
             if (threadsCount == 0)
                 if (unprocessed.size() > 0) posCheckListener.onPause();
@@ -66,7 +66,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     public interface PosCheckListener {
-        void onPositionChecked();
+        void onPositionChecked(Query query, boolean isSuccess);
         void onFinish();
         void onPause();
     }

@@ -70,7 +70,7 @@ public class Global {
         String curTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
         Platform.runLater(() -> {
             consoleTa.setText(consoleTa.getText() + curTime + ": " + logString +"\n");
-            //consoleTa.selectPositionCaret(consoleTa.getLength());
+            consoleTa.positionCaret(consoleTa.getLength());
         });
 
     }
