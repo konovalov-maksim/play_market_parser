@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -46,22 +45,30 @@
                     <ColumnConstraints hgrow="SOMETIMES" percentWidth="20"/>
                     <ColumnConstraints hgrow="SOMETIMES" percentWidth="30"/>
                 </columnConstraints>
-                <Label text="%timeout" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0"
-                       GridPane.valignment="CENTER"/>
-                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0"
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    <Label text="%timeout"/>
+                    <Button styleClass="tip-button" fx:id="timeoutTipBtn"/>
+                </HBox>
+                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                <Label text="%proxy" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0"
-                       GridPane.valignment="CENTER"/>
-                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="0"
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    <Label text="%proxy"/>
+                    <Button styleClass="tip-button" fx:id="proxyTipBtn"/>
+                </HBox>
+                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.rowIndex="0"
                            GridPane.valignment="CENTER"/>
-                <Label text="%userAgent" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1"
-                       GridPane.valignment="CENTER"/>
-                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                           GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                <Label text="%acceptLang" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1"
-                       GridPane.valignment="CENTER"/>
-                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.halignment="LEFT"
-                           GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <Label text="%userAgent"/>
+                    <Button styleClass="tip-button" fx:id="userAgentTipBtn"/>
+                </HBox>
+                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <Label text="%acceptLang"/>
+                    <Button styleClass="tip-button" fx:id="acceptLangTipBtn"/>
+                </HBox>
+                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER"/>
             </GridPane>
         </TitledPane>
         <TitledPane collapsible="false" text="%posChecking">
@@ -74,17 +81,15 @@
                 </columnConstraints>
                 <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0"
                        GridPane.valignment="CENTER">
-                    <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                    </GridPane.margin>
                 </Label>
                 <Spinner fx:id="posThreadsCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="1"
                          GridPane.rowIndex="0"/>
-                <Label text="%checksCount" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
-                    <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                    </GridPane.margin>
-                </Label>
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    <Label text="%checksCount" GridPane.columnIndex="2" GridPane.halignment="RIGHT"
+                           GridPane.rowIndex="0">
+                    </Label>
+                    <Button styleClass="tip-button" fx:id="checksCountTipBtn"/>
+                </HBox>
                 <Spinner fx:id="posChecksCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3"
                          GridPane.rowIndex="0"/>
             </GridPane>
@@ -99,19 +104,15 @@
                 </columnConstraints>
                 <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0"
                        GridPane.valignment="CENTER">
-                    <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                    </GridPane.margin>
                 </Label>
                 <Spinner fx:id="tipsThreadsCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="1"
                          GridPane.rowIndex="0"/>
-
-                <Label text="%tipsParsingDepth" GridPane.columnIndex="2" GridPane.halignment="RIGHT"
-                       GridPane.rowIndex="0" GridPane.valignment="CENTER">
-                    <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                    </GridPane.margin>
-                </Label>
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    <Label text="%tipsParsingDepth" GridPane.columnIndex="2" GridPane.halignment="RIGHT"
+                           GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    </Label>
+                    <Button styleClass="tip-button" fx:id="parsingDepthTipBtn"/>
+                </HBox>
                 <Spinner fx:id="tipsParsingDepthSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3"
                          GridPane.rowIndex="0"/>
             </GridPane>
