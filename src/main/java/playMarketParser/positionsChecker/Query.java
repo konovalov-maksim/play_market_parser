@@ -13,7 +13,7 @@ public class Query {
 
     public Query(String fullRowText) {
         this.fullRowText = fullRowText;
-        text = fullRowText.split(Global.CSV_DELIMITER)[0];
+        text = fullRowText.split(Global.getCsvDelim())[0];
     }
 
     synchronized void addPseudoPos(int pos) {

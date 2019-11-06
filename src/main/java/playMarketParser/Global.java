@@ -11,31 +11,20 @@ import java.util.ResourceBundle;
 
 public class Global {
 
-    private static TextArea consoleTa;
-    public final static String CSV_DELIMITER = ";";
-
-    public static void setLocale(Locale locale) {
-        Global.locale = locale;
+    public static void reloadPrefs() {
+        csvDelim = Prefs.getString("csv_delimiter");
     }
+
+    private static String csvDelim;
+
+    public static String getCsvDelim() {
+        return csvDelim;
+    }
+
+    private static TextArea consoleTa;
 
     public static ResourceBundle getBundle() {
-        return ResourceBundle.getBundle(locale.getBundlePath());
-    }
-
-    private static Locale locale;
-    public enum Locale {
-        EN("view.bundles.strings_en"),
-        RU("view.bundles.strings_ru");
-
-        private String bundlePath;
-
-        Locale(String bundlePath) {
-            this.bundlePath = bundlePath;
-        }
-
-        private String getBundlePath() {
-            return bundlePath;
-        }
+        return ResourceBundle.getBundle("view.bundles.strings_" + Prefs.getString("lang"));
     }
 
     private static File getUserDir() {

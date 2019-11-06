@@ -16,16 +16,16 @@ public class Main extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        Global.setLocale(Global.Locale.EN);
-        ResourceBundle bundle = Global.getBundle();
+        ResourceBundle rb = Global.getBundle();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/main.fxml"), bundle);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/main.fxml"), rb);
         Parent root = loader.load();
         root.getStylesheets().add("/view/style.css");
-        stage.setTitle(bundle.getString("appName"));
+        stage.setTitle(rb.getString("appName"));
         stage.setScene(new Scene(root));
         stage.show();
 
         Global.setConsoleTa((TextArea) stage.getScene().lookup("#consoleTa"));
+        Global.reloadPrefs();
     }
 }

@@ -1,10 +1,9 @@
 package playMarketParser.gui;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import playMarketParser.DocReader;
 import playMarketParser.Global;
@@ -17,7 +16,13 @@ import java.util.regex.Pattern;
 
 
 public class PrefsController implements Initializable {
-    ResourceBundle rb;
+    private ResourceBundle rb;
+
+    @FXML private ComboBox<String> csvDelimCb;
+
+    private ToggleGroup langTg = new ToggleGroup();
+    @FXML private RadioButton ruRb;
+    @FXML private RadioButton enRb;
 
     @FXML private TextField timeoutTxt;
     @FXML private TextField proxyTxt;
@@ -32,6 +37,18 @@ public class PrefsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
+
+        ruRb.setToggleGroup(langTg);
+        enRb.setToggleGroup(langTg);
+        switch (Prefs.getString("lang")) {
+            case "ru" : ruRb.setSelected(true);
+                break;
+            case "en" : enRb.setSelected(true);
+                break;
+        }
+
+        csvDelimCb.setItems(FXCollections.observableArrayList(";", ","));
+        csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
@@ -62,6 +79,10 @@ public class PrefsController implements Initializable {
 
 
         //Сохранение данных
+        if (ruRb.isSelected()) Prefs.put("lang", "ru");
+        else if (enRb.isSelected()) Prefs.put("lang", "en");
+        Prefs.put("csv_delimiter", csvDelimCb.getValue());
+
         Prefs.put("timeout", Integer.parseInt(timeoutTxt.getText()));
         Prefs.put("proxy", proxyTxt.getText());
         Prefs.put("user_agent", userAgentTxt.getText());
@@ -71,7 +92,9 @@ public class PrefsController implements Initializable {
         Prefs.put("pos_threads_cnt", posThreadsCntSpin.getValue());
         Prefs.put("tips_threads_cnt", tipsThreadsCntSpin.getValue());
         Prefs.put("tips_parsing_depth", tipsParsingDepthSpin.getValue());
+
         DocReader.reloadPrefs();
+        Global.reloadPrefs();
         Global.log(rb.getString("prefsSaved"));
         onCancelClick();
     }

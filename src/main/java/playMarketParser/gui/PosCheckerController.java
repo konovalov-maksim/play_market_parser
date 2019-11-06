@@ -130,7 +130,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 titleRow = lines.get(0);
                 lines.remove(0);
             }
-            boolean manyColumns = lines.size() > 0 && lines.get(0).contains(Global.CSV_DELIMITER);
+            boolean manyColumns = lines.size() > 0 && lines.get(0).contains(Global.getCsvDelim());
             savePrevResultsChb.setSelected(manyColumns);
             savePrevResultsChb.setDisable(!manyColumns);
             lines.stream().distinct().map(Query::new).forEachOrdered(q -> queries.add(q));
@@ -218,13 +218,13 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
             //Добавляем заголовок
             String firstRow = (savePrevResultsChb.isSelected() ? titleRow : rb.getString("query"))
-                    + Global.CSV_DELIMITER + rb.getString("finalPos") + " " + curDate + "\n";
+                    + Global.getCsvDelim() + rb.getString("finalPos") + " " + curDate + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
             List<String> newContent = new ArrayList<>();
             for (Query query : queries)
                 newContent.add((savePrevResultsChb.isSelected() ? query.getFullRowText() : query.getText())
-                                + Global.CSV_DELIMITER + query.getRealPos());
+                                + Global.getCsvDelim() + query.getRealPos());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             showAlert(rb.getString("saved"), rb.getString("fileSaved"));
         } catch (FileNotFoundException e) {

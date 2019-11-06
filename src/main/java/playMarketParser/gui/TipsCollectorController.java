@@ -177,13 +177,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
             ps.write('\ufebf');
 
             //Добавляем заголовок
-            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("tip")
-                    + Global.CSV_DELIMITER + rb.getString("depth") + "\n";
+            String firstRow = rb.getString("query") + Global.getCsvDelim() + rb.getString("tip")
+                    + Global.getCsvDelim() + rb.getString("depth") + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
             List<String> newContent = new ArrayList<>();
             for (Tip tip : tips)
-                newContent.add(tip.getQueryText() + Global.CSV_DELIMITER + tip.getText() + Global.CSV_DELIMITER + tip.getDepth());
+                newContent.add(tip.getQueryText() + Global.getCsvDelim() + tip.getText() + Global.getCsvDelim() + tip.getDepth());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             showAlert(rb.getString("saved"), rb.getString("fileSaved"));
         } catch (FileNotFoundException e) {

@@ -22,6 +22,8 @@ public class Prefs {
         defaults.put("accept_language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");
         defaults.put("timeout", 3000);
         defaults.put("proxy", "");
+        defaults.put("csv_delimiter", ";");
+        defaults.put("lang", "en");
     }
 
     public static int getInt(String propName) {
