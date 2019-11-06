@@ -1,0 +1,1 @@
+native2ascii -encoding windows-1251 strings_ru_source.properties strings_ru.properties
