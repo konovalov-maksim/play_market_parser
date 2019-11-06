@@ -92,7 +92,7 @@
         </TitledPane>
     </VBox>
     <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="10.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
-        <Button mnemonicParsing="false" onAction="#onCancelClick" text="%cancel" minWidth="100" />
-        <Button mnemonicParsing="false" onAction="#onOkClick" text="%ok" minWidth="100"/>
+        <Button mnemonicParsing="false" onAction="#onCancelClick" text="%cancel" minWidth="100" cancelButton="true"/>
+        <Button mnemonicParsing="false" onAction="#onOkClick" text="%ok" minWidth="100" defaultButton="true"/>
     </HBox>
 </AnchorPane>
