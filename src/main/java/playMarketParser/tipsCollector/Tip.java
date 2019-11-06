@@ -5,10 +5,12 @@ import java.util.Objects;
 public class Tip {
     private String text;
     private String queryText;
+    private int depth;
 
-    public Tip(String query, String text) {
+    Tip(String query, String text, int depth) {
         this.text = text;
         this.queryText = query;
+        this.depth = depth;
     }
 
     public String getText() {
@@ -19,17 +21,21 @@ public class Tip {
         return queryText;
     }
 
+    public int getDepth() {
+        return depth;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tip tip = (Tip) o;
         return text.equals(tip.text) &&
-                queryText.equals(tip.queryText);
+                queryText.equals(tip.queryText) && depth == tip.depth;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, queryText);
+        return Objects.hash(text, queryText, depth);
     }
 }

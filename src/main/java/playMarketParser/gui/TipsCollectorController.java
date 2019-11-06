@@ -67,6 +67,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML
     private TableColumn<Tip, String> tipCol;
     @FXML
+    private TableColumn<Tip, Integer> depthCol;
+    @FXML
     private VBox rootPane;
 
     private MenuItem removeItem;
@@ -88,9 +90,11 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         inputTable.setItems(queries);
         //outputTable
         outputQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.4));
-        tipCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.6));
+        tipCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.5));
+        depthCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         outputQueryCol.setCellValueFactory(new PropertyValueFactory<>("queryText"));
         tipCol.setCellValueFactory(new PropertyValueFactory<>("text"));
+        depthCol.setCellValueFactory(new PropertyValueFactory<>("depth"));
         outputTable.setItems(tips);
 
         //Context menu
@@ -173,12 +177,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
             ps.write('\ufebf');
 
             //Добавляем заголовок
-            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("tip") + "\n";
+            String firstRow = rb.getString("query") + Global.CSV_DELIMITER + rb.getString("tip")
+                    + Global.CSV_DELIMITER + rb.getString("depth") + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
             List<String> newContent = new ArrayList<>();
             for (Tip tip : tips)
-                newContent.add(tip.getQueryText() + Global.CSV_DELIMITER + tip.getText());
+                newContent.add(tip.getQueryText() + Global.CSV_DELIMITER + tip.getText() + Global.CSV_DELIMITER + tip.getDepth());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             showAlert(rb.getString("saved"), rb.getString("fileSaved"));
         } catch (FileNotFoundException e) {

@@ -50,7 +50,7 @@ class TipsLoader extends Thread {
         //Извлекаем из строки нужные данные в массив, а затем в список
         String[] tipsArray = content.split(",t:q},s:");
         for (String tip : tipsArray) {
-            if (isUncorrected(queryText, tip)) tips.add(new Tip(query.getRootQueryText(), tip));
+            if (isUncorrected(queryText, tip)) tips.add(new Tip(query.getRootQueryText(), tip, query.getDepth()));
             System.out.printf("%-35s%-50s%n", queryText, tip);
         }
     }

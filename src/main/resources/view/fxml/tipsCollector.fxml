@@ -85,8 +85,9 @@
                    prefWidth="400.0"
                    fx:id="outputTable">
             <columns>
-                <TableColumn prefWidth="75.0" text="%query" fx:id="outputQueryCol"/>
-                <TableColumn prefWidth="75.0" text="%tip" fx:id="tipCol"/>
+                <TableColumn text="%query" fx:id="outputQueryCol"/>
+                <TableColumn text="%tip" fx:id="tipCol"/>
+                <TableColumn text="%depth" fx:id="depthCol"/>
             </columns>
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
