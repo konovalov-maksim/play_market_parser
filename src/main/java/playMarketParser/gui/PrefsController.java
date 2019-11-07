@@ -9,7 +9,6 @@ import playMarketParser.DocReader;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 
-
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -77,7 +76,6 @@ public class PrefsController implements Initializable {
             return;
         } else proxyTxt.getStyleClass().remove("field-wrong");
 
-
         //Сохранение данных
         if (ruRb.isSelected()) Prefs.put("lang", "ru");
         else if (enRb.isSelected()) Prefs.put("lang", "en");
@@ -99,13 +97,8 @@ public class PrefsController implements Initializable {
         onCancelClick();
     }
 
-
     @FXML
     private void onCancelClick() {
         ((Stage) posChecksCntSpin.getScene().getWindow()).close();
     }
-
-
-
-
 }
