@@ -48,7 +48,7 @@
                 </columnConstraints>
                 <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                     <Label text="%timeout" />
-                    <Button styleClass="tip-button" fx:id="timeoutTipBtn">
+                    <Button styleClass="tip-button">
                         <tooltip>
                             <Tooltip text="%timeoutTip"/>
                         </tooltip>
@@ -135,9 +135,16 @@
                     </Button>
                 </HBox>
                 <Spinner fx:id="tipsParsingDepthSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-            <rowConstraints>
-               <RowConstraints />
-            </rowConstraints>
+
+                <Label text="%alphabet" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" >
+                    <RadioButton fx:id="autoAlphRb" text="%autoAlph" />
+                    <RadioButton fx:id="latAlphRb" text="%latAlph" />
+                    <RadioButton fx:id="cyrAlphRb" text="%cyrAlph" />
+                    <RadioButton fx:id="allAlphRb" text="%allAlph" />
+                </VBox>
+                <Label text="%tipsColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
+                <ComboBox fx:id="tipsColLangCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
             </GridPane>
         </TitledPane>
     </VBox>

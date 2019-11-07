@@ -32,7 +32,7 @@ class TipsLoader extends Thread {
     private void collectTips() throws IOException {
         String queryText = query.getText();
         //Формируем из запроса url
-        String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText + "&hl=ru&gl=RU";
+        String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText + "&hl=en&gl=US";
 
         //Загружаем js документ
         Document doc = DocReader.readDocByURL(url);
