@@ -18,10 +18,16 @@ public class PrefsController implements Initializable {
     private ResourceBundle rb;
 
     @FXML private ComboBox<String> csvDelimCb;
+    @FXML private ComboBox<String> tipsLangCb;
 
     private ToggleGroup langTg = new ToggleGroup();
-    @FXML private RadioButton ruRb;
-    @FXML private RadioButton enRb;
+    @FXML private NamedRadioButton ruRb;
+    @FXML private NamedRadioButton enRb;
+    private ToggleGroup alphabetTg = new ToggleGroup();
+    @FXML private NamedRadioButton autoAlphRb;
+    @FXML private NamedRadioButton latAlphRb;
+    @FXML private NamedRadioButton cyrAlphRb;
+    @FXML private NamedRadioButton allAlphRb;
 
     @FXML private TextField timeoutTxt;
     @FXML private TextField proxyTxt;
@@ -39,15 +45,21 @@ public class PrefsController implements Initializable {
 
         ruRb.setToggleGroup(langTg);
         enRb.setToggleGroup(langTg);
-        switch (Prefs.getString("lang")) {
-            case "ru" : ruRb.setSelected(true);
-                break;
-            case "en" : enRb.setSelected(true);
-                break;
-        }
+        for (Toggle toggle : langTg.getToggles())
+            if (((NamedRadioButton) toggle).getName().equals(Prefs.getString("lang"))) toggle.setSelected(true);
+
+        autoAlphRb.setToggleGroup(alphabetTg);
+        latAlphRb.setToggleGroup(alphabetTg);
+        cyrAlphRb.setToggleGroup(alphabetTg);
+        allAlphRb.setToggleGroup(alphabetTg);
+        for (Toggle toggle : alphabetTg.getToggles())
+            if (((NamedRadioButton) toggle).getName().equals(Prefs.getString("alphabet"))) toggle.setSelected(true);
+
 
         csvDelimCb.setItems(FXCollections.observableArrayList(";", ","));
         csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
+        tipsLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
+        tipsLangCb.setValue(Prefs.getString("tips_lang"));
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
@@ -77,9 +89,16 @@ public class PrefsController implements Initializable {
         } else proxyTxt.getStyleClass().remove("field-wrong");
 
         //Сохранение данных
-        if (ruRb.isSelected()) Prefs.put("lang", "ru");
-        else if (enRb.isSelected()) Prefs.put("lang", "en");
+//
+
+
+//        if (autoAlphRb.isSelected()) Prefs.put("alphabet", "ru");
+//        else if (enRb.isSelected()) Prefs.put("alphabet", "en");
+        Prefs.put("lang", ((NamedRadioButton) langTg.getSelectedToggle()).getName());
+        Prefs.put("alphabet", ((NamedRadioButton) alphabetTg.getSelectedToggle()).getName());
+
         Prefs.put("csv_delimiter", csvDelimCb.getValue());
+        Prefs.put("tips_lang", tipsLangCb.getValue());
 
         Prefs.put("timeout", Integer.parseInt(timeoutTxt.getText()));
         Prefs.put("proxy", proxyTxt.getText());

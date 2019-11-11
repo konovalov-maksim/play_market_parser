@@ -2,6 +2,7 @@ package playMarketParser.tipsCollector;
 
 import org.jsoup.nodes.Document;
 import playMarketParser.DocReader;
+import playMarketParser.Prefs;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ class TipsLoader extends Thread {
     private void collectTips() throws IOException {
         String queryText = query.getText();
         //Формируем из запроса url
-        String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText + "&hl=en&gl=US";
+        String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText + "&hl=" + Prefs.getString("tips_lang");
 
         //Загружаем js документ
         Document doc = DocReader.readDocByURL(url);

@@ -3,10 +3,9 @@ package playMarketParser.positionsChecker;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import playMarketParser.DocReader;
-import playMarketParser.Global;
 
 import java.io.IOException;
-import java.util.*;
+
 
 public class PosLoader extends Thread {
 

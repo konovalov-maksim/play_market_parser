@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Tooltip?>
 
+<?import playMarketParser.gui.NamedRadioButton?>
 <AnchorPane maxHeight="700" maxWidth="700" minHeight="700" minWidth="700" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PrefsController">
     <VBox AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <TitledPane collapsible="false" text="%appSetting">
@@ -28,8 +29,8 @@
                 </columnConstraints>
                 <Label text="%lang" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
                 <HBox GridPane.columnIndex="1">
-                    <RadioButton fx:id="ruRb" text="Русский" />
-                    <RadioButton fx:id="enRb" text="English" />
+                    <NamedRadioButton fx:id="ruRb" text="Русский" name="ru"/>
+                    <NamedRadioButton fx:id="enRb" text="English" name="en"/>
                 </HBox>
                 <Label text="%csvDelim" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
                 <ComboBox fx:id="csvDelimCb" GridPane.columnIndex="3" />
@@ -138,13 +139,13 @@
 
                 <Label text="%alphabet" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
                 <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" >
-                    <RadioButton fx:id="autoAlphRb" text="%autoAlph" />
-                    <RadioButton fx:id="latAlphRb" text="%latAlph" />
-                    <RadioButton fx:id="cyrAlphRb" text="%cyrAlph" />
-                    <RadioButton fx:id="allAlphRb" text="%allAlph" />
+                    <NamedRadioButton fx:id="autoAlphRb" text="%autoAlph" name="auto"/>
+                    <NamedRadioButton fx:id="latAlphRb" text="%latAlph" name="latin"/>
+                    <NamedRadioButton fx:id="cyrAlphRb" text="%cyrAlph" name="cyrillic"/>
+                    <NamedRadioButton fx:id="allAlphRb" text="%allAlph" name="all"/>
                 </VBox>
                 <Label text="%tipsColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
-                <ComboBox fx:id="tipsColLangCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+                <ComboBox fx:id="tipsLangCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
             </GridPane>
         </TitledPane>
     </VBox>

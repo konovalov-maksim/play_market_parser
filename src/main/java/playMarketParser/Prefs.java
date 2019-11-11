@@ -24,6 +24,8 @@ public class Prefs {
         defaults.put("proxy", "");
         defaults.put("csv_delimiter", ";");
         defaults.put("lang", "en");
+        defaults.put("tips_lang", "en");
+        defaults.put("alphabet", "auto");
     }
 
     public static int getInt(String propName) {

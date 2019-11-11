@@ -21,3 +21,11 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+.settings-button {
+/*     -fx-background-color: transparent;*/
+     -fx-background-image: url("/images/icons/settings.png");
+     -fx-background-size: 25px 25px;
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+}
