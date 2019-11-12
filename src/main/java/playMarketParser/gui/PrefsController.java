@@ -18,6 +18,8 @@ public class PrefsController implements Initializable {
     private ResourceBundle rb;
 
     @FXML private ComboBox<String> csvDelimCb;
+    @FXML private ComboBox<String> posLangCb;
+    @FXML private ComboBox<String> posCountryCb;
     @FXML private ComboBox<String> tipsLangCb;
     @FXML private ComboBox<String> tipsCountryCb;
 
@@ -58,11 +60,15 @@ public class PrefsController implements Initializable {
 
 
         csvDelimCb.setItems(FXCollections.observableArrayList(";", ","));
-        csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
         tipsLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
-        tipsLangCb.setValue(Prefs.getString("tips_lang"));
         tipsCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
+        posLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
+        posCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
+        csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
+        tipsLangCb.setValue(Prefs.getString("tips_lang"));
         tipsCountryCb.setValue(Prefs.getString("tips_country"));
+        posLangCb.setValue(Prefs.getString("pos_lang"));
+        posCountryCb.setValue(Prefs.getString("pos_country"));
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
@@ -98,6 +104,8 @@ public class PrefsController implements Initializable {
         Prefs.put("csv_delimiter", csvDelimCb.getValue());
         Prefs.put("tips_lang", tipsLangCb.getValue());
         Prefs.put("tips_country", tipsCountryCb.getValue());
+        Prefs.put("pos_country", posCountryCb.getValue());
+        Prefs.put("pos_lang", posLangCb.getValue());
 
         Prefs.put("timeout", Integer.parseInt(timeoutTxt.getText()));
         Prefs.put("proxy", proxyTxt.getText());

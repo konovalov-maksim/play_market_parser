@@ -110,9 +110,13 @@
                     </Button>
                 </HBox>
                 <Spinner fx:id="posChecksCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-            <rowConstraints>
-               <RowConstraints />
-            </rowConstraints>
+
+                <Label text="%tipsColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+                <ComboBox fx:id="posLangCb" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="%tipsColCountry" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
+                <ComboBox fx:id="posCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
             </GridPane>
         </TitledPane>
         <TitledPane collapsible="false" text="%tipsCollecting">
@@ -127,8 +131,7 @@
                 </Label>
                 <Spinner fx:id="tipsThreadsCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.valignment="CENTER">
-                    <Label text="%tipsParsingDepth" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
-                    </Label>
+                    <Label text="%tipsParsingDepth" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
                     <Button styleClass="tip-button">
                         <tooltip>
                             <Tooltip text="%parsingDepthTip"/>
