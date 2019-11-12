@@ -19,6 +19,7 @@ public class PrefsController implements Initializable {
 
     @FXML private ComboBox<String> csvDelimCb;
     @FXML private ComboBox<String> tipsLangCb;
+    @FXML private ComboBox<String> tipsCountryCb;
 
     private ToggleGroup langTg = new ToggleGroup();
     @FXML private NamedRadioButton ruRb;
@@ -60,6 +61,8 @@ public class PrefsController implements Initializable {
         csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
         tipsLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
         tipsLangCb.setValue(Prefs.getString("tips_lang"));
+        tipsCountryCb.setItems(FXCollections.observableArrayList("no_country", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
+        tipsCountryCb.setValue(Prefs.getString("tips_country"));
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
@@ -89,16 +92,12 @@ public class PrefsController implements Initializable {
         } else proxyTxt.getStyleClass().remove("field-wrong");
 
         //Сохранение данных
-//
-
-
-//        if (autoAlphRb.isSelected()) Prefs.put("alphabet", "ru");
-//        else if (enRb.isSelected()) Prefs.put("alphabet", "en");
         Prefs.put("lang", ((NamedRadioButton) langTg.getSelectedToggle()).getName());
         Prefs.put("alphabet", ((NamedRadioButton) alphabetTg.getSelectedToggle()).getName());
 
         Prefs.put("csv_delimiter", csvDelimCb.getValue());
         Prefs.put("tips_lang", tipsLangCb.getValue());
+        Prefs.put("tips_country", tipsCountryCb.getValue());
 
         Prefs.put("timeout", Integer.parseInt(timeoutTxt.getText()));
         Prefs.put("proxy", proxyTxt.getText());

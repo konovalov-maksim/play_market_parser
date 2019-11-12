@@ -25,6 +25,7 @@ public class Prefs {
         defaults.put("csv_delimiter", ";");
         defaults.put("lang", "en");
         defaults.put("tips_lang", "en");
+        defaults.put("tips_country", "no_country");
         defaults.put("alphabet", "auto");
     }
 

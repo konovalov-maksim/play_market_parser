@@ -137,15 +137,19 @@
                 </HBox>
                 <Spinner fx:id="tipsParsingDepthSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                <Label text="%alphaType" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" >
+                <Label text="%tipsColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+                <ComboBox fx:id="tipsLangCb" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="%tipsColCountry" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
+                <ComboBox fx:id="tipsCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+                <Label text="%alphaType" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+                <VBox GridPane.rowIndex="2" GridPane.columnIndex="1" >
                     <NamedRadioButton fx:id="autoAlphRb" text="%autoAlph" name="auto"/>
                     <NamedRadioButton fx:id="latAlphRb" text="%latAlph" name="latin"/>
                     <NamedRadioButton fx:id="cyrAlphRb" text="%cyrAlph" name="cyrillic"/>
                     <NamedRadioButton fx:id="allAlphRb" text="%allAlph" name="all"/>
                 </VBox>
-                <Label text="%tipsColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
-                <ComboBox fx:id="tipsLangCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
             </GridPane>
         </TitledPane>
     </VBox>
