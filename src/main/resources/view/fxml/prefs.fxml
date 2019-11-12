@@ -137,7 +137,7 @@
                 </HBox>
                 <Spinner fx:id="tipsParsingDepthSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                <Label text="%alphabet" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+                <Label text="%alphaType" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
                 <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" >
                     <NamedRadioButton fx:id="autoAlphRb" text="%autoAlph" name="auto"/>
                     <NamedRadioButton fx:id="latAlphRb" text="%latAlph" name="latin"/>

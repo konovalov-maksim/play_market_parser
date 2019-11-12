@@ -195,7 +195,9 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         tipsCollector = new TipsCollector(queries,
                 Prefs.getInt("tips_threads_cnt"),
                 Prefs.getInt("tips_parsing_depth"),
-                this);
+                this,
+                Prefs.getString("alphabet")
+                );
         enableLoadingMode();
         Global.log(rb.getString("tipsStarted") + "\n" +
                 String.format("%-25s%s%n", rb.getString("threadsCount"), Prefs.getInt("tips_threads_cnt")) +
