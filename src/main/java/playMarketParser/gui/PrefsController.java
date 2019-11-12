@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import playMarketParser.DocReader;
+import playMarketParser.Connection;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 
@@ -61,7 +61,7 @@ public class PrefsController implements Initializable {
         csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
         tipsLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
         tipsLangCb.setValue(Prefs.getString("tips_lang"));
-        tipsCountryCb.setItems(FXCollections.observableArrayList("no_country", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
+        tipsCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
         tipsCountryCb.setValue(Prefs.getString("tips_country"));
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
@@ -109,7 +109,7 @@ public class PrefsController implements Initializable {
         Prefs.put("tips_threads_cnt", tipsThreadsCntSpin.getValue());
         Prefs.put("tips_parsing_depth", tipsParsingDepthSpin.getValue());
 
-        DocReader.reloadPrefs();
+        Connection.reloadPrefs();
         Global.reloadPrefs();
         Global.log(rb.getString("prefsSaved"));
         onCancelClick();

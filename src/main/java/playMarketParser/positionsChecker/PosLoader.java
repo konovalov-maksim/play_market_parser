@@ -2,7 +2,7 @@ package playMarketParser.positionsChecker;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import playMarketParser.DocReader;
+import playMarketParser.Connection;
 
 import java.io.IOException;
 
@@ -37,7 +37,7 @@ public class PosLoader extends Thread {
         String appLinkClass = "b8cIId ReQCgd Q9MA7b";
         //Формируем url страницы поиска
         String url = "https://play.google.com/store/search?q=" + query.getText() + "&c=apps";
-        Document doc = DocReader.readDocByURL(url);
+        Document doc = Connection.getDocument(url);
         Elements appsLinksDivs;
         String format = "%-30s%-2s%n";
         if (doc != null)

@@ -24,8 +24,10 @@ public class Prefs {
         defaults.put("proxy", "");
         defaults.put("csv_delimiter", ";");
         defaults.put("lang", "en");
+        defaults.put("pos_lang", "en");
+        defaults.put("pos_country", "-");
         defaults.put("tips_lang", "en");
-        defaults.put("tips_country", "no_country");
+        defaults.put("tips_country", "-");
         defaults.put("alphabet", "auto");
     }
 

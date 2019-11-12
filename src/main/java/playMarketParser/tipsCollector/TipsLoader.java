@@ -1,9 +1,8 @@
 package playMarketParser.tipsCollector;
 
-import org.jsoup.Jsoup;
+
 import org.jsoup.nodes.Document;
-import playMarketParser.DocReader;
-import playMarketParser.Prefs;
+import playMarketParser.Connection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,9 +13,13 @@ class TipsLoader extends Thread {
     private Query query;
     private OnTipLoadCompleteListener onTipLoadCompleteListener;
     private List<Tip> tips = new ArrayList<>();
+    private String language;
+    private String country;
 
-    TipsLoader(Query query, OnTipLoadCompleteListener onTipLoadCompleteListener) {
+    TipsLoader(Query query, String language, String country, OnTipLoadCompleteListener onTipLoadCompleteListener) {
         this.query = query;
+        this.language = language;
+        this.country = country;
         this.onTipLoadCompleteListener = onTipLoadCompleteListener;
     }
 
@@ -33,16 +36,10 @@ class TipsLoader extends Thread {
 
     private void collectTips() throws IOException {
         String queryText = query.getText();
-        //Формируем из запроса url
-
         String url = "https://market.android.com/suggest/SuggRequest?json=1&c=3&query=" + queryText +
-
-                "&hl=" + Prefs.getString("tips_lang") +
-                (Prefs.getString("tips_country").equals("no_country") ? "" : "&gl=" + Prefs.getString("tips_country"));
-
-        //Загружаем js документ
-        Document doc = DocReader.readDocByURL(url);
-
+                (language != null ? "&hl=" + language : "") +
+                (country != null ? "&gl=" + country : "");
+        Document doc = Connection.getDocument(url);
         //Получаем контент документа в виде строки
         String content = doc.text();
         if (content.equals("[]")) {

@@ -192,12 +192,12 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         }
         outputTable.getItems().clear();
 
-        tipsCollector = new TipsCollector(queries,
-                Prefs.getInt("tips_threads_cnt"),
-                Prefs.getInt("tips_parsing_depth"),
-                this,
-                Prefs.getString("alphabet")
-                );
+        tipsCollector = new TipsCollector(queries,this);
+        tipsCollector.setMaxThreadsCount(Prefs.getInt("tips_threads_cnt"));
+        tipsCollector.setMaxDepth(Prefs.getInt("tips_parsing_depth"));
+        tipsCollector.setAlphaType(Prefs.getString("alphabet"));
+        if (!Prefs.getString("tips_lang").equals("-")) tipsCollector.setLanguage(Prefs.getString("tips_lang"));
+        if (!Prefs.getString("tips_country").equals("-")) tipsCollector.setCountry(Prefs.getString("tips_country"));
         enableLoadingMode();
         Global.log(rb.getString("tipsStarted") + "\n" +
                 String.format("%-25s%s%n", rb.getString("threadsCount"), Prefs.getInt("tips_threads_cnt")) +

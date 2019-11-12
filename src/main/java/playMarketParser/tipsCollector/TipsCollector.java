@@ -1,42 +1,44 @@
 package playMarketParser.tipsCollector;
 
 
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 
 public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
 
-    private int maxThreadsCount;
-    private int threadsCount;
-    private int maxDepth;
-    private int collectedCount;
+    private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
+    private int maxThreadsCount = 1;
+    private int maxDepth = 5;
+    private String alphaType = "auto";
+    private String language;
+    private String country;
     private TipsLoadingListener tipsLoadingListener;
+
+    private int threadsCount;
+    private int collectedCount;
     private boolean isPaused;
     private boolean isStopped;
 
     private List<Character> latin;
     private List<Character> cyrillic;
     private List<Character> allAlphs;
-    private String alphaType;
 
-    private Deque<Query> unprocessed = new ConcurrentLinkedDeque<>();
 
-    public TipsCollector(List<String> queriesStrings, int maxThreadsCount, int maxDepth, TipsLoadingListener tipsLoadingListener, String alphaType) {
+    public TipsCollector(List<String> queriesStrings, TipsLoadingListener tipsLoadingListener) {
         for (String queryString : queriesStrings) unprocessed.addLast(new Query(queryString + " ", null));
-        this.maxThreadsCount = maxThreadsCount;
-        this.maxDepth = maxDepth;
         this.tipsLoadingListener = tipsLoadingListener;
-        this.alphaType = alphaType;
+
         latin = "abcdefghijklmnopqrstuvwxyz".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         cyrillic = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         allAlphs = new ArrayList<>(latin);
         allAlphs.addAll(cyrillic);
 
-        isStopped = false;
     }
 
     public void start() {
+        isStopped = false;
         isPaused = false;
         attachQueriesToLoaders();
     }
@@ -44,7 +46,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     //Распределяем запросы по потокам
     private synchronized void attachQueriesToLoaders() {
         while (threadsCount < maxThreadsCount && unprocessed.size() > 0) {
-            new TipsLoader(unprocessed.pop(), this).start();
+            new TipsLoader(unprocessed.pop(), language, country, this).start();
             threadsCount++;
         }
     }
@@ -108,5 +110,25 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
 
     public double getProgress() {
         return unprocessed.size() + collectedCount > 0 ? collectedCount * 1.0 / (unprocessed.size() + collectedCount) : 1;
+    }
+
+    public void setMaxThreadsCount(int maxThreadsCount) {
+        this.maxThreadsCount = maxThreadsCount;
+    }
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
+    }
+
+    public void setAlphaType(String alphaType) {
+        this.alphaType = alphaType;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

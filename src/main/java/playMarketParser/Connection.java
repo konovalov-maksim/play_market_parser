@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 
 
-public class DocReader {
+public class Connection {
     private final static String referrer = "https://play.google.com/";
 
     private static String userAgent;
@@ -20,7 +20,7 @@ public class DocReader {
         reloadPrefs();
     }
 
-    public static Document readDocByURL(String url) throws IOException {
+    public static Document getDocument(String url) throws IOException {
             return Jsoup.connect(url)
                     .userAgent(userAgent)
                     .header("Accept-Language", acceptLanguage)
