@@ -34,7 +34,6 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         cyrillic = "àáâãäå¸æçèéêëìíîïðñòóôõö÷øùúûüýþÿ".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         allAlphs = new ArrayList<>(latin);
         allAlphs.addAll(cyrillic);
-
     }
 
     public void start() {

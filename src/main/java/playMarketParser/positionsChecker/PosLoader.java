@@ -9,15 +9,17 @@ import java.io.IOException;
 
 public class PosLoader extends Thread {
 
-    private final static int CHECKED_POS_COUNT = 50;
     private final String appURL;
-
-    private OnPosLoadCompleteListener onPosLoadCompleteListener;
     private Query query;
+    private OnPosLoadCompleteListener onPosLoadCompleteListener;
+    private String language;
+    private String country;
 
-    PosLoader(Query query, String appId, OnPosLoadCompleteListener onPosLoadCompleteListener) {
+    PosLoader(Query query, String appId, String language, String country, OnPosLoadCompleteListener onPosLoadCompleteListener) {
         this.onPosLoadCompleteListener = onPosLoadCompleteListener;
         this.query = query;
+        this.country = country;
+        this.language = language;
         appURL = "/store/apps/details?id=" + appId;
     }
 
@@ -36,26 +38,23 @@ public class PosLoader extends Thread {
         //CSS класс div-а со ссылкой на страницу приложения
         String appLinkClass = "b8cIId ReQCgd Q9MA7b";
         //Формируем url страницы поиска
-        String url = "https://play.google.com/store/search?q=" + query.getText() + "&c=apps";
+        String url = "https://play.google.com/store/search?q=" + query.getText() + "&c=apps" +
+                (language != null ? "&hl=" + language : "") +
+                (country != null ? "&gl=" + country : "");
         Document doc = Connection.getDocument(url);
-        Elements appsLinksDivs;
+        if (doc == null) throw new IOException("Не удалось загрузить страницу результатов поиска");
+        //Получаем список div-ов со ссылками на приложения
+        Elements appsLinksDivs = doc.getElementsByClass(appLinkClass);
         String format = "%-30s%-2s%n";
-        if (doc != null)
-            //Получаем список div-ов со ссылками на приложения
-            appsLinksDivs = doc.getElementsByClass(appLinkClass);
-        else {
-            System.out.printf(format, query.getText(), "Не удалось загрузить страницу результатов поиска");
-            return 0;
-        }
         //Получаем список ссылок на приложения
-        for (int i = 0; i < Math.min(appsLinksDivs.size(), CHECKED_POS_COUNT); i++) {
+        for (int i = 0; i < appsLinksDivs.size(); i++) {
             String curURL = appsLinksDivs.get(i).child(0).attr("href");
             if (appURL.equals(curURL)) {
                 System.out.printf(format, query.getText(), i + 1);
                 return i + 1;
             }
         }
-        System.out.printf(format, query.getText(), "Приложение отсутствует в ТОП-" + CHECKED_POS_COUNT);
+        System.out.printf(format, query.getText(), "Приложение отсутствует в ТОП-" + appsLinksDivs.size());
         return 0;
     }
 

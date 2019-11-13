@@ -143,8 +143,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
         Prefs.put("pos_app_url", appUrlTf.getText());
 
-        posChecker = new PosChecker(appId, queries, Prefs.getInt("pos_threads_cnt"),
-                Prefs.getInt("pos_checks_cnt"), this);
+        posChecker = new PosChecker(appId, queries, this);
+        posChecker.setMaxThreadsCount(Prefs.getInt("pos_threads_cnt"));
+        posChecker.setChecksCount(Prefs.getInt("pos_checks_cnt"));
+        if (!Prefs.getString("pos_lang").equals("-")) posChecker.setLanguage(Prefs.getString("pos_lang"));
+        if (!Prefs.getString("pos_country").equals("-")) posChecker.setCountry(Prefs.getString("pos_country"));
 
         enableLoadingMode();
         Global.log(rb.getString("posStarted") + "\n" +
@@ -168,7 +171,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     private void resume() {
         enableLoadingMode();
         Global.log(rb.getString("posResumed"));
-        posChecker.start();
+        posChecker.resume();
     }
 
     @FXML

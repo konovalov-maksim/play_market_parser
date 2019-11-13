@@ -3,11 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -111,10 +109,10 @@
                 </HBox>
                 <Spinner fx:id="posChecksCntSpin" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                <Label text="%tipsColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+                <Label text="%posColLang" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
                 <ComboBox fx:id="posLangCb" GridPane.rowIndex="1" GridPane.columnIndex="1" />
 
-                <Label text="%tipsColCountry" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
+                <Label text="%posColCountry" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
                 <ComboBox fx:id="posCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
 
             </GridPane>
@@ -146,7 +144,16 @@
                 <Label text="%tipsColCountry" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
                 <ComboBox fx:id="tipsCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
 
-                <Label text="%alphaType" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
+
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <Label text="%alphaType"/>
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%alphabetTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+
                 <VBox GridPane.rowIndex="2" GridPane.columnIndex="1" >
                     <NamedRadioButton fx:id="autoAlphRb" text="%autoAlph" name="auto"/>
                     <NamedRadioButton fx:id="latAlphRb" text="%latAlph" name="latin"/>
