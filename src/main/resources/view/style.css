@@ -17,7 +17,7 @@
 .tip-button {
     -fx-background-color: transparent;
     -fx-background-image: url("/images/icons/help.png");
-    -fx-background-size: 15px 15px;
+    -fx-background-size: 16px 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
@@ -25,7 +25,27 @@
 .settings-button {
 /*     -fx-background-color: transparent;*/
      -fx-background-image: url("/images/icons/settings.png");
-     -fx-background-size: 25px 25px;
+     -fx-background-size: 32px 32px;
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
+}
+
+.spaced-grid-pane HBox, .spaced-grid-pane Label{ {
+    -fx-spacing: 10px;
+    -fx-alignment: center-right;
+    -fx-max-width: Infinity;
+    /*-fx-background-color: red;*/
+}
+
+.spaced-grid-pane Spinner, .spaced-grid-pane ComboBox {
+    -fx-pref-width: 60px;
+}
+
+.spaced-grid-pane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.spaced-box {
+    -fx-spacing: 5px;
 }

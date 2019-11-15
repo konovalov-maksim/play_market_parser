@@ -29,6 +29,7 @@ public class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/prefs.fxml"), Global.getBundle());
             Parent root = loader.load();
             Stage stage = new Stage();
+            stage.setResizable(false);
             stage.setTitle(rb.getString("prefs"));
             stage.setScene(new Scene(root));
             stage.getScene().getStylesheets().add("/view/style.css");

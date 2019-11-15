@@ -27,5 +27,5 @@
             </padding>
         </TextArea>
     </SplitPane>
-    <Button styleClass="settings-button" prefWidth="30" prefHeight="30" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#openPrefs"/>
+    <Button styleClass="settings-button" prefWidth="35" prefHeight="35" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#openPrefs"/>
 </AnchorPane>
