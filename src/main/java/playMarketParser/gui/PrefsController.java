@@ -62,7 +62,7 @@ public class PrefsController implements Initializable {
         csvDelimCb.setItems(FXCollections.observableArrayList(";", ","));
         tipsLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
         tipsCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
-        posLangCb.setItems(FXCollections.observableArrayList("en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
+        posLangCb.setItems(FXCollections.observableArrayList("-", "en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
         posCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
         csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
         tipsLangCb.setValue(Prefs.getString("tips_lang"));
@@ -97,6 +97,9 @@ public class PrefsController implements Initializable {
             return;
         } else proxyTxt.getStyleClass().remove("field-wrong");
 
+        if (!((NamedRadioButton) langTg.getSelectedToggle()).getName().equals(Prefs.getString("lang")))
+            Global.showAlert(rb.getString("restartPls"), rb.getString("restartRequired"));
+
         //Сохранение данных
         Prefs.put("lang", ((NamedRadioButton) langTg.getSelectedToggle()).getName());
         Prefs.put("alphabet", ((NamedRadioButton) alphabetTg.getSelectedToggle()).getName());
@@ -126,5 +129,25 @@ public class PrefsController implements Initializable {
     @FXML
     private void onCancelClick() {
         ((Stage) posChecksCntSpin.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void resetToDefaults() {
+        Prefs.remove("pos_threads_cnt");
+        Prefs.remove("pos_checks_cnt");
+        Prefs.remove("tips_threads_cnt");
+        Prefs.remove("tips_parsing_depth");
+        Prefs.remove("user_agent");
+        Prefs.remove("accept_language");
+        Prefs.remove("timeout");
+        Prefs.remove("proxy");
+        Prefs.remove("csv_delimiter");
+        Prefs.remove("pos_lang");
+        Prefs.remove("pos_country");
+        Prefs.remove("tips_lang");
+        Prefs.remove("tips_country");
+        Prefs.remove("alphabet");
+
+        onCancelClick();
     }
 }

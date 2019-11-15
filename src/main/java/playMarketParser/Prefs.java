@@ -24,7 +24,7 @@ public class Prefs {
         defaults.put("proxy", "");
         defaults.put("csv_delimiter", ";");
         defaults.put("lang", "en");
-        defaults.put("pos_lang", "en");
+        defaults.put("pos_lang", "-");
         defaults.put("pos_country", "-");
         defaults.put("tips_lang", "en");
         defaults.put("tips_country", "-");
@@ -55,4 +55,7 @@ public class Prefs {
         preferences.put(propName, String.valueOf(value));
     }
 
+    public static void remove(String propName) {
+        preferences.remove(propName);
+    }
 }

@@ -164,6 +164,7 @@
         </TitledPane>
     </VBox>
     <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="10.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
+        <Button minWidth="100" mnemonicParsing="false" onAction="#resetToDefaults" text="%resetToDef" />
         <Button cancelButton="true" minWidth="100" mnemonicParsing="false" onAction="#onCancelClick" text="%cancel" />
         <Button defaultButton="true" minWidth="100" mnemonicParsing="false" onAction="#onOkClick" text="%ok" />
     </HBox>
