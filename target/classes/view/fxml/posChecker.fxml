@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootPane" prefHeight="600.0" prefWidth="600.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController">
+<VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PosCheckerController">
     <HBox styleClass="image-btns-bar">
             <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries" />
         <VBox>
@@ -32,8 +32,8 @@
         <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" styleClass="control-btn" text="%stop" />
     </HBox>
     <Separator styleClass="h-separator" />
-    <HBox spacing="10.0">
-        <Label minWidth="-Infinity" text="%appUrl" />
+    <HBox spacing="10.0" style="-fx-alignment: center-left;">
+        <Label minWidth="-Infinity" text="%appUrl"/>
         <TextField fx:id="appUrlTf" minWidth="500" promptText="https://play.google.com/store/apps/details?id=app.package.name" />
         <StackPane HBox.hgrow="ALWAYS">
             <ProgressBar fx:id="progBar" progress="0.0" />
@@ -41,11 +41,12 @@
         </StackPane>
     </HBox>
     <AnchorPane>
-        <HBox spacing="10" styleClass="table-title">
+        <HBox styleClass="table-title">
             <Label text="%queriesQuantity" />
             <Label fx:id="queriesCntLbl" minWidth="10" />
         </HBox>
-        <TableView fx:id="table" minHeight="200" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <TableView fx:id="table" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
             <placeholder>
                 <Label text="%noQueries" />
             </placeholder>

@@ -27,6 +27,6 @@
             </padding>
         </TextArea>
     </SplitPane>
-    <Button styleClass="settings-button" fx:id="settingsBtn" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0"
+    <Button styleClass="tab-button" fx:id="settingsBtn" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0"
             onAction="#openPrefs"/>
 </AnchorPane>

@@ -6,10 +6,13 @@
     );
 }
 
-.field-wrong {
-    -fx-border-color: #ff5050;
-    -fx-border-width: 2;
-    -fx-border-radius: 3;
+.progress-bar {
+    -fx-min-height: 20;
+    -fx-max-width: Infinity;
+}
+
+.split-pane {
+    -fx-background-insets: 0, 0;
 }
 
 .split-pane-divider {
@@ -17,55 +20,63 @@
    -fx-background-color: transparent;
 }
 
+.table-row-cell {
+    -fx-cell-size: 20;
+}
+
+#rootPane {
+    -fx-padding: 10;
+}
+
 .console {
     -fx-font-family: Consolas;
     -fx-text-fill: #555555;
 }
 
-.tip-button {
-    -fx-background-color: transparent;
-    -fx-background-image: url("/images/icons/help.png");
-    -fx-background-size: 16px 16px;
-    /*-fx-padding: 2 0 0 0;*/
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
-
-.settings-button {
+.tab-button {
      -fx-min-width: 40;
      -fx-min-height: 20;
-     -fx-background-size: 20px 20px;
+     -fx-background-size: 20 20;
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
 }
 
+.field-wrong {
+    -fx-border-color: #ff5050;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}
+
+.tip-button {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/images/icons/help.png");
+    -fx-background-size: 16 16;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 .spaced-grid-pane HBox, .spaced-grid-pane Label{ {
-    -fx-spacing: 10px;
+    -fx-spacing: 10;
     -fx-alignment: center-right;
     -fx-max-width: Infinity;
-    /*-fx-background-color: red;*/
 }
 
 .spaced-grid-pane Spinner, .spaced-grid-pane ComboBox {
-    -fx-pref-width: 60px;
+    -fx-pref-width: 60;
 }
 
 .spaced-grid-pane {
-    -fx-hgap: 10px;
-    -fx-vgap: 10px;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
 }
 
 .spaced-box {
-    -fx-spacing: 5px;
-}
-
-#rootPane {
-    -fx-padding: 10px;
+    -fx-spacing: 5;
 }
 
 .image-btns-bar {
-    -fx-spacing: 0px;
-    -fx-padding: 0px;
+    -fx-spacing: 0;
+    -fx-padding: 0;
 }
 
 .image-btns-bar VBox {
@@ -75,11 +86,12 @@
 
 .image-btns-bar Button {
     -fx-alignment: bottom-center;
-    -fx-min-height: 50px;
+    -fx-min-height: 50;
+    -fx-max-width: Infinity;
 
-    -fx-background-size: 24px 24px;
+    -fx-background-size: 24 24;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 50% 5px;
+    -fx-background-position: 50% 5;
 
     -fx-background-color: transparent;
     -fx-background-radius: 0;
@@ -120,17 +132,13 @@
     -fx-background-color: red;
 }
 
-ProgressBar {
-    -fx-min-height: 20;
-    -fx-max-width: Infinity;
-}
-
 .table-title {
     -fx-padding: 4 4 0 4;
     -fx-min-height: 24;
     -fx-background-color: #cccccc, -tab-body;
     -fx-background-insets: 0, 1 1 0 1;
     -fx-background-radius: 3 3 0 0;
+    -fx-spacing: 10;
 }
 
 .collapsed {

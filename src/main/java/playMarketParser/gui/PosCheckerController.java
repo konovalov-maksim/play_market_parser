@@ -149,6 +149,9 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         if (!Prefs.getString("pos_lang").equals("-")) posChecker.setLanguage(Prefs.getString("pos_lang"));
         if (!Prefs.getString("pos_country").equals("-")) posChecker.setCountry(Prefs.getString("pos_country"));
 
+        progBar.setProgress(0);
+        Platform.runLater(() -> progLbl.setText(String.format("%.1f", 0f) + "%"));
+
         enableLoadingMode();
         Global.log(rb.getString("posStarted") + "\n" +
                 String.format("%-25s%s%n", rb.getString("appUrl"), appUrlTf.getText()) +
