@@ -123,18 +123,18 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
             lines.stream().distinct().map(Query::new).forEachOrdered(q -> queries.add(q));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(rb.getString("error"), rb.getString("unableToReadFile"));
+            showAlert(rb.getString("error"), rb.getString("unableToReadFile"), Global.ERROR);
         }
     }
 
     @FXML
     private void start() {
         if (queries.size() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noQueries"));
+            showAlert(rb.getString("error"), rb.getString("noQueries"), Global.ALERT);
             return;
         }
         if (appUrlTf.getText().length() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noAppUrl"));
+            showAlert(rb.getString("error"), rb.getString("noAppUrl"), Global.ALERT);
             return;
         }
         for (Query query : queries) query.reset();
@@ -185,7 +185,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML
     private void exportResults() {
         if (queries == null || queries.size() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noResults"));
+            showAlert(rb.getString("error"), rb.getString("noResults"), Global.ALERT);
             return;
         }
 
@@ -198,7 +198,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
         if (!outputFile.getParentFile().canWrite()) {
-            showAlert(rb.getString("error"), rb.getString("cantWrite"));
+            showAlert(rb.getString("error"), rb.getString("cantWrite"), Global.ERROR);
             return;
         }
         Prefs.put("output_path", outputFile.getParentFile().toString());
@@ -219,13 +219,13 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 newContent.add((savePrevResultsChb.isSelected() ? query.getFullRowText() : query.getText())
                                 + Global.getCsvDelim() + query.getRealPos());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            showAlert(rb.getString("saved"), rb.getString("fileSaved"));
+            showAlert(rb.getString("saved"), rb.getString("fileSaved"), Global.ACCEPT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            showAlert(rb.getString("error"), rb.getString("alreadyUsing"));
+            showAlert(rb.getString("error"), rb.getString("alreadyUsing"), Global.ERROR);
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(rb.getString("error"), rb.getString("fileNotSaved"));
+            showAlert(rb.getString("error"), rb.getString("fileNotSaved"), Global.ERROR);
         }
     }
 

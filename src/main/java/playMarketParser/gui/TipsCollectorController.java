@@ -135,14 +135,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
                     .forEachOrdered(s -> queries.add(s));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(rb.getString("error"), rb.getString("unableToReadFile"));
+            showAlert(rb.getString("error"), rb.getString("unableToReadFile"), Global.ERROR);
         }
     }
 
     @FXML
     private void exportResults() {
         if (tips == null || tips.size() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noResults"));
+            showAlert(rb.getString("error"), rb.getString("noResults"), Global.ALERT);
             return;
         }
 
@@ -153,7 +153,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
         if (!outputFile.getParentFile().canWrite()) {
-            showAlert(rb.getString("error"), rb.getString("cantWrite"));
+            showAlert(rb.getString("error"), rb.getString("cantWrite"), Global.ERROR);
             return;
         }
 
@@ -174,20 +174,20 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
             for (Tip tip : tips)
                 newContent.add(tip.getQueryText() + Global.getCsvDelim() + tip.getText() + Global.getCsvDelim() + tip.getDepth());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            showAlert(rb.getString("saved"), rb.getString("fileSaved"));
+            showAlert(rb.getString("saved"), rb.getString("fileSaved"), Global.ACCEPT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            showAlert(rb.getString("error"), rb.getString("alreadyUsing"));
+            showAlert(rb.getString("error"), rb.getString("alreadyUsing"), Global.ERROR);
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(rb.getString("error"), rb.getString("fileNotSaved"));
+            showAlert(rb.getString("error"), rb.getString("fileNotSaved"), Global.ERROR);
         }
     }
 
     @FXML
     private void start() {
         if (queries.size() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noQueries"));
+            showAlert(rb.getString("error"), rb.getString("noQueries"), Global.ALERT);
             return;
         }
         outputTable.getItems().clear();

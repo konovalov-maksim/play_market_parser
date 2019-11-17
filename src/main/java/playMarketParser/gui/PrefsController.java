@@ -98,7 +98,7 @@ public class PrefsController implements Initializable {
         } else proxyTxt.getStyleClass().remove("field-wrong");
 
         if (!((NamedRadioButton) langTg.getSelectedToggle()).getName().equals(Prefs.getString("lang")))
-            Global.showAlert(rb.getString("restartPls"), rb.getString("restartRequired"));
+            Global.showAlert(rb.getString("restartRequired"), rb.getString("restartPls"), Global.ALERT);
 
         //Сохранение данных
         Prefs.put("lang", ((NamedRadioButton) langTg.getSelectedToggle()).getName());

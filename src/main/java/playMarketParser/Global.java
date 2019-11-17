@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,10 +44,14 @@ public class Global {
         return getUserDir();
     }
 
-    public static void showAlert(String title, String message) {
+    public final static String ERROR = "/images/icons/error.png";
+    public final static String ACCEPT = "/images/icons/accept.png";
+    public final static String ALERT = "/images/icons/alert.png";
+
+    public static void showAlert(String title, String message, String imgUri) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
-        alert.setGraphic(null);
+        alert.setGraphic(new ImageView(imgUri));
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
