@@ -239,13 +239,13 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
-        startBtn.setDisable(false);
-        pauseBtn.setDisable(true);
-        resumeBtn.setDisable(true);
-        stopBtn.setDisable(true);
+        removeItem.setDisable(true);
         savePrevResultsChb.setSelected(false);
         savePrevResultsChb.setDisable(true);
-        removeItem.setDisable(false);
+        Global.setBtnParams(startBtn, true, true);
+        Global.setBtnParams(pauseBtn, false, false);
+        Global.setBtnParams(resumeBtn, false, false);
+        Global.setBtnParams(stopBtn, true, false);
     }
 
     private void enableLoadingMode() {
@@ -255,11 +255,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
-        startBtn.setDisable(true);
-        pauseBtn.setDisable(false);
-        resumeBtn.setDisable(true);
-        stopBtn.setDisable(false);
         removeItem.setDisable(true);
+        Global.setBtnParams(startBtn, false, false);
+        Global.setBtnParams(pauseBtn, true, true);
+        Global.setBtnParams(resumeBtn, false, false);
+        Global.setBtnParams(stopBtn, true, true);
     }
 
     private void enableCompleteMode() {
@@ -269,11 +269,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
-        startBtn.setDisable(false);
-        pauseBtn.setDisable(true);
-        resumeBtn.setDisable(true);
-        stopBtn.setDisable(true);
         removeItem.setDisable(false);
+        Global.setBtnParams(startBtn, true, true);
+        Global.setBtnParams(pauseBtn, false, false);
+        Global.setBtnParams(resumeBtn, false, false);
+        Global.setBtnParams(stopBtn, true, false);
     }
 
     private void enablePauseMode() {
@@ -283,11 +283,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(false);
-        startBtn.setDisable(true);
-        pauseBtn.setDisable(true);
-        resumeBtn.setDisable(false);
-        stopBtn.setDisable(false);
         removeItem.setDisable(true);
+        Global.setBtnParams(startBtn, false, false);
+        Global.setBtnParams(pauseBtn, false, false);
+        Global.setBtnParams(resumeBtn, true, true);
+        Global.setBtnParams(stopBtn, true, true);
     }
 
     @Override

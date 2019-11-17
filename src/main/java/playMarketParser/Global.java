@@ -2,6 +2,7 @@ package playMarketParser;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 import java.io.File;
@@ -62,5 +63,11 @@ public class Global {
             consoleTa.positionCaret(consoleTa.getLength());
         });
 
+    }
+
+    public static void setBtnParams(Button button, boolean isVisible, boolean isEnabled){
+        button.setVisible(isVisible);
+        button.setManaged(isVisible);
+        button.setDisable(!isEnabled);
     }
 }

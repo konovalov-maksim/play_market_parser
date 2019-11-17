@@ -8,8 +8,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="800" prefHeight="600.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="playMarketParser.gui.MainController">
     <SplitPane orientation="VERTICAL" dividerPositions="0.8" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
@@ -27,5 +27,6 @@
             </padding>
         </TextArea>
     </SplitPane>
-    <Button styleClass="settings-button" prefWidth="35" prefHeight="35" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#openPrefs"/>
+    <Button styleClass="settings-button" fx:id="settingsBtn" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0"
+            onAction="#openPrefs"/>
 </AnchorPane>

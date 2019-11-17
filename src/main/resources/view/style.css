@@ -1,3 +1,11 @@
+.root {
+    -tab-body: linear-gradient(
+        to bottom,
+        derive(-fx-color,40%) 0%,
+        derive(-fx-color, -10%) 100%
+    );
+}
+
 .field-wrong {
     -fx-border-color: #ff5050;
     -fx-border-width: 2;
@@ -18,14 +26,15 @@
     -fx-background-color: transparent;
     -fx-background-image: url("/images/icons/help.png");
     -fx-background-size: 16px 16px;
+    /*-fx-padding: 2 0 0 0;*/
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 .settings-button {
-/*     -fx-background-color: transparent;*/
-     -fx-background-image: url("/images/icons/settings.png");
-     -fx-background-size: 32px 32px;
+     -fx-min-width: 40;
+     -fx-min-height: 20;
+     -fx-background-size: 20px 20px;
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
 }
@@ -48,4 +57,82 @@
 
 .spaced-box {
     -fx-spacing: 5px;
+}
+
+#rootPane {
+    -fx-padding: 10px;
+}
+
+.image-btns-bar {
+    -fx-spacing: 0px;
+    -fx-padding: 0px;
+}
+
+.image-btns-bar VBox {
+    -fx-spacing: 0px;
+    -fx-alignment: top-left;
+}
+
+.image-btns-bar Button {
+    -fx-alignment: bottom-center;
+    -fx-min-height: 50px;
+
+    -fx-background-size: 24px 24px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50% 5px;
+
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.control-btn {
+    -fx-min-width: 60px;
+    -fx-max-width: 60px;
+}
+
+.image-btns-bar Button:hover {
+    -fx-background-color: #dfdfdf;
+}
+
+.v-separator {
+    -fx-padding: 0 5 0 5;
+}
+
+.h-separator {
+    -fx-padding: 0 0 0 0;
+}
+
+.image-btns-bar CheckBox {
+       -fx-alignment: top-left;
+}
+
+#settingsBtn {-fx-background-image: url("/images/icons/settings.png")}
+#addQueriesBtn {-fx-background-image: url("/images/icons/add.png")}
+#importQueriesBtn {-fx-background-image: url("/images/icons/folder_with_contents.png")}
+#clearBtn {-fx-background-image: url("/images/icons/delete.png")}
+#exportBtn {-fx-background-image: url("/images/icons/export_to_file.png")}
+#startBtn {-fx-background-image: url("/images/icons/play.png")}
+#resumeBtn {-fx-background-image: url("/images/icons/play.png")}
+#pauseBtn {-fx-background-image: url("/images/icons/pause.png")}
+#stopBtn {-fx-background-image: url("/images/icons/stop.png")}
+
+.marked-bg {
+    -fx-background-color: red;
+}
+
+ProgressBar {
+    -fx-min-height: 20;
+    -fx-max-width: Infinity;
+}
+
+.table-title {
+    -fx-padding: 4 4 0 4;
+    -fx-min-height: 24;
+    -fx-background-color: #cccccc, -tab-body;
+    -fx-background-insets: 0, 1 1 0 1;
+    -fx-background-radius: 3 3 0 0;
+}
+
+.collapsed {
+    visibility: collapse;
 }

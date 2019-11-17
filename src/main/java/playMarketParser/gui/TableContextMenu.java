@@ -17,7 +17,7 @@ class TableContextMenu extends ContextMenu {
         int IMG_SIZE = 20;
 
         MenuItem copyItem = new MenuItem(rb.getString("copy"));
-        ImageView copyIcon = new ImageView("/images/icons/file copy.png");
+        ImageView copyIcon = new ImageView("/images/icons/file_copy.png");
         copyIcon.setFitHeight(IMG_SIZE);
         copyIcon.setFitWidth(IMG_SIZE);
         copyItem.setGraphic(copyIcon);
