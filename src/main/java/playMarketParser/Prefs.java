@@ -29,10 +29,20 @@ public class Prefs {
         defaults.put("tips_lang", "en");
         defaults.put("tips_country", "-");
         defaults.put("alphabet", "auto");
+
+        defaults.put("is_window_maximized", false);
+        defaults.put("window_x", -1d);
+        defaults.put("window_y", -1d);
+        defaults.put("window_width", 900d);
+        defaults.put("window_height", 600d);
     }
 
     public static int getInt(String propName) {
         return preferences.getInt(propName, (int) defaults.get(propName));
+    }
+
+    public static double getDouble(String propName) {
+        return preferences.getDouble(propName, (double) defaults.get(propName));
     }
 
     public static String getString(String propName) {
@@ -48,6 +58,10 @@ public class Prefs {
     }
 
     public static void put(String propName, int value) {
+        preferences.put(propName, String.valueOf(value));
+    }
+
+    public static void put(String propName, double value) {
         preferences.put(propName, String.valueOf(value));
     }
 
