@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import playMarketParser.Global;
 
@@ -31,6 +32,7 @@ public class MainController implements Initializable {
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setTitle(rb.getString("prefs"));
+            stage.getIcons().add(new Image("/images/app_icon.png"));
             stage.setScene(new Scene(root));
             stage.getScene().getStylesheets().add("/view/style.css");
             stage.show();

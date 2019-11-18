@@ -154,13 +154,15 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
         enableLoadingMode();
         Global.log(rb.getString("posStarted") + "\n" +
-                String.format("%-25s%s%n", rb.getString("appUrl"), appUrlTf.getText()) +
-                String.format("%-25s%s%n", rb.getString("threadsCount"), Prefs.getInt("pos_threads_cnt")) +
-                String.format("%-25s%s%n", rb.getString("checksCount"), Prefs.getInt("pos_checks_cnt")) +
-                String.format("%-25s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
-                String.format("%-25s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
-                String.format("%-25s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
-                String.format("%-25s%s%n", rb.getString("userAgent"), Prefs.getString("user_agent"))
+                String.format("%-30s%s%n", rb.getString("appUrl"), appUrlTf.getText()) +
+                String.format("%-30s%s%n", rb.getString("threadsCount"), Prefs.getInt("pos_threads_cnt")) +
+                String.format("%-30s%s%n", rb.getString("checksCount"), Prefs.getInt("pos_checks_cnt")) +
+                String.format("%-30s%s%n", rb.getString("posColLang"), Prefs.getString("pos_lang")) +
+                String.format("%-30s%s%n", rb.getString("posColCountry"), Prefs.getString("pos_country")) +
+                String.format("%-30s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
+                String.format("%-30s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
+                String.format("%-30s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
+                String.format("%-30s%s%n", rb.getString("userAgent"), Prefs.getString("user_agent"))
         );
         posChecker.start();
     }

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import playMarketParser.Global;
@@ -22,6 +23,7 @@ public class Main extends Application {
         Parent root = loader.load();
         root.getStylesheets().add("/view/style.css");
         stage.setTitle(rb.getString("appName"));
+        stage.getIcons().add(new Image("/images/app_icon.png"));
         stage.setScene(new Scene(root));
         stage.show();
 

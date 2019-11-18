@@ -200,12 +200,15 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         if (!Prefs.getString("tips_country").equals("-")) tipsCollector.setCountry(Prefs.getString("tips_country"));
         enableLoadingMode();
         Global.log(rb.getString("tipsStarted") + "\n" +
-                String.format("%-25s%s%n", rb.getString("threadsCount"), Prefs.getInt("tips_threads_cnt")) +
-                String.format("%-25s%s%n", rb.getString("tipsParsingDepth"), Prefs.getInt("tips_parsing_depth")) +
-                String.format("%-25s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
-                String.format("%-25s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
-                String.format("%-25s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
-                String.format("%-25s%s%n", rb.getString("userAgent"), Prefs.getString("user_agent"))
+                String.format("%-30s%s%n", rb.getString("threadsCount"), Prefs.getInt("tips_threads_cnt")) +
+                String.format("%-30s%s%n", rb.getString("tipsParsingDepth"), Prefs.getInt("tips_parsing_depth")) +
+                String.format("%-30s%s%n", rb.getString("tipsColLang"), Prefs.getString("tips_lang")) +
+                String.format("%-30s%s%n", rb.getString("tipsColCountry"), Prefs.getString("tips_country")) +
+                String.format("%-30s%s%n", rb.getString("alphaType"), Prefs.getString("alphabet")) +
+                String.format("%-30s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
+                String.format("%-30s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
+                String.format("%-30s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
+                String.format("%-30s%s%n", rb.getString("userAgent"), Prefs.getString("user_agent"))
         );
         tipsCollector.start();
     }
