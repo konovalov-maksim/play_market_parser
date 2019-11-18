@@ -17,7 +17,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    Stage stage;
+    private Stage stage;
 
     public void start(Stage stage) throws Exception {
         ResourceBundle rb = Global.getBundle();
