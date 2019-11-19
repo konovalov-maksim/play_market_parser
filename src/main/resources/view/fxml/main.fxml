@@ -15,10 +15,10 @@
                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
         <TabPane tabClosingPolicy="UNAVAILABLE" minHeight="250.0">
             <Tab text="%posChecking">
-                <fx:include source="posChecker.fxml"/>
+                <fx:include source="posChecker.fxml" fx:id="posChecker"/>
             </Tab>
             <Tab text="%tipsCollecting">
-                <fx:include source="tipsCollector.fxml"/>
+                <fx:include source="tipsCollector.fxml" fx:id="tipsCollector"/>
             </Tab>
         </TabPane>
         <TextArea minHeight="50.0" editable="false" fx:id="consoleTa" styleClass="console">

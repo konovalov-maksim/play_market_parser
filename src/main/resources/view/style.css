@@ -6,6 +6,16 @@
     );
 }
 
+.tooltip {
+    -fx-text-fill: #555555;
+    -fx-background-color: rgba(255,255,255,0.8);
+    -fx-background-radius: 6px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+    -fx-font-size: 0.9em;
+}
+
 .progress-bar {
     -fx-min-height: 20;
     -fx-max-width: Infinity;
@@ -22,6 +32,7 @@
 
 .table-row-cell {
     -fx-cell-size: 20;
+    -fx-font-size: 0.9em;
 }
 
 #rootPane {
@@ -74,6 +85,10 @@
     -fx-spacing: 5;
 }
 
+.btns-bar {
+    -fx-min-height: 70;
+}
+
 .image-btns-bar {
     -fx-spacing: 0;
     -fx-padding: 0;
@@ -87,7 +102,8 @@
 .image-btns-bar Button {
     -fx-alignment: bottom-center;
     -fx-min-height: 50;
-    -fx-max-width: Infinity;
+    -fx-max-width: 70;
+    -fx-min-width: 70;
 
     -fx-background-size: 24 24;
     -fx-background-repeat: no-repeat;
@@ -139,8 +155,4 @@
     -fx-background-insets: 0, 1 1 0 1;
     -fx-background-radius: 3 3 0 0;
     -fx-spacing: 10;
-}
-
-.collapsed {
-    visibility: collapse;
 }

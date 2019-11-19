@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.positionsChecker.PosChecker;
@@ -48,6 +49,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private TableColumn<Query, String> realPosCol;
     @FXML private VBox rootPane;
 
+    private Stage stage;
+
     private MenuItem removeItem;
     private PosChecker posChecker;
     private ResourceBundle rb;
@@ -76,10 +79,25 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         TableContextMenu tableContextMenu = new TableContextMenu(table);
         removeItem = tableContextMenu.getRemoveItem();
 
-        //Labels
+        //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+        titleFirstChb.visibleProperty().bind(Bindings.or(importQueriesBtn.hoverProperty(), titleFirstChb.hoverProperty()));
+        savePrevResultsChb.visibleProperty().bind(Bindings.and(
+                Bindings.not(savePrevResultsChb.disabledProperty()),
+                Bindings.or(exportBtn.hoverProperty(), savePrevResultsChb.hoverProperty())
+        ));
+
+        //Подсказки кнопок
+        addQueriesBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
+        importQueriesBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
+        exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
 
         enableReadyMode();
+    }
+
+    void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -117,9 +135,9 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 titleRow = lines.get(0);
                 lines.remove(0);
             }
-            boolean manyColumns = lines.size() > 0 && lines.get(0).contains(Global.getCsvDelim());
-            savePrevResultsChb.setSelected(manyColumns);
-            savePrevResultsChb.setDisable(!manyColumns);
+            boolean multiplyColumns = lines.size() > 0 && lines.get(0).contains(Global.getCsvDelim());
+            savePrevResultsChb.setSelected(multiplyColumns);
+            savePrevResultsChb.setDisable(!multiplyColumns);
             lines.stream().distinct().map(Query::new).forEachOrdered(q -> queries.add(q));
         } catch (Exception e) {
             e.printStackTrace();

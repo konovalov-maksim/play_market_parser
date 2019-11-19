@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.tipsCollector.Tip;
@@ -70,6 +71,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML
     private VBox rootPane;
 
+    private Stage stage;
+
     private MenuItem removeItem;
     private ResourceBundle rb;
     private TipsCollector tipsCollector;
@@ -102,9 +105,21 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         TableContextMenu outputTableContextMenu = new TableContextMenu(outputTable);
         outputTableContextMenu.getRemoveItem().setVisible(false);
 
+        //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+        titleFirstChb.visibleProperty().bind(Bindings.or(importQueriesBtn.hoverProperty(), titleFirstChb.hoverProperty()));
+
+        //Подсказки кнопок
+        addQueriesBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
+        importQueriesBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
+        exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
 
         enableReadyMode();
+    }
+
+    void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML

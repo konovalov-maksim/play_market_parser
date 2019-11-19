@@ -15,21 +15,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.TipsCollectorController" fx:id="rootPane" spacing="10">
-    <HBox styleClass="image-btns-bar">
-        <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%addQueries"/>
-        <VBox>
-            <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%importQueries"/>
-            <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst"/>
-        </VBox>
-        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
-        <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%exportResults"/>
-        <Separator orientation="VERTICAL" styleClass="v-separator"/>
-        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" text="%start" styleClass="control-btn"/>
-        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" text="%resume" styleClass="control-btn"/>
-        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" text="%pause" styleClass="control-btn"/>
-        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" text="%stop" styleClass="control-btn"/>
-    </HBox>
-    <Separator styleClass="h-separator"/>
+    <AnchorPane styleClass="btns-bar">
+        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" AnchorPane.topAnchor="50"
+                  AnchorPane.leftAnchor="70"/>
+        <HBox styleClass="image-btns-bar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
+            <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
+            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
+            <Separator orientation="VERTICAL" styleClass="v-separator"/>
+            <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
+            <Separator orientation="VERTICAL" styleClass="v-separator"/>
+            <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" text="%start" styleClass="control-btn"/>
+            <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" text="%resume"
+                    styleClass="control-btn"/>
+            <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" text="%pause" styleClass="control-btn"/>
+            <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" text="%stop" styleClass="control-btn"/>
+        </HBox>
+        <Separator styleClass="h-separator" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                   AnchorPane.bottomAnchor="0"/>
+    </AnchorPane>
     <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
         <AnchorPane>
             <HBox styleClass="table-title">
