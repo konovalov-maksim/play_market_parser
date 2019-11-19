@@ -109,11 +109,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
         titleFirstChb.visibleProperty().bind(Bindings.or(importQueriesBtn.hoverProperty(), titleFirstChb.hoverProperty()));
 
-        //Подсказки кнопок
+        //Подсказки кнопок и чекбоксов
         addQueriesBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importQueriesBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
+        titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
+
 
         enableReadyMode();
     }

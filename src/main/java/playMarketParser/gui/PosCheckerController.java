@@ -87,11 +87,13 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 Bindings.or(exportBtn.hoverProperty(), savePrevResultsChb.hoverProperty())
         ));
 
-        //Подсказки кнопок
+        //Подсказки кнопок и чекбоксов
         addQueriesBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importQueriesBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
+        titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
+        savePrevResultsChb.setTooltip(new Tooltip(rb.getString("savePrevResultsTip")));
 
         enableReadyMode();
     }
@@ -239,7 +241,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 newContent.add((savePrevResultsChb.isSelected() ? query.getFullRowText() : query.getText())
                                 + Global.getCsvDelim() + query.getRealPos());
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            showAlert(rb.getString("saved"), rb.getString("fileSaved"), Global.ACCEPT);
+            showAlert(rb.getString("saved"), rb.getString("fileSaved") + "\n\n" + rb.getString("posExportTip"), Global.ACCEPT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("alreadyUsing"), Global.ERROR);
