@@ -58,10 +58,10 @@
                 </HBox>
                 <Spinner fx:id="posChecksCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="%posColLang" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                 <ComboBox fx:id="posLangCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
 
-                <Label text="%posColCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                <Label text="%parsingCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
                 <ComboBox fx:id="posCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
 
             </GridPane>
@@ -87,10 +87,10 @@
                 </HBox>
                 <Spinner fx:id="tipsParsingDepthSpin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="%tipsColLang" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="2" />
                 <ComboBox fx:id="tipsLangCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
 
-                <Label text="%tipsColCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                <Label text="%parsingCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
                 <ComboBox fx:id="tipsCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
 
                 <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">

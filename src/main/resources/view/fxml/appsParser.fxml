@@ -19,9 +19,9 @@
         <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" AnchorPane.topAnchor="50"
                   AnchorPane.leftAnchor="70"/>
         <HBox styleClass="image-btns-bar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-            <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
-            <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
-            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
+            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addApps" text="%add"/>
+            <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importApps" text="%import"/>
+            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearApps" text="%clear"/>
             <Separator orientation="VERTICAL" styleClass="v-separator"/>
             <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
             <Separator orientation="VERTICAL" styleClass="v-separator"/>
@@ -34,19 +34,16 @@
         <Separator styleClass="h-separator" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                    AnchorPane.bottomAnchor="0"/>
     </AnchorPane>
-    <HBox spacing="10.0" style="-fx-alignment: center-left;">
-        <Label minWidth="-Infinity" text="%appUrl"/>
-        <TextField fx:id="appUrlTf" minWidth="500"
-                   promptText="https://play.google.com/store/apps/details?id=app.package.name"/>
-        <StackPane HBox.hgrow="ALWAYS">
-            <ProgressBar fx:id="progBar" progress="0.0"/>
-            <Label fx:id="progLbl" text="0.0%"/>
-        </StackPane>
-    </HBox>
     <AnchorPane>
-        <HBox styleClass="table-title">
-            <Label text="%queriesQuantity"/>
-            <Label fx:id="queriesCntLbl" minWidth="10"/>
+        <HBox spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <HBox styleClass="table-title">
+                <Label text="%inputUrls"/>
+                <Label fx:id="appsCntLbl" minWidth="10"/>
+            </HBox>
+            <StackPane HBox.hgrow="ALWAYS">
+                <ProgressBar fx:id="progBar" progress="0.0"/>
+                <Label fx:id="progLbl" text="0.0%"/>
+            </StackPane>
         </HBox>
         <TableView fx:id="table" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
@@ -54,9 +51,31 @@
                 <Label text="%noQueries"/>
             </placeholder>
             <columns>
-                <TableColumn fx:id="queryCol" text="%inputQuery"/>
-                <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
-                <TableColumn fx:id="realPosCol" text="%finalPos"/>
+                <TableColumn fx:id="idCol" text="%id"/>
+                <TableColumn fx:id="nameCol" text="%name"/>
+                <TableColumn fx:id="installsCountCol" text="%installsCount"/>
+                <TableColumn fx:id="ratesCountCol" text="%ratesCount"/>
+                <TableColumn fx:id="avgRateCol" text="%avgRate"/>
+                <TableColumn fx:id="categoryCol" text="%category"/>
+                <TableColumn fx:id="lastUpdateCol" text="%lastUpdate"/>
+                <TableColumn fx:id="sizeMbCol" text="%sizeMb"/>
+                <TableColumn fx:id="containsAdsCol" text="%containsAds"/>
+                <TableColumn fx:id="offersPurchasesCol" text="%offersPurchases"/>
+                <TableColumn fx:id="contentCostCol" text="%contentCost"/>
+                <TableColumn fx:id="minAgeCol" text="%minAge"/>
+                <TableColumn fx:id="devIdCol" text="%devId"/>
+                <TableColumn fx:id="devNameCol" text="%devName"/>
+                <TableColumn fx:id="devWebSiteCol" text="%devWebSite"/>
+                <TableColumn fx:id="devEmailCol" text="%devEmail"/>
+                <TableColumn fx:id="sellerCol" text="%seller"/>
+                <TableColumn fx:id="descriptionCol" text="%description"/>
+                <TableColumn fx:id="verCol" text="%ver"/>
+                <TableColumn fx:id="whatsNewCol" text="%whatsNew"/>
+                <TableColumn fx:id="minSdkVerCol" text="%minSdkVer"/>
+                <TableColumn fx:id="simApp1Col" text="%simApp1"/>
+                <TableColumn fx:id="simApp2Col" text="%simApp2"/>
+                <TableColumn fx:id="simApp3Col" text="%simApp3"/>
+                <TableColumn fx:id="simApp4Col" text="%simApp4"/>
             </columns>
         </TableView>
     </AnchorPane>

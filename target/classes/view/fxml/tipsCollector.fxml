@@ -19,8 +19,8 @@
         <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" AnchorPane.topAnchor="50"
                   AnchorPane.leftAnchor="70"/>
         <HBox styleClass="image-btns-bar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-            <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
-            <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
+            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
+            <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
             <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
             <Separator orientation="VERTICAL" styleClass="v-separator"/>
             <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>

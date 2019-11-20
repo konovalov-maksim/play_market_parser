@@ -31,9 +31,9 @@ import static playMarketParser.Global.showAlert;
 public class TipsCollectorController implements Initializable, TipsCollector.TipsLoadingListener {
 
     @FXML
-    private Button addQueriesBtn;
+    private Button addBtn;
     @FXML
-    private Button importQueriesBtn;
+    private Button importBtn;
     @FXML
     private Button clearBtn;
     @FXML
@@ -107,11 +107,11 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
         //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
-        titleFirstChb.visibleProperty().bind(Bindings.or(importQueriesBtn.hoverProperty(), titleFirstChb.hoverProperty()));
+        titleFirstChb.visibleProperty().bind(Bindings.or(importBtn.hoverProperty(), titleFirstChb.hoverProperty()));
 
         //Подсказки кнопок и чекбоксов
-        addQueriesBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
-        importQueriesBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
+        addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
+        importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
@@ -219,8 +219,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         Global.log(rb.getString("tipsStarted") + "\n" +
                 String.format("%-30s%s%n", rb.getString("threadsCount"), Prefs.getInt("tips_threads_cnt")) +
                 String.format("%-30s%s%n", rb.getString("tipsParsingDepth"), Prefs.getInt("tips_parsing_depth")) +
-                String.format("%-30s%s%n", rb.getString("tipsColLang"), Prefs.getString("tips_lang")) +
-                String.format("%-30s%s%n", rb.getString("tipsColCountry"), Prefs.getString("tips_country")) +
+                String.format("%-30s%s%n", rb.getString("parsingLang"), Prefs.getString("tips_lang")) +
+                String.format("%-30s%s%n", rb.getString("parsingCountry"), Prefs.getString("tips_country")) +
                 String.format("%-30s%s%n", rb.getString("alphaType"), Prefs.getString("alphabet")) +
                 String.format("%-30s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
                 String.format("%-30s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
@@ -254,8 +254,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     private void enableReadyMode() {
-        addQueriesBtn.setDisable(false);
-        importQueriesBtn.setDisable(false);
+        addBtn.setDisable(false);
+        importBtn.setDisable(false);
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
@@ -267,8 +267,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     private void enableLoadingMode() {
-        addQueriesBtn.setDisable(true);
-        importQueriesBtn.setDisable(true);
+        addBtn.setDisable(true);
+        importBtn.setDisable(true);
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
@@ -280,8 +280,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     private void enableCompleteMode() {
-        addQueriesBtn.setDisable(false);
-        importQueriesBtn.setDisable(false);
+        addBtn.setDisable(false);
+        importBtn.setDisable(false);
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
@@ -293,8 +293,8 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     }
 
     private void enablePauseMode() {
-        addQueriesBtn.setDisable(true);
-        importQueriesBtn.setDisable(true);
+        addBtn.setDisable(true);
+        importBtn.setDisable(true);
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(false);

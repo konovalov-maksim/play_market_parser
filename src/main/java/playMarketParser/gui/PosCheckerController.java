@@ -29,8 +29,8 @@ import static playMarketParser.Global.showAlert;
 
 public class PosCheckerController implements Initializable, PosChecker.PosCheckListener {
 
-    @FXML private Button addQueriesBtn;
-    @FXML private Button importQueriesBtn;
+    @FXML private Button addBtn;
+    @FXML private Button importBtn;
     @FXML private Button startBtn;
     @FXML private Button exportBtn;
     @FXML private Button clearBtn;
@@ -81,15 +81,15 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
         //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
-        titleFirstChb.visibleProperty().bind(Bindings.or(importQueriesBtn.hoverProperty(), titleFirstChb.hoverProperty()));
+        titleFirstChb.visibleProperty().bind(Bindings.or(importBtn.hoverProperty(), titleFirstChb.hoverProperty()));
         savePrevResultsChb.visibleProperty().bind(Bindings.and(
                 Bindings.not(savePrevResultsChb.disabledProperty()),
                 Bindings.or(exportBtn.hoverProperty(), savePrevResultsChb.hoverProperty())
         ));
 
         //Подсказки кнопок и чекбоксов
-        addQueriesBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
-        importQueriesBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
+        addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
+        importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
@@ -177,8 +177,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
                 String.format("%-30s%s%n", rb.getString("appUrl"), appUrlTf.getText()) +
                 String.format("%-30s%s%n", rb.getString("threadsCount"), Prefs.getInt("pos_threads_cnt")) +
                 String.format("%-30s%s%n", rb.getString("checksCount"), Prefs.getInt("pos_checks_cnt")) +
-                String.format("%-30s%s%n", rb.getString("posColLang"), Prefs.getString("pos_lang")) +
-                String.format("%-30s%s%n", rb.getString("posColCountry"), Prefs.getString("pos_country")) +
+                String.format("%-30s%s%n", rb.getString("parsingLang"), Prefs.getString("pos_lang")) +
+                String.format("%-30s%s%n", rb.getString("parsingCountry"), Prefs.getString("pos_country")) +
                 String.format("%-30s%s%n", rb.getString("acceptLang"), Prefs.getString("accept_language")) +
                 String.format("%-30s%s%n", rb.getString("timeout"), Prefs.getInt("timeout")) +
                 String.format("%-30s%s%n", rb.getString("proxy"), Prefs.getString("proxy")) +
@@ -259,12 +259,12 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     private void enableReadyMode() {
         appUrlTf.setEditable(true);
-        addQueriesBtn.setDisable(false);
-        importQueriesBtn.setDisable(false);
+        addBtn.setDisable(false);
+        importBtn.setDisable(false);
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
-        removeItem.setDisable(true);
+        removeItem.setDisable(false);
         savePrevResultsChb.setSelected(false);
         savePrevResultsChb.setDisable(true);
         Global.setBtnParams(startBtn, true, true);
@@ -275,8 +275,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     private void enableLoadingMode() {
         appUrlTf.setEditable(false);
-        addQueriesBtn.setDisable(true);
-        importQueriesBtn.setDisable(true);
+        addBtn.setDisable(true);
+        importBtn.setDisable(true);
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
@@ -289,8 +289,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     private void enableCompleteMode() {
         appUrlTf.setEditable(true);
-        addQueriesBtn.setDisable(false);
-        importQueriesBtn.setDisable(false);
+        addBtn.setDisable(false);
+        importBtn.setDisable(false);
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
@@ -303,8 +303,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     private void enablePauseMode() {
         appUrlTf.setEditable(false);
-        addQueriesBtn.setDisable(true);
-        importQueriesBtn.setDisable(true);
+        addBtn.setDisable(true);
+        importBtn.setDisable(true);
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(false);

@@ -135,8 +135,8 @@
 }
 
 #settingsBtn {-fx-background-image: url("/images/icons/settings.png")}
-#addQueriesBtn {-fx-background-image: url("/images/icons/add.png")}
-#importQueriesBtn {-fx-background-image: url("/images/icons/folder_with_contents.png")}
+#addBtn {-fx-background-image: url("/images/icons/add.png")}
+#importBtn {-fx-background-image: url("/images/icons/folder_with_contents.png")}
 #clearBtn {-fx-background-image: url("/images/icons/delete.png")}
 #exportBtn {-fx-background-image: url("/images/icons/export_to_file.png")}
 #startBtn {-fx-background-image: url("/images/icons/play.png")}

@@ -1,7 +1,9 @@
 package playMarketParser;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class App {
 
@@ -43,7 +45,7 @@ public class App {
 
     private String minSdkVer;
 
-    private List<String> similarApps;
+    private List<String> similarApps = new ArrayList<>();
 
     private Boolean containsAds;
 
@@ -61,17 +63,37 @@ public class App {
         this.id = id;
     }
 
+    public void reset() {
+        this.name = null;
+        this.devId = null;
+        this.devName = null;
+        this.devWebSite = null;
+        this.devEmail = null;
+        this.installsCount = null;
+        this.ratesCount = null;
+        this.avgRate = null;
+        this.minAge = null;
+        this.sizeMb = null;
+        this.category = null;
+        this.whatsNew = null;
+        this.lastUpdate = null;
+        this.seller = null;
+        this.version = null;
+        this.minSdkVer = null;
+        this.similarApps = null;
+        this.containsAds = null;
+        this.offersPurchases = null;
+        this.contentCost = null;
+        this.description = null;
+    }
+
     public String getUrl() {
         return "https://play.google.com/store/apps/details?id=" + id;
     }
 
     public void setUrl(String url) {
-        try {
-            id = url.split("=")[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-            id = url;
-        }
+        if (url.split("=").length == 2) id = url.split("=")[1];
+        else id = url;
     }
 
     public String getName() {
@@ -210,16 +232,18 @@ public class App {
         this.similarApps = similarApps;
     }
 
-    public Boolean getContainsAds() {
-        return containsAds;
+    public Integer getContainsAds() {
+        if (containsAds == null) return null;
+        return containsAds ? 1 : 0;
     }
 
     public void setContainsAds(Boolean containsAds) {
         this.containsAds = containsAds;
     }
 
-    public Boolean getOffersPurchases() {
-        return offersPurchases;
+    public Integer getOffersPurchases() {
+        if (offersPurchases == null) return null;
+        return offersPurchases ? 1 : 0;
     }
 
     public void setOffersPurchases(Boolean offersPurchases) {
@@ -240,5 +264,34 @@ public class App {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSimApp1() {
+        return similarApps != null && similarApps.size() > 0 ? similarApps.get(0) : null;
+    }
+
+    public String getSimApp2() {
+        return similarApps != null && similarApps.size() > 1 ? similarApps.get(1) : null;
+    }
+
+    public String getSimApp3() {
+        return similarApps != null && similarApps.size() > 2 ? similarApps.get(2) : null;
+    }
+
+    public String getSimApp4() {
+        return similarApps != null && similarApps.size() > 3 ? similarApps.get(3) : null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        App app = (App) o;
+        return Objects.equals(id, app.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

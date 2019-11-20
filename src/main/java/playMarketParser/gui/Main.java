@@ -47,9 +47,11 @@ public class Main extends Application {
     public void stop() throws Exception {
         super.stop();
         Prefs.put("is_window_maximized", stage.isMaximized());
-        Prefs.put("window_width", stage.getWidth());
-        Prefs.put("window_height", stage.getHeight());
-        Prefs.put("window_x", stage.getX());
-        Prefs.put("window_y", stage.getY());
+        if (!stage.isMaximized()) {
+            Prefs.put("window_width", stage.getWidth());
+            Prefs.put("window_height", stage.getHeight());
+            Prefs.put("window_x", stage.getX());
+            Prefs.put("window_y", stage.getY());
+        }
     }
 }
