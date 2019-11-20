@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import org.controlsfx.control.CheckComboBox?>
 <VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.AppsParserController">
     <AnchorPane styleClass="btns-bar">
@@ -40,6 +41,7 @@
                 <Label text="%inputUrls"/>
                 <Label fx:id="appsCntLbl" minWidth="10"/>
             </HBox>
+            <CheckComboBox fx:id="columnsCcb"/>
             <StackPane HBox.hgrow="ALWAYS">
                 <ProgressBar fx:id="progBar" progress="0.0"/>
                 <Label fx:id="progLbl" text="0.0%"/>

@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 import playMarketParser.App;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
@@ -68,6 +69,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private TableColumn<App, String> simApp3Col;
     @FXML private TableColumn<App, String> simApp4Col;
     @FXML private VBox rootPane;
+    @FXML private CheckComboBox<String> columnsCcb;
 
     private Stage stage;
 
@@ -83,6 +85,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
 
         titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
 
+        //“аблица
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         installsCountCol.setCellValueFactory(new PropertyValueFactory<>("installsCount"));
@@ -109,6 +112,12 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         simApp3Col.setCellValueFactory(new PropertyValueFactory<>("simApp2"));
         simApp4Col.setCellValueFactory(new PropertyValueFactory<>("simApp2"));
         table.setItems(apps);
+
+        //CheckComboBox дл€ управлени€ видимостью колонок таблицы
+        columnsCcb.setTitle(rb.getString("columns"));
+        for (TableColumn col : table.getColumns()) columnsCcb.getItems().add(col.getText());
+        for (TableColumn col : table.getColumns())
+            columnsCcb.getItemBooleanProperty(col.getText()).bindBidirectional(col.visibleProperty());
 
         //Context menus
         TableContextMenu tableContextMenu = new TableContextMenu(table);
