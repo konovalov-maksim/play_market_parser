@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="playMarketParser.gui.AppsParserController">
+    <AnchorPane styleClass="btns-bar">
+        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" AnchorPane.topAnchor="50"
+                  AnchorPane.leftAnchor="70"/>
+        <HBox styleClass="image-btns-bar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <Button fx:id="addQueriesBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
+            <Button fx:id="importQueriesBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
+            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
+            <Separator orientation="VERTICAL" styleClass="v-separator"/>
+            <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
+            <Separator orientation="VERTICAL" styleClass="v-separator"/>
+            <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" styleClass="control-btn" text="%start"/>
+            <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" styleClass="control-btn"
+                    text="%resume"/>
+            <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" styleClass="control-btn" text="%pause"/>
+            <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" styleClass="control-btn" text="%stop"/>
+        </HBox>
+        <Separator styleClass="h-separator" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                   AnchorPane.bottomAnchor="0"/>
+    </AnchorPane>
+    <HBox spacing="10.0" style="-fx-alignment: center-left;">
+        <Label minWidth="-Infinity" text="%appUrl"/>
+        <TextField fx:id="appUrlTf" minWidth="500"
+                   promptText="https://play.google.com/store/apps/details?id=app.package.name"/>
+        <StackPane HBox.hgrow="ALWAYS">
+            <ProgressBar fx:id="progBar" progress="0.0"/>
+            <Label fx:id="progLbl" text="0.0%"/>
+        </StackPane>
+    </HBox>
+    <AnchorPane>
+        <HBox styleClass="table-title">
+            <Label text="%queriesQuantity"/>
+            <Label fx:id="queriesCntLbl" minWidth="10"/>
+        </HBox>
+        <TableView fx:id="table" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+            <placeholder>
+                <Label text="%noQueries"/>
+            </placeholder>
+            <columns>
+                <TableColumn fx:id="queryCol" text="%inputQuery"/>
+                <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
+                <TableColumn fx:id="realPosCol" text="%finalPos"/>
+            </columns>
+        </TableView>
+    </AnchorPane>
+</VBox>

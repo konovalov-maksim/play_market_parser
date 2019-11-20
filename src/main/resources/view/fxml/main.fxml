@@ -20,6 +20,9 @@
             <Tab text="%tipsCollecting">
                 <fx:include source="tipsCollector.fxml" fx:id="tipsCollector"/>
             </Tab>
+            <Tab text="%appsParsing">
+                <fx:include source="appsParser.fxml" fx:id="appsParsing"/>
+            </Tab>
         </TabPane>
         <TextArea minHeight="50.0" editable="false" fx:id="consoleTa" styleClass="console">
             <padding>
