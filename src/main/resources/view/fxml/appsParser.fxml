@@ -56,15 +56,15 @@
                 <TableColumn fx:id="idCol" text="%id"/>
                 <TableColumn fx:id="urlCol" text="%url"/>
                 <TableColumn fx:id="nameCol" text="%name"/>
-                <TableColumn fx:id="installsCountCol" text="%installsCount"/>
-                <TableColumn fx:id="ratesCountCol" text="%ratesCount"/>
-                <TableColumn fx:id="avgRateCol" text="%avgRate"/>
-                <TableColumn fx:id="releaseDateCol" text="%releaseDate"/>
-                <TableColumn fx:id="lastUpdateCol" text="%lastUpdate"/>
+                <TableColumn fx:id="installsCountCol" text="%installsCount" styleClass="center-right-align"/>
+                <TableColumn fx:id="ratesCountCol" text="%ratesCount" styleClass="center-right-align"/>
+                <TableColumn fx:id="avgRateCol" text="%avgRate" styleClass="center-right-align"/>
+                <TableColumn fx:id="releaseDateCol" text="%releaseDate" styleClass="center-right-align"/>
+                <TableColumn fx:id="lastUpdateCol" text="%lastUpdate" styleClass="center-right-align"/>
                 <TableColumn fx:id="categoryCol" text="%category"/>
                 <TableColumn fx:id="sizeMbCol" text="%sizeMb"/>
-                <TableColumn fx:id="containsAdsCol" text="%containsAds"/>
-                <TableColumn fx:id="offersPurchasesCol" text="%offersPurchases"/>
+                <TableColumn fx:id="containsAdsCol" text="%containsAds" styleClass="center-right-align"/>
+                <TableColumn fx:id="offersPurchasesCol" text="%offersPurchases" styleClass="center-right-align"/>
                 <TableColumn fx:id="contentCostCol" text="%contentCost"/>
                 <TableColumn fx:id="minAgeCol" text="%minAge"/>
                 <TableColumn fx:id="devUrlCol" text="%devUrl"/>

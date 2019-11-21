@@ -168,7 +168,7 @@ class AppLoader extends Thread {
         }
         //last update, size, sdk version, app version
         try {
-            Elements elements = doc.select("c-wiz[jsrenderer=HEOg8] span.htlgb");
+            Elements elements = doc.select("c-wiz[jsrenderer=HEOg8] div.IQ1z0d > span.htlgb");
             app.setLastUpdate(elements.get(0).text());
             app.setSizeMb(elements.get(1).text());
             app.setVersion(elements.get(3).text());
@@ -178,7 +178,8 @@ class AppLoader extends Thread {
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
         }
 
-        //devName, devUrl
+        //!Дублирование JSON!
+        // devName, devUrl
         if (app.getDevName() == null || app.getDevUrl() == null)
             try {
                 Element devLink = doc.select("a[href^=/store/apps/dev].hrTbp.R8zArc").first();

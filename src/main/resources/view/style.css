@@ -156,3 +156,7 @@
     -fx-background-radius: 3 3 0 0;
     -fx-spacing: 10;
 }
+
+.center-right-align {
+    -fx-alignment: CENTER-RIGHT;
+}
