@@ -110,6 +110,26 @@
                 </VBox>
             </GridPane>
         </TitledPane>
+        <TitledPane collapsible="false" text="%appsParsing">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Spinner fx:id="appsThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+
+                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="appsLangCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+
+                <Label text="%parsingCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                <ComboBox fx:id="appsCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+            </GridPane>
+        </TitledPane>
         <TitledPane collapsible="false" text="%general">
             <GridPane styleClass="spaced-grid-pane">
                 <columnConstraints>

@@ -1,7 +1,6 @@
 package playMarketParser;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +28,7 @@ public class App {
 
     private Double avgRate;
 
-    private Integer minAge;
+    private String minAge;
 
     private String sizeMb;
 
@@ -160,11 +159,11 @@ public class App {
         this.avgRate = avgRate;
     }
 
-    public Integer getMinAge() {
+    public String getMinAge() {
         return minAge;
     }
 
-    public void setMinAge(Integer minAge) {
+    public void setMinAge(String minAge) {
         this.minAge = minAge;
     }
 

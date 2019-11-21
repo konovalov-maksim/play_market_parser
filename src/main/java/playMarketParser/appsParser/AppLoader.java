@@ -56,7 +56,6 @@ class AppLoader extends Thread {
             return;
         }
         String jsonData = matcher.group(1);
-        //TODO devWebSite, installsCount, minAge, size, lastUpdate, seller, version, minSdk,
         JsonArray data;
         try {
             JsonArray fullData = (JsonArray) Jsoner.deserialize(jsonData);
@@ -68,8 +67,7 @@ class AppLoader extends Thread {
         }
         //Мин. возраст
         try {
-            String minAge = ((JsonArray) data.getCollection(4)).getString(0);
-            app.setMinAge(Integer.parseInt(minAge.replaceAll("[\\D]", "")));
+            app.setMinAge(((JsonArray) data.getCollection(4)).getString(0));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить минимальный возраст");

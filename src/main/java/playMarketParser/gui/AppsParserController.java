@@ -56,7 +56,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private TableColumn<App, Integer> containsAdsCol;
     @FXML private TableColumn<App, Integer> offersPurchasesCol;
     @FXML private TableColumn<App, String> contentCostCol;
-    @FXML private TableColumn<App, Integer> minAgeCol;
+    @FXML private TableColumn<App, String> minAgeCol;
     @FXML private TableColumn<App, String> devUrlCol;
     @FXML private TableColumn<App, String> devNameCol;
     @FXML private TableColumn<App, String> devWebSiteCol;
@@ -195,8 +195,6 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         appsParser.setMaxThreadsCount(Prefs.getInt("apps_threads_cnt"));
         if (!Prefs.getString("apps_lang").equals("-")) appsParser.setLanguage(Prefs.getString("apps_lang"));
         if (!Prefs.getString("apps_country").equals("-")) appsParser.setCountry(Prefs.getString("apps_country"));
-//        appsParser.setLanguage("en");
-//        appsParser.setCountry("UK");
 
         progBar.setProgress(0);
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", 0f) + "%"));

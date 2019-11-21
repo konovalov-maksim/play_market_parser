@@ -22,6 +22,8 @@ public class PrefsController implements Initializable {
     @FXML private ComboBox<String> posCountryCb;
     @FXML private ComboBox<String> tipsLangCb;
     @FXML private ComboBox<String> tipsCountryCb;
+    @FXML private ComboBox<String> appsLangCb;
+    @FXML private ComboBox<String> appsCountryCb;
 
     private ToggleGroup langTg = new ToggleGroup();
     @FXML private NamedRadioButton ruRb;
@@ -41,6 +43,7 @@ public class PrefsController implements Initializable {
     @FXML private Spinner<Integer> posThreadsCntSpin;
     @FXML private Spinner<Integer> tipsThreadsCntSpin;
     @FXML private Spinner<Integer> tipsParsingDepthSpin;
+    @FXML private Spinner<Integer> appsThreadsCntSpin;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -64,11 +67,15 @@ public class PrefsController implements Initializable {
         tipsCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
         posLangCb.setItems(FXCollections.observableArrayList("-", "en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
         posCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
+        appsLangCb.setItems(FXCollections.observableArrayList("-", "en", "ru", "de", "fr", "es", "it", "be", "pl", "pt", "nl"));
+        appsCountryCb.setItems(FXCollections.observableArrayList("-", "GB", "US", "RU", "DE", "FR", "ES", "IT", "BE", "PL", "PT", "NL"));
         csvDelimCb.setValue(Prefs.getString("csv_delimiter"));
         tipsLangCb.setValue(Prefs.getString("tips_lang"));
         tipsCountryCb.setValue(Prefs.getString("tips_country"));
         posLangCb.setValue(Prefs.getString("pos_lang"));
         posCountryCb.setValue(Prefs.getString("pos_country"));
+        appsLangCb.setValue(Prefs.getString("apps_lang"));
+        appsCountryCb.setValue(Prefs.getString("apps_country"));
 
         timeoutTxt.setText(String.valueOf(Prefs.getInt("timeout")));
         proxyTxt.setText(Prefs.getString("proxy"));
@@ -80,6 +87,8 @@ public class PrefsController implements Initializable {
 
         tipsThreadsCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, Prefs.getInt("tips_threads_cnt")));
         tipsParsingDepthSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, Prefs.getInt("tips_parsing_depth")));
+
+        appsThreadsCntSpin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, Prefs.getInt("apps_threads_cnt")));
     }
 
 
@@ -109,6 +118,8 @@ public class PrefsController implements Initializable {
         Prefs.put("tips_country", tipsCountryCb.getValue());
         Prefs.put("pos_country", posCountryCb.getValue());
         Prefs.put("pos_lang", posLangCb.getValue());
+        Prefs.put("apps_country", appsCountryCb.getValue());
+        Prefs.put("apps_lang", appsLangCb.getValue());
 
         Prefs.put("timeout", Integer.parseInt(timeoutTxt.getText()));
         Prefs.put("proxy", proxyTxt.getText());
@@ -119,6 +130,7 @@ public class PrefsController implements Initializable {
         Prefs.put("pos_threads_cnt", posThreadsCntSpin.getValue());
         Prefs.put("tips_threads_cnt", tipsThreadsCntSpin.getValue());
         Prefs.put("tips_parsing_depth", tipsParsingDepthSpin.getValue());
+        Prefs.put("apps_threads_cnt", appsThreadsCntSpin.getValue());
 
         Connection.reloadPrefs();
         Global.reloadPrefs();
@@ -147,6 +159,9 @@ public class PrefsController implements Initializable {
         Prefs.remove("tips_lang");
         Prefs.remove("tips_country");
         Prefs.remove("alphabet");
+        Prefs.remove("apps_threads_cnt");
+        Prefs.remove("apps_country");
+        Prefs.remove("apps_lang");
 
         onCancelClick();
     }
