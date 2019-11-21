@@ -240,7 +240,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
-        fileChooser.setInitialFileName(rb.getString("outPositions") + " " + curDate);
+        fileChooser.setInitialFileName(rb.getString("outApps") + " " + curDate);
         fileChooser.setInitialDirectory(Global.getInitDir("output_path"));
         File outputFile = fileChooser.showSaveDialog(rootPane.getScene().getWindow());
         if (outputFile == null) return;
@@ -256,16 +256,35 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
             ps.write('\ufebb');
             ps.write('\ufebf');
 
-            //Добавляем заголовок
-//            String firstRow = rb.getString("query") + Global.getCsvDelim() + rb.getString("finalPos") + " " + curDate + "\n";
-//            Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-
+            String csvDelim = Global.getCsvDelim();
             List<String> newContent = new ArrayList<>();
-            for (App app : apps) {
-
+            //Добавляем заголовок
+            StringBuilder firstRow = new StringBuilder();
+            for (TableColumn col : table.getColumns()) {
+                if (col.isVisible())
+                firstRow.append(col.getText()).append(csvDelim);
             }
+            newContent.add(firstRow.toString());
+            //Пишем данные приложений, перебираем все строки и видимые столбцы таблицы
+            for (int r = 0; r < table.getItems().size(); r++) {
+                StringBuilder newRow = new StringBuilder();
+                for (int c = 0; c < table.getColumns().size(); c++)
+                    if (table.getColumns().get(c).isVisible()) {
+                        Object cellData = table.getColumns().get(c).getCellData(r);
+                        String cellString = cellData != null ? cellData.toString() : "";
+                        //Кодируем спец символы перед записью в CSV
+                        if (cellString.contains(csvDelim) || cellString.contains("\"")) {
+                            cellString = cellString.replaceAll("\"", "\"\"");
+                            cellString = "\"" + cellString + "\"";
+                        }
+                        newRow.append(cellString).append(csvDelim);
+                    }
+                newContent.add(newRow.toString());
+            }
+
+
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            showAlert(rb.getString("saved"), rb.getString("fileSaved") + "\n\n" + rb.getString("posExportTip"), Global.ACCEPT);
+            showAlert(rb.getString("saved"), rb.getString("fileSaved"), Global.ACCEPT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("alreadyUsing"), Global.ERROR);
