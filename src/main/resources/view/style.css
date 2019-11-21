@@ -160,3 +160,7 @@
 .center-right-align {
     -fx-alignment: CENTER-RIGHT;
 }
+
+.popover {
+    -fx-padding: 10;
+}

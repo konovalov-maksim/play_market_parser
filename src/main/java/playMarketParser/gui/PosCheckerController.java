@@ -2,6 +2,8 @@ package playMarketParser.gui;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.PopOver;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.positionsChecker.PosChecker;
@@ -37,8 +40,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private Button stopBtn;
     @FXML private Button pauseBtn;
     @FXML private Button resumeBtn;
-    @FXML private CheckBox titleFirstChb;
-    @FXML private CheckBox savePrevResultsChb;
     @FXML private TextField appUrlTf;
     @FXML private Label queriesCntLbl;
     @FXML private Label progLbl;
@@ -50,6 +51,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private VBox rootPane;
 
     private Stage stage;
+    private CheckBox titleFirstChb;
+    private CheckBox savePrevResultsChb;
 
     private MenuItem removeItem;
     private PosChecker posChecker;
@@ -64,7 +67,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         rb = Global.getBundle();
 
         appUrlTf.setText(Prefs.getString("pos_app_url"));
-        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
+
 
         //Tables
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
@@ -81,11 +84,30 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
         //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
-        titleFirstChb.visibleProperty().bind(Bindings.or(importBtn.hoverProperty(), titleFirstChb.hoverProperty()));
-        savePrevResultsChb.visibleProperty().bind(Bindings.and(
-                Bindings.not(savePrevResultsChb.disabledProperty()),
-                Bindings.or(exportBtn.hoverProperty(), savePrevResultsChb.hoverProperty())
-        ));
+//        titleFirstChb.visibleProperty().bind(Bindings.or(importBtn.hoverProperty(), titleFirstChb.hoverProperty()));
+//        savePrevResultsChb.visibleProperty().bind(Bindings.and(
+//                Bindings.not(savePrevResultsChb.disabledProperty()),
+//                Bindings.or(exportBtn.hoverProperty(), savePrevResultsChb.hoverProperty())
+//        ));
+        titleFirstChb = new CheckBox(rb.getString("titleFirst"));
+        PopOver importPopOver = new PopOver(importBtn);
+//        importPopOver.setArrowIndent(1);
+        importPopOver.setArrowSize(3);
+//        importPopOver.setHeight(10);
+        importPopOver.setContentNode(titleFirstChb);
+        importPopOver.setAutoHide(true);
+        importPopOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
+        importPopOver.setHideOnEscape(true);
+        importBtn.hoverProperty().or(titleFirstChb.hoverProperty())
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+            if (show) importPopOver.show(importBtn);
+            else importPopOver.hide();
+        });
+//        importBtn.setOnMouseEntered(mouseEvent -> importPopOver.show(importBtn));
+//        importBtn.setOnMouseExited(mouseEvent -> importPopOver.hide());
+        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
+        savePrevResultsChb = new CheckBox(rb.getString("savePrevResults"));
+
 
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
@@ -100,6 +122,14 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     void setStage(Stage stage) {
         this.stage = stage;
+/*        popOver = new PopOver(addBtn);
+        popOver.setContentNode(new CheckBox("Test"));
+
+        addBtn.setOnMouseEntered(mouseEvent -> {
+            //Show PopOver when mouse enters label
+            popOver.show(addBtn);
+        });*/
+        //popOver.show(addBtn);
     }
 
     @FXML

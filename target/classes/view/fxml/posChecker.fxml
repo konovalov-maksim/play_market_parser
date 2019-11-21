@@ -16,10 +16,10 @@
 <VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.PosCheckerController">
     <AnchorPane styleClass="btns-bar">
-        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" AnchorPane.topAnchor="50"
+<!--        <CheckBox fx:id="titleFirstChb" mnemonicParsing="false" text="%titleFirst" AnchorPane.topAnchor="50"
                   AnchorPane.leftAnchor="70"/>
         <CheckBox fx:id="savePrevResultsChb" mnemonicParsing="false" text="%savePrevResults" AnchorPane.topAnchor="50"
-                  AnchorPane.leftAnchor="226"/>
+                  AnchorPane.leftAnchor="226"/>-->
         <HBox styleClass="image-btns-bar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
             <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
             <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
