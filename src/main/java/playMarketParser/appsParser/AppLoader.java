@@ -1,11 +1,10 @@
 package playMarketParser.appsParser;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import playMarketParser.App;
 import playMarketParser.Connection;
 
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
 
 class AppLoader extends Thread {
     private App app;
-    OnAppLoadingCompleteListener onAppLoadingCompleteListener;
+    private OnAppLoadingCompleteListener onAppLoadingCompleteListener;
     private String language;
     private String country;
 
@@ -24,6 +23,10 @@ class AppLoader extends Thread {
         this.onAppLoadingCompleteListener = onAppLoadingCompleteListener;
         this.language = language;
         this.country = country;
+    }
+
+    interface OnAppLoadingCompleteListener {
+        void onAppParsingComplete(App app, boolean isSuccess);
     }
 
     @Override
@@ -35,80 +38,13 @@ class AppLoader extends Thread {
                     (country != null ? "&gl=" + country : "");
             Document doc = Connection.getDocument(url);
             if (doc == null) throw new IOException("Не удалось загрузить страницу результатов поиска");
-            parseHtml(doc);
             parseJson(doc);
+            parseHtml(doc);
             onAppLoadingCompleteListener.onAppParsingComplete(app, true);
         } catch (IOException e) {
             e.printStackTrace();
             onAppLoadingCompleteListener.onAppParsingComplete(app, false);
         }
-    }
-
-    private void parseHtml(Document doc) {
-        //name
-        app.setName(doc.getElementsByTag("h1").first().text());
-/*        //devName, devUrl
-        try {
-            Element devLink = doc.select("a[href^=/store/apps/dev].hrTbp.R8zArc").first();
-            app.setDevName(devLink.text());
-            app.setDevUrl("https://play.google.com" + devLink.attr("href"));
-        } catch (Exception e) {
-            System.out.println("Не удалось получить параметры разработчика");
-        }
-        //devEmail
-        try {
-            app.setDevEmail(doc.select("a[href^=mailto:].hrTbp.euBY6b").first().text());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить email");
-        }*/
-        //ratesCount
-        try {
-            Element element = doc.select("span.AYi5wd.TBRnV").first();
-            app.setRatesCount(element != null ? Integer.parseInt(element.text().replaceAll(" ", "")) : 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить число оценок");
-        }
-        //avgRate
-        try {
-            Element element = doc.select("div[aria-label].BHMmbe").first();
-            app.setAvgRate(element != null ? Double.parseDouble(element.text().replaceAll(",", ".")) : 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить ср. оценку");
-        }
-        //category
-        try {
-            app.setCategory(doc.select("a[itemprop=genre]").first().text());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить категорию");
-        }
-        //whats new
-        try {
-            app.setWhatsNew(doc.select("c-wiz[jsrenderer=eG38Ge] div[itemprop=description].DWPxHb").first().text());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить Что нового");
-        }
-        //description
-        try {
-            app.setDescription(doc.select("c-wiz[jsrenderer=UsuzQd] div[itemprop=description].DWPxHb").first().text());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить описание");
-        }
-        //similar apps
-        try {
-            for (Element element : doc.select("c-wiz[jsrenderer=PRm2u] a.poRVub"))
-                app.addSimilarApp("https://play.google.com" + element.attr("href"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
-        }
-
-
     }
 
     private void parseJson(Document doc) {
@@ -184,7 +120,83 @@ class AppLoader extends Thread {
         }
     }
 
-    interface OnAppLoadingCompleteListener {
-        void onAppParsingComplete(App app, boolean isSuccess);
+    private void parseHtml(Document doc) {
+        //name
+        app.setName(doc.getElementsByTag("h1").first().text());
+        //ratesCount
+        try {
+            Element element = doc.select("span.AYi5wd.TBRnV").first();
+            app.setRatesCount(element != null ? Integer.parseInt(element.text().replaceAll(" ", "")) : 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить число оценок");
+        }
+        //avgRate
+        try {
+            Element element = doc.select("div[aria-label].BHMmbe").first();
+            app.setAvgRate(element != null ? Double.parseDouble(element.text().replaceAll(",", ".")) : 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить ср. оценку");
+        }
+        //category
+        try {
+            app.setCategory(doc.select("a[itemprop=genre]").first().text());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить категорию");
+        }
+        //whats new
+        try {
+            app.setWhatsNew(doc.select("c-wiz[jsrenderer=eG38Ge] div[itemprop=description].DWPxHb").first().text());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить Что нового");
+        }
+        //description
+        try {
+            app.setDescription(doc.select("c-wiz[jsrenderer=UsuzQd] div[itemprop=description].DWPxHb").first().text());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить описание");
+        }
+        //similar apps
+        try {
+            for (Element element : doc.select("c-wiz[jsrenderer=PRm2u] a.poRVub"))
+                app.addSimilarApp("https://play.google.com" + element.attr("href"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
+        }
+        //last update, size, sdk version, app version
+        try {
+            Elements elements = doc.select("c-wiz[jsrenderer=HEOg8] span.htlgb");
+            app.setLastUpdate(elements.get(0).text());
+            app.setSizeMb(elements.get(1).text());
+            app.setVersion(elements.get(3).text());
+            app.setMinSdkVer(elements.get(4).text());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
+        }
+
+        //devName, devUrl
+        if (app.getDevName() == null || app.getDevUrl() == null)
+            try {
+                Element devLink = doc.select("a[href^=/store/apps/dev].hrTbp.R8zArc").first();
+                app.setDevName(devLink.text());
+                app.setDevUrl("https://play.google.com" + devLink.attr("href"));
+            } catch (Exception e) {
+                System.out.println("Не удалось получить параметры разработчика");
+            }
+        //devEmail
+        if (app.getDevEmail() == null)
+            try {
+                app.setDevEmail(doc.select("a[href^=mailto:].hrTbp.euBY6b").first().text());
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить email");
+            }
     }
+
 }
