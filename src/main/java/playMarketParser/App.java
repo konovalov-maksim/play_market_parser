@@ -37,9 +37,9 @@ public class App {
 
     private String whatsNew;
 
-    private Date lastUpdate;
+    private String lastUpdate;
 
-    private Date releaseDate;
+    private String releaseDate;
 
     private String version;
 
@@ -192,11 +192,11 @@ public class App {
         this.whatsNew = whatsNew;
     }
 
-    public Date getLastUpdate() {
+    public String getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -278,11 +278,11 @@ public class App {
         similarApps.add(simApp);
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 

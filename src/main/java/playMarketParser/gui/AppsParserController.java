@@ -48,8 +48,8 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private TableColumn<App, String> nameCol;
     @FXML private TableColumn<App, Integer> installsCountCol;
     @FXML private TableColumn<App, Integer> ratesCountCol;
-    @FXML private TableColumn<App, Date> releaseDateCol;
-    @FXML private TableColumn<App, Date> lastUpdateCol;
+    @FXML private TableColumn<App, String> releaseDateCol;
+    @FXML private TableColumn<App, String> lastUpdateCol;
     @FXML private TableColumn<App, Double> avgRateCol;
     @FXML private TableColumn<App, String> categoryCol;
     @FXML private TableColumn<App, String> sizeMbCol;
@@ -195,6 +195,8 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         appsParser.setMaxThreadsCount(Prefs.getInt("apps_threads_cnt"));
         if (!Prefs.getString("apps_lang").equals("-")) appsParser.setLanguage(Prefs.getString("apps_lang"));
         if (!Prefs.getString("apps_country").equals("-")) appsParser.setCountry(Prefs.getString("apps_country"));
+//        appsParser.setLanguage("en");
+//        appsParser.setCountry("UK");
 
         progBar.setProgress(0);
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", 0f) + "%"));

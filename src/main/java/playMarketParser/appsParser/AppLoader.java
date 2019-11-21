@@ -108,6 +108,7 @@ class AppLoader extends Thread {
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
         }
 
+
     }
 
     private void parseJson(Document doc) {
@@ -132,7 +133,7 @@ class AppLoader extends Thread {
         //Мин. возраст
         try {
             String minAge = ((JsonArray) data.getCollection(4)).getString(0);
-            app.setMinAge(Integer.parseInt(minAge.replaceAll("\\+", "")));
+            app.setMinAge(Integer.parseInt(minAge.replaceAll("[\\D]", "")));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить минимальный возраст");
@@ -155,7 +156,31 @@ class AppLoader extends Thread {
             app.setInstallsCount(Integer.parseInt(((JsonArray) data.getCollection(9)).getString(2)));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о разработчике");
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о числе установок");
+        }
+        //Стоимость
+        try {
+            if (data.getCollection(12) != null) {
+                app.setOffersPurchases(true);
+                app.setContentCost(((JsonArray) data.getCollection(12)).getString(0));
+            } else app.setOffersPurchases(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о стоимости");
+        }
+        //Наличие рекламы
+        try {
+            app.setContainsAds(data.getCollection(14) != null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о наличии рекламы");
+        }
+        //Release date
+        try {
+            app.setReleaseDate(data.getString(36));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о дате");
         }
     }
 
