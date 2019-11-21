@@ -54,22 +54,23 @@
             </placeholder>
             <columns>
                 <TableColumn fx:id="idCol" text="%id"/>
+                <TableColumn fx:id="urlCol" text="%url"/>
                 <TableColumn fx:id="nameCol" text="%name"/>
                 <TableColumn fx:id="installsCountCol" text="%installsCount"/>
                 <TableColumn fx:id="ratesCountCol" text="%ratesCount"/>
                 <TableColumn fx:id="avgRateCol" text="%avgRate"/>
-                <TableColumn fx:id="categoryCol" text="%category"/>
+                <TableColumn fx:id="releaseDateCol" text="%releaseDate"/>
                 <TableColumn fx:id="lastUpdateCol" text="%lastUpdate"/>
+                <TableColumn fx:id="categoryCol" text="%category"/>
                 <TableColumn fx:id="sizeMbCol" text="%sizeMb"/>
                 <TableColumn fx:id="containsAdsCol" text="%containsAds"/>
                 <TableColumn fx:id="offersPurchasesCol" text="%offersPurchases"/>
                 <TableColumn fx:id="contentCostCol" text="%contentCost"/>
                 <TableColumn fx:id="minAgeCol" text="%minAge"/>
-                <TableColumn fx:id="devIdCol" text="%devId"/>
+                <TableColumn fx:id="devUrlCol" text="%devUrl"/>
                 <TableColumn fx:id="devNameCol" text="%devName"/>
                 <TableColumn fx:id="devWebSiteCol" text="%devWebSite"/>
                 <TableColumn fx:id="devEmailCol" text="%devEmail"/>
-                <TableColumn fx:id="sellerCol" text="%seller"/>
                 <TableColumn fx:id="descriptionCol" text="%description"/>
                 <TableColumn fx:id="verCol" text="%ver"/>
                 <TableColumn fx:id="whatsNewCol" text="%whatsNew"/>

@@ -15,7 +15,7 @@ public class App {
 
     private String name;
 
-    private String devId;
+    private String devUrl;
 
     private String devName;
 
@@ -39,7 +39,7 @@ public class App {
 
     private Date lastUpdate;
 
-    private String seller;
+    private Date releaseDate;
 
     private String version;
 
@@ -65,7 +65,7 @@ public class App {
 
     public void reset() {
         this.name = null;
-        this.devId = null;
+        this.devUrl = null;
         this.devName = null;
         this.devWebSite = null;
         this.devEmail = null;
@@ -77,14 +77,14 @@ public class App {
         this.category = null;
         this.whatsNew = null;
         this.lastUpdate = null;
-        this.seller = null;
         this.version = null;
         this.minSdkVer = null;
-        this.similarApps = null;
         this.containsAds = null;
         this.offersPurchases = null;
         this.contentCost = null;
         this.description = null;
+        this.releaseDate = null;
+        this.similarApps.clear();
     }
 
     public String getUrl() {
@@ -104,12 +104,12 @@ public class App {
         this.name = name;
     }
 
-    public String getDevId() {
-        return devId;
+    public String getDevUrl() {
+        return devUrl;
     }
 
-    public void setDevId(String devId) {
-        this.devId = devId;
+    public void setDevUrl(String devUrl) {
+        this.devUrl = devUrl;
     }
 
     public String getDevName() {
@@ -200,14 +200,6 @@ public class App {
         this.lastUpdate = lastUpdate;
     }
 
-    public String getSeller() {
-        return seller;
-    }
-
-    public void setSeller(String seller) {
-        this.seller = seller;
-    }
-
     public String getVersion() {
         return version;
     }
@@ -280,6 +272,18 @@ public class App {
 
     public String getSimApp4() {
         return similarApps != null && similarApps.size() > 3 ? similarApps.get(3) : null;
+    }
+
+    public void addSimilarApp(String simApp) {
+        similarApps.add(simApp);
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     @Override
