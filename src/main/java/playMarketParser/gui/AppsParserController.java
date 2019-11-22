@@ -38,7 +38,6 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private Button stopBtn;
     @FXML private Button pauseBtn;
     @FXML private Button resumeBtn;
-    @FXML private CheckBox titleFirstChb;
     @FXML private Label appsCntLbl;
     @FXML private Label progLbl;
     @FXML private ProgressBar progBar;
@@ -73,6 +72,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private CheckComboBox<String> columnsCcb;
 
     private Stage stage;
+    private CheckBox titleFirstChb;
 
     private AppsParser appsParser;
     private MenuItem removeItem;
@@ -83,8 +83,6 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
-
-        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
 
         //Таблица
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -125,9 +123,13 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         TableContextMenu tableContextMenu = new TableContextMenu(table);
         removeItem = tableContextMenu.getRemoveItem();
 
+        //PopOver с чекбоксом
+        titleFirstChb = new CheckBox(rb.getString("titleFirst"));
+        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
+        Global.addPopOver(importBtn, titleFirstChb);
+
         //Привязки
         appsCntLbl.textProperty().bind(Bindings.size(apps).asString());
-        titleFirstChb.visibleProperty().bind(Bindings.or(importBtn.hoverProperty(), titleFirstChb.hoverProperty()));
 
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addAppsUrls")));

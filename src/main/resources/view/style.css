@@ -161,6 +161,8 @@
     -fx-alignment: CENTER-RIGHT;
 }
 
-.popover {
-    -fx-padding: 10;
+.popover .border {
+    -fx-border-width: 0 !important;
+    -fx-fill: -fx-base !important;
+    -fx-effect: dropshadow(gaussian, lightgray, 6.0, 0.0, 1.0, 1.0);
 }

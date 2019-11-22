@@ -30,48 +30,28 @@ import static playMarketParser.Global.showAlert;
 
 public class TipsCollectorController implements Initializable, TipsCollector.TipsLoadingListener {
 
-    @FXML
-    private Button addBtn;
-    @FXML
-    private Button importBtn;
-    @FXML
-    private Button clearBtn;
-    @FXML
-    private Button exportBtn;
-    @FXML
-    private Button startBtn;
-    @FXML
-    private Button stopBtn;
-    @FXML
-    private Button pauseBtn;
-    @FXML
-    private Button resumeBtn;
-    @FXML
-    private CheckBox titleFirstChb;
-    @FXML
-    private Label queriesCntLbl;
-    @FXML
-    private Label tipsCntLbl;
-    @FXML
-    private Label progLbl;
-    @FXML
-    private ProgressBar progBar;
-    @FXML
-    private TableView<String> inputTable;
-    @FXML
-    private TableColumn<String, String> inputQueryCol;
-    @FXML
-    private TableView<Tip> outputTable;
-    @FXML
-    private TableColumn<Tip, String> outputQueryCol;
-    @FXML
-    private TableColumn<Tip, String> tipCol;
-    @FXML
-    private TableColumn<Tip, Integer> depthCol;
-    @FXML
-    private VBox rootPane;
+    @FXML private Button addBtn;
+    @FXML private Button importBtn;
+    @FXML private Button clearBtn;
+    @FXML private Button exportBtn;
+    @FXML private Button startBtn;
+    @FXML private Button stopBtn;
+    @FXML private Button pauseBtn;
+    @FXML private Button resumeBtn;
+    @FXML private Label queriesCntLbl;
+    @FXML private Label tipsCntLbl;
+    @FXML private Label progLbl;
+    @FXML private ProgressBar progBar;
+    @FXML private TableView<String> inputTable;
+    @FXML private TableColumn<String, String> inputQueryCol;
+    @FXML private TableView<Tip> outputTable;
+    @FXML private TableColumn<Tip, String> outputQueryCol;
+    @FXML private TableColumn<Tip, String> tipCol;
+    @FXML private TableColumn<Tip, Integer> depthCol;
+    @FXML private VBox rootPane;
 
     private Stage stage;
+    private CheckBox titleFirstChb;
 
     private MenuItem removeItem;
     private ResourceBundle rb;
@@ -83,8 +63,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
-
-        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
 
         //inputTable
         inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
@@ -105,9 +83,13 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         TableContextMenu outputTableContextMenu = new TableContextMenu(outputTable);
         outputTableContextMenu.getRemoveItem().setVisible(false);
 
+        //PopOver с чекбоксом
+        titleFirstChb = new CheckBox(rb.getString("titleFirst"));
+        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
+        Global.addPopOver(importBtn, titleFirstChb);
+
         //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
-        titleFirstChb.visibleProperty().bind(Bindings.or(importBtn.hoverProperty(), titleFirstChb.hoverProperty()));
 
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
