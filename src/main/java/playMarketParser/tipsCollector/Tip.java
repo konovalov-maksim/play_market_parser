@@ -30,12 +30,11 @@ public class Tip {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tip tip = (Tip) o;
-        return text.equals(tip.text) &&
-                queryText.equals(tip.queryText) && depth == tip.depth;
+        return text.equals(tip.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, queryText, depth);
+        return Objects.hash(text);
     }
 }

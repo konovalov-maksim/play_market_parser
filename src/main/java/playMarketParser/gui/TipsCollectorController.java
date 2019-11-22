@@ -290,7 +290,9 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @Override
     public synchronized void onQueryProcessed(List<Tip> collectedTips, String queryText, boolean isSuccess) {
         if (!isSuccess) Global.log(String.format("%-30s%s", queryText, rb.getString("connTimeout")));
-        tips.addAll(collectedTips);
+        for (Tip tip: collectedTips)
+            if (!tips.contains(tip))
+                tips.add(tip);
         Platform.runLater(() -> tipsCntLbl.setText(String.valueOf(tips.size())));
 
         progBar.setProgress(tipsCollector.getProgress());
