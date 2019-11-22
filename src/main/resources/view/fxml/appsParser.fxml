@@ -14,36 +14,36 @@
 <?import org.controlsfx.control.CheckComboBox?>
 <VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.AppsParserController">
-    <AnchorPane styleClass="btns-bar">
-        <HBox styleClass="image-btns-bar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addApps" text="%add"/>
-            <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importApps" text="%import"/>
-            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearApps" text="%clear"/>
-            <Separator orientation="VERTICAL" styleClass="v-separator"/>
-            <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
-            <Separator orientation="VERTICAL" styleClass="v-separator"/>
-            <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" styleClass="control-btn" text="%start"/>
-            <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" styleClass="control-btn"
-                    text="%resume"/>
-            <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" styleClass="control-btn" text="%pause"/>
-            <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" styleClass="control-btn" text="%stop"/>
-        </HBox>
-        <Separator styleClass="h-separator" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                   AnchorPane.bottomAnchor="0"/>
-    </AnchorPane>
-    <AnchorPane>
-        <HBox spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <HBox styleClass="image-btns-bar">
+        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addApps" text="%add"/>
+        <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importApps" text="%import"/>
+        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearApps" text="%clear"/>
+        <Separator orientation="VERTICAL" styleClass="v-separator"/>
+        <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
+        <Separator orientation="VERTICAL" styleClass="v-separator"/>
+        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" styleClass="control-btn" text="%start"/>
+        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" styleClass="control-btn"
+                text="%resume"/>
+        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" styleClass="control-btn" text="%pause"/>
+        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" styleClass="control-btn" text="%stop"/>
+    </HBox>
+    <Separator styleClass="h-separator"/>
+    <AnchorPane VBox.vgrow="ALWAYS">
+        <HBox spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" minHeight="30"
+              alignment="BOTTOM_CENTER">
             <HBox styleClass="table-title">
                 <Label text="%inputUrls"/>
                 <Label fx:id="appsCntLbl" minWidth="10"/>
             </HBox>
-            <CheckComboBox fx:id="columnsCcb"/>
-            <StackPane HBox.hgrow="ALWAYS">
-                <ProgressBar fx:id="progBar" progress="0.0"/>
-                <Label fx:id="progLbl" text="0.0%"/>
-            </StackPane>
+            <HBox HBox.hgrow="ALWAYS" spacing="10" minHeight="30" alignment="CENTER">
+                <CheckComboBox fx:id="columnsCcb"/>
+                <StackPane HBox.hgrow="ALWAYS">
+                    <ProgressBar fx:id="progBar" progress="0.0"/>
+                    <Label fx:id="progLbl" text="0.0%"/>
+                </StackPane>
+            </HBox>
         </HBox>
-        <TableView fx:id="table" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+        <TableView fx:id="table" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
             <placeholder>
                 <Label text="%noQueries"/>

@@ -85,10 +85,6 @@
     -fx-spacing: 5;
 }
 
-.btns-bar {
-    -fx-min-height: 70;
-}
-
 .image-btns-bar {
     -fx-spacing: 0;
     -fx-padding: 0;
@@ -151,6 +147,7 @@
 .table-title {
     -fx-padding: 4 4 0 4;
     -fx-min-height: 24;
+    -fx-max-height: 24;
     -fx-background-color: #cccccc, -tab-body;
     -fx-background-insets: 0, 1 1 0 1;
     -fx-background-radius: 3 3 0 0;

@@ -94,9 +94,12 @@ public class Global {
         AnchorPane.setTopAnchor(content, 0d);
         AnchorPane.setRightAnchor(content, 0d);
         popOver.setContentNode(wrapper);
+        popOver.setFadeOutDuration(Duration.millis(300));
+        popOver.setAutoHide(false);
+
 
         final Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(200)));
         timeline.setOnFinished(finishEvent -> {
             if (hovered.isHover() || wrapper.isHover()) timeline.play();
             else popOver.hide();
