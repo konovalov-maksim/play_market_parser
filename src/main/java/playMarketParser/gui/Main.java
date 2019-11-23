@@ -29,7 +29,7 @@ public class Main extends Application {
         stage.setTitle(rb.getString("appName"));
         stage.getIcons().add(new Image("/images/app_icon.png"));
         stage.setScene(new Scene(root));
-        ((MainController) loader.getController()).setStage(stage);
+//        ((MainController) loader.getController()).setStage(stage);
         stage.setMaximized(Prefs.getBoolean("is_window_maximized"));
         stage.setHeight(Prefs.getDouble("window_height"));
         stage.setWidth(Prefs.getDouble("window_width"));

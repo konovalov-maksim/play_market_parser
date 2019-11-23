@@ -1,21 +1,19 @@
 package playMarketParser.gui;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.controlsfx.control.PopOver;
+import playMarketParser.App;
+import playMarketParser.FoundApp;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.positionsChecker.PosChecker;
@@ -45,14 +43,28 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private TextField appUrlTf;
     @FXML private Label queriesCntLbl;
     @FXML private Label progLbl;
+    @FXML private CheckBox checkPosChb;
+    @FXML private CheckBox colAppsChb;
     @FXML private ProgressBar progBar;
-    @FXML private TableView<Query> table;
+    @FXML private TableView<Query> posTable;
     @FXML private TableColumn<Query, String> queryCol;
     @FXML private TableColumn<Query, String> pseudoPosCol;
     @FXML private TableColumn<Query, String> realPosCol;
+    @FXML private TableView<FoundApp> appsTable;
+    @FXML private TableColumn<FoundApp, String> appQueryCol;
+    @FXML private TableColumn<FoundApp, Integer> positionCol;
+    @FXML private TableColumn<FoundApp, String> urlCol;
+    @FXML private TableColumn<FoundApp, String> nameCol;
+    @FXML private TableColumn<FoundApp, String> iconUrlCol;
+    @FXML private TableColumn<FoundApp, Double> avgRateCol;
+    @FXML private TableColumn<FoundApp, String> devUrlCol;
+    @FXML private TableColumn<FoundApp, String> devNameCol;
+    @FXML private AnchorPane checkPosPane;
+    @FXML private AnchorPane colAppsPane;
+
+
     @FXML private VBox rootPane;
 
-    private Stage stage;
     private CheckBox titleFirstChb;
     private CheckBox savePrevResultsChb;
 
@@ -69,23 +81,43 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         rb = Global.getBundle();
 
         appUrlTf.setText(Prefs.getString("pos_app_url"));
-
+        checkPosChb.setSelected(Prefs.getBoolean("check_pos"));
+        colAppsChb.setSelected(Prefs.getBoolean("col_apps"));
 
         //Tables
-        queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
-        pseudoPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
-        realPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        queryCol.prefWidthProperty().bind(posTable.widthProperty().multiply(0.5));
+        pseudoPosCol.prefWidthProperty().bind(posTable.widthProperty().multiply(0.3));
+        realPosCol.prefWidthProperty().bind(posTable.widthProperty().multiply(0.2));
         queryCol.setCellValueFactory(new PropertyValueFactory<>("text"));
         pseudoPosCol.setCellValueFactory(new PropertyValueFactory<>("pseudoPosString"));
         realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
-        table.setItems(queries);
+        posTable.setItems(queries);
+
+        positionCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
+        appQueryCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.2));
+        urlCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
+        nameCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.2));
+        avgRateCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
+        iconUrlCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
+        devUrlCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
+        devNameCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
+        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
+        appQueryCol.setCellValueFactory(new PropertyValueFactory<>("query"));
+        urlCol.setCellValueFactory(new PropertyValueFactory<>("url"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        avgRateCol.setCellValueFactory(new PropertyValueFactory<>("avgRate"));
+        iconUrlCol.setCellValueFactory(new PropertyValueFactory<>("iconUrl"));
+        devUrlCol.setCellValueFactory(new PropertyValueFactory<>("devUrl"));
+        devNameCol.setCellValueFactory(new PropertyValueFactory<>("devName"));
 
         //Context menus
-        TableContextMenu tableContextMenu = new TableContextMenu(table);
+        TableContextMenu tableContextMenu = new TableContextMenu(posTable);
         removeItem = tableContextMenu.getRemoveItem();
 
         //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+        checkPosPane.disableProperty().bind(checkPosChb.selectedProperty().not());
+        colAppsPane.disableProperty().bind(colAppsChb.selectedProperty().not());
 
         //PopOvers с чекбоксами
         titleFirstChb = new CheckBox(rb.getString("titleFirst"));
@@ -105,9 +137,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         enableReadyMode();
     }
 
-    void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     @FXML
     private void addQueries() {
@@ -165,10 +194,12 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
             return;
         }
         for (Query query : queries) query.reset();
-        table.refresh();
+        posTable.refresh();
 
         String appId = appUrlTf.getText().replaceAll(".*id=", "");
         Prefs.put("pos_app_url", appUrlTf.getText());
+        Prefs.put("check_pos", checkPosChb.isSelected());
+        Prefs.put("col_apps", colAppsChb.isSelected());
 
         posChecker = new PosChecker(appId, queries, this);
         posChecker.setMaxThreadsCount(Prefs.getInt("pos_threads_cnt"));
@@ -260,7 +291,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
     @FXML
     private void clearQueries() {
-        table.getItems().clear();
+        posTable.getItems().clear();
         enableReadyMode();
     }
 
@@ -274,6 +305,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         removeItem.setDisable(false);
         savePrevResultsChb.setSelected(false);
         savePrevResultsChb.setDisable(true);
+        colAppsChb.setDisable(false);
+        checkPosChb.setDisable(false);
         Global.setBtnParams(startBtn, true, true);
         Global.setBtnParams(pauseBtn, false, false);
         Global.setBtnParams(resumeBtn, false, false);
@@ -288,6 +321,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
         removeItem.setDisable(true);
+        colAppsChb.setDisable(true);
+        checkPosChb.setDisable(true);
         Global.setBtnParams(startBtn, false, false);
         Global.setBtnParams(pauseBtn, true, true);
         Global.setBtnParams(resumeBtn, false, false);
@@ -302,6 +337,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
         removeItem.setDisable(false);
+        colAppsChb.setDisable(false);
+        checkPosChb.setDisable(false);
         Global.setBtnParams(startBtn, true, true);
         Global.setBtnParams(pauseBtn, false, false);
         Global.setBtnParams(resumeBtn, false, false);
@@ -316,6 +353,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         clearBtn.setDisable(true);
         exportBtn.setDisable(false);
         removeItem.setDisable(true);
+        colAppsChb.setDisable(true);
+        checkPosChb.setDisable(true);
         Global.setBtnParams(startBtn, false, false);
         Global.setBtnParams(pauseBtn, false, false);
         Global.setBtnParams(resumeBtn, true, true);
@@ -325,7 +364,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @Override
     public void onPositionChecked(Query query, boolean isSuccess) {
         if (!isSuccess) Global.log(String.format("%-30s%s", query.getText(), rb.getString("connTimeout")));
-        table.refresh();
+        posTable.refresh();
         progBar.setProgress(posChecker.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", posChecker.getProgress() * 100) + "%"));
     }

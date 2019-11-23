@@ -72,7 +72,6 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private VBox rootPane;
     @FXML private CheckComboBox<String> columnsCcb;
 
-    private Stage stage;
     private CheckBox titleFirstChb;
 
     private AppsParser appsParser;
@@ -141,10 +140,6 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
 
         enableReadyMode();
-    }
-
-    void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @FXML

@@ -82,6 +82,10 @@
 }
 
 .spaced-box {
+    -fx-spacing: 10;
+}
+
+.spaced-grid-pane .spaced-box {
     -fx-spacing: 5;
 }
 

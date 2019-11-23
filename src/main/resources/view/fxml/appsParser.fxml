@@ -29,13 +29,13 @@
     </HBox>
     <Separator styleClass="h-separator"/>
     <AnchorPane VBox.vgrow="ALWAYS">
-        <HBox spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" minHeight="30"
+        <HBox styleClass="spaced-box" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" minHeight="30"
               alignment="BOTTOM_CENTER">
             <HBox styleClass="table-title">
                 <Label text="%inputUrls"/>
                 <Label fx:id="appsCntLbl" minWidth="10"/>
             </HBox>
-            <HBox HBox.hgrow="ALWAYS" spacing="10" minHeight="30" alignment="CENTER">
+            <HBox HBox.hgrow="ALWAYS" styleClass="spaced-box" minHeight="30" alignment="CENTER">
                 <CheckComboBox fx:id="columnsCcb"/>
                 <StackPane HBox.hgrow="ALWAYS">
                     <ProgressBar fx:id="progBar" progress="0.0"/>
@@ -67,6 +67,7 @@
                 <TableColumn fx:id="devNameCol" text="%devName"/>
                 <TableColumn fx:id="devWebSiteCol" text="%devWebSite"/>
                 <TableColumn fx:id="devEmailCol" text="%devEmail"/>
+                <TableColumn fx:id="iconUrlCol" text="%iconUrl"/>
                 <TableColumn fx:id="descriptionCol" text="%description"/>
                 <TableColumn fx:id="verCol" text="%ver"/>
                 <TableColumn fx:id="whatsNewCol" text="%whatsNew"/>

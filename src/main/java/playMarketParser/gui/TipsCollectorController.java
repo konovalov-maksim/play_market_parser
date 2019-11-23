@@ -50,7 +50,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private TableColumn<Tip, Integer> depthCol;
     @FXML private VBox rootPane;
 
-    private Stage stage;
     private CheckBox titleFirstChb;
 
     private MenuItem removeItem;
@@ -100,10 +99,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
 
         enableReadyMode();
-    }
-
-    void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @FXML

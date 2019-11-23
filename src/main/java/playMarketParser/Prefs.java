@@ -31,6 +31,8 @@ public class Prefs {
         defaults.put("pos_checks_cnt", 5);
         defaults.put("pos_lang", "-");
         defaults.put("pos_country", "-");
+        defaults.put("check_pos", true);
+        defaults.put("col_apps", false);
         //tips
         defaults.put("tips_threads_cnt", 5);
         defaults.put("tips_parsing_depth", 5);
