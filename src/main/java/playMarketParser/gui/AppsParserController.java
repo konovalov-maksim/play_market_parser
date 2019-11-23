@@ -60,6 +60,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private TableColumn<App, String> devNameCol;
     @FXML private TableColumn<App, String> devWebSiteCol;
     @FXML private TableColumn<App, String> devEmailCol;
+    @FXML private TableColumn<App, String> iconUrlCol;
     @FXML private TableColumn<App, String> descriptionCol;
     @FXML private TableColumn<App, String> verCol;
     @FXML private TableColumn<App, String> whatsNewCol;
@@ -103,6 +104,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         devNameCol.setCellValueFactory(new PropertyValueFactory<>("devName"));
         devWebSiteCol.setCellValueFactory(new PropertyValueFactory<>("devWebSite"));
         devEmailCol.setCellValueFactory(new PropertyValueFactory<>("devEmail"));
+        iconUrlCol.setCellValueFactory(new PropertyValueFactory<>("iconUrl"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         verCol.setCellValueFactory(new PropertyValueFactory<>("version"));
         whatsNewCol.setCellValueFactory(new PropertyValueFactory<>("whatsNew"));

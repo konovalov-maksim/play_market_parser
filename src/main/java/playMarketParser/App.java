@@ -28,6 +28,8 @@ public class App {
 
     private Double avgRate;
 
+    private String iconUrl;
+
     private String minAge;
 
     private String sizeMb;
@@ -283,6 +285,14 @@ public class App {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
     @Override

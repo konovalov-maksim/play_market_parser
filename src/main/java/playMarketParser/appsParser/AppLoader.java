@@ -116,6 +116,13 @@ class AppLoader extends Thread {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о дате");
         }
+        //Icon Url
+        try {
+            app.setIconUrl(((JsonArray)((JsonArray)data.get(1)).get(3)).getString(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить URL иконки");
+        }
     }
 
     private void parseHtml(Document doc) {
