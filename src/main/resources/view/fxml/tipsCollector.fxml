@@ -45,7 +45,7 @@
             </TableView>
         </AnchorPane>
         <AnchorPane>
-            <HBox spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <HBox styleClass="spaced-box" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                 <HBox styleClass="table-title">
                     <Label text="%tipsQuantity"/>
                     <Label text="0" fx:id="tipsCntLbl"/>

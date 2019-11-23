@@ -1,6 +1,7 @@
 package playMarketParser.gui;
 
-import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,16 +13,13 @@ import javafx.stage.FileChooser;
 import playMarketParser.FoundApp;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
-import playMarketParser.positionsChecker.PosChecker;
-import playMarketParser.positionsChecker.Query;
 
-import java.io.*;
+import java.io.File;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static playMarketParser.Global.showAlert;
 
@@ -36,10 +34,14 @@ public class AppsCollectorController implements Initializable {
     @FXML private Button pauseBtn;
     @FXML private Button resumeBtn;
     @FXML private Label queriesCntLbl;
+    @FXML private Label appsCntLbl;
+
     @FXML private ProgressBar progBar;
 
     @FXML private VBox rootPane;
 
+    @FXML private TableView<String> inputTable;
+    @FXML private TableColumn<String, String> inputQueryCol;
     @FXML private TableView<FoundApp> appsTable;
     @FXML private TableColumn<FoundApp, String> appQueryCol;
     @FXML private TableColumn<FoundApp, Integer> positionCol;
@@ -51,12 +53,17 @@ public class AppsCollectorController implements Initializable {
     @FXML private TableColumn<FoundApp, String> devNameCol;
 
     private CheckBox titleFirstChb;
+    private MenuItem removeItem;
 
+    private ResourceBundle rb;
     private ObservableList<FoundApp> foundApps = FXCollections.observableArrayList();
+    private ObservableList<String> queries = FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        rb = Global.getBundle();
+
         positionCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
         appQueryCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.2));
         urlCol.prefWidthProperty().bind(appsTable.widthProperty().multiply(0.1));
@@ -73,26 +80,49 @@ public class AppsCollectorController implements Initializable {
         iconUrlCol.setCellValueFactory(new PropertyValueFactory<>("iconUrl"));
         devUrlCol.setCellValueFactory(new PropertyValueFactory<>("devUrl"));
         devNameCol.setCellValueFactory(new PropertyValueFactory<>("devName"));
-        appsTable.setItems(foundApps);
+        inputTable.setItems(queries);
+        inputQueryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+        //Context menus
+        TableContextMenu tableContextMenu = new TableContextMenu(appsTable);
+        removeItem = tableContextMenu.getRemoveItem();
+
+        //Привязки
+        queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
+        appsCntLbl.textProperty().bind(Bindings.size(foundApps).asString());
+
+        //PopOvers с чекбоксами
+        titleFirstChb = new CheckBox(rb.getString("titleFirst"));
+        titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
+        Global.addPopOver(importBtn, titleFirstChb);
+
+        //Подсказки кнопок и чекбоксов
+        addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
+        importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
+        exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
+        titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
+
+        enableReadyMode();
     }
 
     @FXML
     private void addQueries() {
-/*        TextAreaDialog dialog = new TextAreaDialog("", rb.getString("enterQueries"), rb.getString("addingQueries"), "");
+        TextAreaDialog dialog = new TextAreaDialog("", rb.getString("enterQueries"), rb.getString("addingQueries"), "");
 
         Optional result = dialog.showAndWait();
         if (result.isPresent()) {
             foundApps.clear();
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
                     .distinct()
-                    .forEachOrdered(s -> foundApps.add(new Query(s)));
+                    .forEachOrdered(s -> queries.add(s));
             enableReadyMode();
-        }*/
+        }
     }
 
     @FXML
     private void importQueries() {
-/*        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("csvDescr"), "*.csv"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(rb.getString("txtDescr"), "*.txt"));
         fileChooser.setInitialDirectory(Global.getInitDir("input_path"));
@@ -102,21 +132,15 @@ public class AppsCollectorController implements Initializable {
         Prefs.put("title_first", titleFirstChb.isSelected());
 
         enableReadyMode();
-        foundApps.clear();
-        try {
-            List<String> lines = new LinkedList<>(Files.readAllLines(inputFile.toPath(), StandardCharsets.UTF_8));
-            if (titleFirstChb.isSelected()) {
-                titleRow = lines.get(0);
-                lines.remove(0);
-            }
-            boolean multiplyColumns = lines.size() > 0 && lines.get(0).contains(Global.getCsvDelim());
-            savePrevResultsChb.setSelected(multiplyColumns);
-            savePrevResultsChb.setDisable(!multiplyColumns);
-            lines.stream().distinct().map(Query::new).forEachOrdered(q -> foundApps.add(q));
+        queries.clear();
+        try (Stream<String> lines = Files.lines(inputFile.toPath(), StandardCharsets.UTF_8)) {
+            lines.skip(titleFirstChb.isSelected() ? 1 : 0)
+                    .distinct()
+                    .forEachOrdered(q -> queries.add(q));
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("unableToReadFile"), Global.ERROR);
-        }*/
+        }
     }
 
     @FXML
@@ -232,65 +256,55 @@ public class AppsCollectorController implements Initializable {
     }
 
     private void enableReadyMode() {
-/*        addBtn.setDisable(false);
+        addBtn.setDisable(false);
         importBtn.setDisable(false);
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(true);
         removeItem.setDisable(false);
-        savePrevResultsChb.setSelected(false);
-        savePrevResultsChb.setDisable(true);
-        colAppsChb.setDisable(false);
-        checkPosChb.setDisable(false);
         Global.setBtnParams(startBtn, true, true);
         Global.setBtnParams(pauseBtn, false, false);
         Global.setBtnParams(resumeBtn, false, false);
-        Global.setBtnParams(stopBtn, true, false);*/
+        Global.setBtnParams(stopBtn, true, false);
     }
 
     private void enableLoadingMode() {
-/*        addBtn.setDisable(true);
+        addBtn.setDisable(true);
         importBtn.setDisable(true);
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(true);
         removeItem.setDisable(true);
-        colAppsChb.setDisable(true);
-        checkPosChb.setDisable(true);
         Global.setBtnParams(startBtn, false, false);
         Global.setBtnParams(pauseBtn, true, true);
         Global.setBtnParams(resumeBtn, false, false);
-        Global.setBtnParams(stopBtn, true, true);*/
+        Global.setBtnParams(stopBtn, true, true);
     }
 
     private void enableCompleteMode() {
-/*        addBtn.setDisable(false);
+        addBtn.setDisable(false);
         importBtn.setDisable(false);
         titleFirstChb.setDisable(false);
         clearBtn.setDisable(false);
         exportBtn.setDisable(false);
         removeItem.setDisable(false);
-        colAppsChb.setDisable(false);
-        checkPosChb.setDisable(false);
         Global.setBtnParams(startBtn, true, true);
         Global.setBtnParams(pauseBtn, false, false);
         Global.setBtnParams(resumeBtn, false, false);
-        Global.setBtnParams(stopBtn, true, false);*/
+        Global.setBtnParams(stopBtn, true, false);
     }
 
     private void enablePauseMode() {
-/*        addBtn.setDisable(true);
+        addBtn.setDisable(true);
         importBtn.setDisable(true);
         titleFirstChb.setDisable(true);
         clearBtn.setDisable(true);
         exportBtn.setDisable(false);
         removeItem.setDisable(true);
-        colAppsChb.setDisable(true);
-        checkPosChb.setDisable(true);
         Global.setBtnParams(startBtn, false, false);
         Global.setBtnParams(pauseBtn, false, false);
         Global.setBtnParams(resumeBtn, true, true);
-        Global.setBtnParams(stopBtn, true, true);*/
+        Global.setBtnParams(stopBtn, true, true);
     }
 
 /*    @Override
