@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="playMarketParser.gui.AppsCollectorController"
+      prefHeight="400.0" prefWidth="600.0">
+    <HBox styleClass="image-btns-bar">
+        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
+        <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
+        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
+        <Separator orientation="VERTICAL" styleClass="v-separator"/>
+        <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
+        <Separator orientation="VERTICAL" styleClass="v-separator"/>
+        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" styleClass="control-btn" text="%start"/>
+        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" styleClass="control-btn"
+                text="%resume"/>
+        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" styleClass="control-btn" text="%pause"/>
+        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" styleClass="control-btn" text="%stop"/>
+    </HBox>
+    <Separator styleClass="h-separator"/>
+    <HBox spacing="10.0" style="-fx-alignment: center-left;">
+        <CheckBox fx:id="checkPosChb" text="%checkPositions"/>
+        <CheckBox fx:id="colAppsChb" text="%collectApps"/>
+        <StackPane HBox.hgrow="ALWAYS">
+            <ProgressBar fx:id="progBar" progress="0.0"/>
+            <Label fx:id="progLbl" text="0.0%"/>
+        </StackPane>
+    </HBox>
+        <AnchorPane fx:id="colAppsPane">
+            <HBox styleClass="table-title" AnchorPane.topAnchor="6">
+                <Label text="%foundApps"/>
+                <Label fx:id="appsCntLbl" minWidth="10" text="0"/>
+            </HBox>
+            <TableView fx:id="appsTable" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+                <placeholder>
+                    <Label text="%noQueries"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="appQueryCol" text="%inputQuery"/>
+                    <TableColumn fx:id="positionCol" text="%position" styleClass="center-right-align"/>
+                    <TableColumn fx:id="urlCol" text="%url"/>
+                    <TableColumn fx:id="nameCol" text="%name"/>
+                    <TableColumn fx:id="avgRateCol" text="%avgRate"/>
+                    <TableColumn fx:id="iconUrlCol" text="%iconUrl"/>
+                    <TableColumn fx:id="devUrlCol" text="%devUrl"/>
+                    <TableColumn fx:id="devNameCol" text="%devName"/>
+                </columns>
+            </TableView>
+        </AnchorPane>
+
+
+</VBox>

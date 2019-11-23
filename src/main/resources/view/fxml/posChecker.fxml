@@ -12,8 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.CheckBox?>
 <VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="playMarketParser.gui.PosCheckerController">
     <HBox styleClass="image-btns-bar">
@@ -31,60 +29,29 @@
     </HBox>
     <Separator styleClass="h-separator"/>
     <HBox spacing="10.0" style="-fx-alignment: center-left;">
-        <CheckBox fx:id="checkPosChb" text="%checkPositions"/>
-        <CheckBox fx:id="colAppsChb" text="%collectApps"/>
+        <Label minWidth="-Infinity" text="%appUrl"/>
+        <TextField fx:id="appUrlTf" minWidth="500"
+                   promptText="https://play.google.com/store/apps/details?id=app.package.name"/>
         <StackPane HBox.hgrow="ALWAYS">
             <ProgressBar fx:id="progBar" progress="0.0"/>
             <Label fx:id="progLbl" text="0.0%"/>
         </StackPane>
     </HBox>
-    <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
-        <AnchorPane fx:id="checkPosPane">
-            <HBox styleClass="spaced-box" minHeight="30" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                  AnchorPane.topAnchor="0" alignment="BOTTOM_CENTER">
-                <HBox styleClass="table-title">
-                    <Label text="%queriesQuantity"/>
-                    <Label fx:id="queriesCntLbl" minWidth="10"/>
-                </HBox>
-                <HBox styleClass="spaced-box" minHeight="30" alignment="CENTER" HBox.hgrow="ALWAYS">
-                    <Label minWidth="-Infinity" text="%appUrl"/>
-                    <TextField fx:id="appUrlTf" HBox.hgrow="ALWAYS"
-                               promptText="https://play.google.com/store/apps/details?id=app.package.name"/>
-                </HBox>
-            </HBox>
-            <TableView fx:id="posTable" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
-                <placeholder>
-                    <Label text="%noQueries"/>
-                </placeholder>
-                <columns>
-                    <TableColumn fx:id="queryCol" text="%inputQuery"/>
-                    <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
-                    <TableColumn fx:id="realPosCol" text="%finalPos"/>
-                </columns>
-            </TableView>
-        </AnchorPane>
-        <AnchorPane fx:id="colAppsPane">
-            <HBox styleClass="table-title" AnchorPane.topAnchor="6">
-                <Label text="%foundApps"/>
-                <Label fx:id="appsCntLbl" minWidth="10" text="0"/>
-            </HBox>
-            <TableView fx:id="appsTable" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
-                <placeholder>
-                    <Label text="%noQueries"/>
-                </placeholder>
-                <columns>
-                    <TableColumn fx:id="appQueryCol" text="%inputQuery"/>
-                    <TableColumn fx:id="positionCol" text="%position" styleClass="center-right-align"/>
-                    <TableColumn fx:id="urlCol" text="%url"/>
-                    <TableColumn fx:id="nameCol" text="%name"/>
-                    <TableColumn fx:id="avgRateCol" text="%avgRate"/>
-                    <TableColumn fx:id="iconUrlCol" text="%iconUrl"/>
-                    <TableColumn fx:id="devUrlCol" text="%devUrl"/>
-                    <TableColumn fx:id="devNameCol" text="%devName"/>
-                </columns>
-            </TableView>
-        </AnchorPane>
-    </SplitPane>
+    <AnchorPane VBox.vgrow="ALWAYS">
+        <HBox styleClass="table-title">
+            <Label text="%queriesQuantity"/>
+            <Label fx:id="queriesCntLbl" minWidth="10"/>
+        </HBox>
+        <TableView fx:id="table" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+            <placeholder>
+                <Label text="%noQueries"/>
+            </placeholder>
+            <columns>
+                <TableColumn fx:id="queryCol" text="%inputQuery"/>
+                <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
+                <TableColumn fx:id="realPosCol" text="%finalPos"/>
+            </columns>
+        </TableView>
+    </AnchorPane>
 </VBox>

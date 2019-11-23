@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.tipsCollector.Tip;
