@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.positionsChecker.PosChecker;
@@ -47,7 +46,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private TableColumn<Query, String> realPosCol;
     @FXML private VBox rootPane;
 
-    private Stage stage;
     private CheckBox titleFirstChb;
     private CheckBox savePrevResultsChb;
 
@@ -98,10 +96,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         savePrevResultsChb.setTooltip(new Tooltip(rb.getString("savePrevResultsTip")));
 
         enableReadyMode();
-    }
-
-    void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @FXML
