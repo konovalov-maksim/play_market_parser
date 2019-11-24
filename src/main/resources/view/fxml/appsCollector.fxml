@@ -65,6 +65,7 @@
                     <TableColumn fx:id="positionCol" text="%position" styleClass="center-right-align"/>
                     <TableColumn fx:id="urlCol" text="%url"/>
                     <TableColumn fx:id="nameCol" text="%name"/>
+                    <TableColumn fx:id="shortDescrCol" text="%shortDescr"/>
                     <TableColumn fx:id="avgRateCol" text="%avgRate"/>
                     <TableColumn fx:id="iconUrlCol" text="%iconUrl"/>
                     <TableColumn fx:id="devUrlCol" text="%devUrl"/>

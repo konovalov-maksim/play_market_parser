@@ -2,10 +2,6 @@ package playMarketParser;
 
 public class FoundApp extends App{
 
-    public FoundApp(String AppUrl) {
-        super(AppUrl);
-    }
-
     private Integer pos;
 
     private String query;
@@ -13,6 +9,8 @@ public class FoundApp extends App{
     public Integer getPos() {
         return pos;
     }
+
+    public String shortDescr;
 
     public void setPos(Integer pos) {
         this.pos = pos;
@@ -30,4 +28,11 @@ public class FoundApp extends App{
         super.reset();
     }
 
+    public String getShortDescr() {
+        return shortDescr;
+    }
+
+    public void setShortDescr(String shortDescr) {
+        this.shortDescr = shortDescr;
+    }
 }

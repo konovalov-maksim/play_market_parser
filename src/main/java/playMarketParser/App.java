@@ -6,6 +6,9 @@ import java.util.Objects;
 
 public class App {
 
+    public App(){
+    }
+
     public App(String appUrl) {
         setUrl(appUrl);
     }

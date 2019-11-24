@@ -54,6 +54,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @FXML private TableColumn<FoundApp, Integer> positionCol;
     @FXML private TableColumn<FoundApp, String> urlCol;
     @FXML private TableColumn<FoundApp, String> nameCol;
+    @FXML private TableColumn<FoundApp, String> shortDescrCol;
     @FXML private TableColumn<FoundApp, String> iconUrlCol;
     @FXML private TableColumn<FoundApp, Double> avgRateCol;
     @FXML private TableColumn<FoundApp, String> devUrlCol;
@@ -76,7 +77,8 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
         positionCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         appQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.2));
         urlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
-        nameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.2));
+        nameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
+        shortDescrCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         avgRateCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         iconUrlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         devUrlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
