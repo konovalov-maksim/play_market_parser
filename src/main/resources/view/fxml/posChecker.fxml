@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="rootPane" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="playMarketParser.gui.PosCheckerController">
+      fx:controller="playMarketParser.gui.controllers.PosCheckerController">
     <HBox styleClass="image-btns-bar">
         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
         <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>

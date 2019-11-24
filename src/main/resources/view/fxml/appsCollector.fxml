@@ -12,7 +12,7 @@
 <?import javafx.scene.control.SplitPane?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="playMarketParser.gui.AppsCollectorController"
+      fx:controller="playMarketParser.gui.controllers.AppsCollectorController"
       fx:id="rootPane">
     <HBox styleClass="image-btns-bar">
         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
@@ -28,7 +28,7 @@
         <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" styleClass="control-btn" text="%stop"/>
     </HBox>
     <Separator styleClass="h-separator"/>
-    <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2" VBox.vgrow="ALWAYS">
         <AnchorPane>
             <HBox styleClass="table-title">
                 <Label text="%queriesQuantity"/>
@@ -55,7 +55,7 @@
                     <Label fx:id="progLbl" text="0.0%"/>
                 </StackPane>
             </HBox>
-            <TableView fx:id="appsTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+            <TableView fx:id="outputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
                 <placeholder>
                     <Label text="%noQueries"/>

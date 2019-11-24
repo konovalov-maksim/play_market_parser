@@ -26,23 +26,17 @@ public class Prefs {
         defaults.put("accept_language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");
         defaults.put("proxy", "");
         defaults.put("timeout", 3000);
+        defaults.put("parsing_lang", "en");
+        defaults.put("parsing_country", "-");
         //positions
         defaults.put("pos_threads_cnt", 5);
         defaults.put("pos_checks_cnt", 5);
-        defaults.put("pos_lang", "-");
-        defaults.put("pos_country", "-");
-        defaults.put("check_pos", true);
-        defaults.put("col_apps", false);
         //tips
         defaults.put("tips_threads_cnt", 5);
         defaults.put("tips_parsing_depth", 5);
-        defaults.put("tips_lang", "en");
-        defaults.put("tips_country", "-");
         defaults.put("alphabet", "auto");
         //apps
         defaults.put("apps_threads_cnt", 5);
-        defaults.put("apps_lang", "-");
-        defaults.put("apps_country", "-");
     }
 
     public static int getInt(String propName) {

@@ -14,8 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Tooltip?>
 
-<?import playMarketParser.gui.NamedRadioButton?>
-<AnchorPane prefWidth="800" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.PrefsController">
+<?import playMarketParser.gui.customElements.NamedRadioButton?>
+<AnchorPane prefWidth="800" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="playMarketParser.gui.controllers.PrefsController">
     <VBox AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <TitledPane collapsible="false" text="%appSetting">
             <GridPane styleClass="spaced-grid-pane">
@@ -48,7 +48,7 @@
                 <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                 <Spinner fx:id="posThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="spaced-box">
                     <Label text="%checksCount"/>
                     <Button styleClass="tip-button">
                         <tooltip>
@@ -56,14 +56,7 @@
                         </tooltip>
                     </Button>
                 </HBox>
-                <Spinner fx:id="posChecksCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <ComboBox fx:id="posLangCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
-
-                <Label text="%parsingCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
-                <ComboBox fx:id="posCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
-
+                <Spinner fx:id="posChecksCntSpin" GridPane.columnIndex="3" GridPane.rowIndex="0" />
             </GridPane>
         </TitledPane>
         <TitledPane collapsible="false" text="%tipsCollecting">
@@ -77,7 +70,7 @@
                 <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 </Label>
                 <Spinner fx:id="tipsThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="spaced-box">
                     <Label text="%tipsParsingDepth"/>
                     <Button styleClass="tip-button">
                         <tooltip>
@@ -85,13 +78,7 @@
                         </tooltip>
                     </Button>
                 </HBox>
-                <Spinner fx:id="tipsParsingDepthSpin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="2" />
-                <ComboBox fx:id="tipsLangCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
-
-                <Label text="%parsingCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
-                <ComboBox fx:id="tipsCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+                <Spinner fx:id="tipsParsingDepthSpin" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
                 <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">
                     <Label text="%alphaType"/>
@@ -121,13 +108,6 @@
                 <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                 <Spinner fx:id="appsThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-
-                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <ComboBox fx:id="appsLangCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
-
-                <Label text="%parsingCountry" GridPane.rowIndex="1" GridPane.columnIndex="2" />
-                <ComboBox fx:id="appsCountryCb" GridPane.rowIndex="1" GridPane.columnIndex="3" />
-
             </GridPane>
         </TitledPane>
         <TitledPane collapsible="false" text="%general">
@@ -138,7 +118,7 @@
                     <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
                     <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
                 </columnConstraints>
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="spaced-box">
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
                     <Label text="%timeout" />
                     <Button styleClass="tip-button">
                         <tooltip>
@@ -146,8 +126,8 @@
                         </tooltip>
                     </Button>
                 </HBox>
-                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="spaced-box">
+                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="spaced-box">
                     <Label text="%proxy" />
                     <Button styleClass="tip-button">
                         <tooltip>
@@ -155,8 +135,8 @@
                         </tooltip>
                     </Button>
                 </HBox>
-                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
+                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">
                     <Label text="%userAgent" />
                     <Button styleClass="tip-button">
                         <tooltip>
@@ -164,8 +144,8 @@
                         </tooltip>
                     </Button>
                 </HBox>
-                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="spaced-box">
+                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="spaced-box">
                     <Label text="%acceptLang" />
                     <Button styleClass="tip-button">
                         <tooltip>
@@ -173,11 +153,13 @@
                         </tooltip>
                     </Button>
                 </HBox>
-                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                <rowConstraints>
-                    <RowConstraints />
-                    <RowConstraints />
-                </rowConstraints>
+                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="parsingLangCb" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="%parsingCountry" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+                <ComboBox fx:id="parsingCountryCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
             </GridPane>
         </TitledPane>
     </VBox>

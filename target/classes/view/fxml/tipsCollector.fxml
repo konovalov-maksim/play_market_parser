@@ -13,7 +13,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="playMarketParser.gui.TipsCollectorController" fx:id="rootPane" spacing="10">
+      fx:controller="playMarketParser.gui.controllers.TipsCollectorController" fx:id="rootPane" spacing="10">
     <HBox styleClass="image-btns-bar">
         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
         <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
@@ -45,7 +45,7 @@
             </TableView>
         </AnchorPane>
         <AnchorPane>
-            <HBox spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <HBox styleClass="spaced-box" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                 <HBox styleClass="table-title">
                     <Label text="%tipsQuantity"/>
                     <Label text="0" fx:id="tipsCntLbl"/>
