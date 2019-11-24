@@ -6,11 +6,11 @@ public class FoundApp extends App{
 
     private String query;
 
-    public Integer getPos() {
+    private Integer getPos() {
         return pos;
     }
 
-    public String shortDescr;
+    private String shortDescr;
 
     public void setPos(Integer pos) {
         this.pos = pos;
@@ -22,10 +22,6 @@ public class FoundApp extends App{
 
     public void setQuery(String query) {
         this.query = query;
-    }
-
-    public void reset() {
-        super.reset();
     }
 
     public String getShortDescr() {

@@ -1,5 +1,8 @@
 package playMarketParser.modules.appsCollector;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 import org.jsoup.nodes.Document;
 import playMarketParser.Connection;
 import playMarketParser.FoundApp;
@@ -7,6 +10,8 @@ import playMarketParser.FoundApp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ListingLoader extends Thread {
 
@@ -32,16 +37,66 @@ public class ListingLoader extends Thread {
                     (language != null ? "&hl=" + language : "") +
                     (country != null ? "&gl=" + country : "");
             Document doc = Connection.getDocument(url);
-            collectApps(doc);
-            appsCollectingListener.onQueryProcessed(foundApps, query,true);
+            parseJson(doc);
+            appsCollectingListener.onQueryProcessed(foundApps, query, true);
         } catch (IOException e) {
-            appsCollectingListener.onQueryProcessed(foundApps, query,false);
+            appsCollectingListener.onQueryProcessed(foundApps, query, false);
         }
     }
 
-    private void collectApps(Document doc) {
-        //TODO парсинг листинга
-        //foundApps.add(new FoundApp(doc.title()));
+    private void parseJson(Document doc) {
+        //Извлекаем JSON
+        Pattern pattern = Pattern.compile("\\{key: 'ds:3'.*?return(.*?)}", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(doc.data());
+        if (!matcher.find()) {
+            System.out.printf("%-40s%s%n", query, "Не удалось получить JSON");
+            return;
+        }
+        String jsonData = matcher.group(1);
+        JsonArray appsData;
+        try {
+            JsonArray fullData = (JsonArray) Jsoner.deserialize(jsonData);
+            appsData =
+                    ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) fullData
+                            .getCollection(0))
+                            .getCollection(1))
+                            .getCollection(0))
+                            .getCollection(0))
+                            .getCollection(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("%-40s%s%n", query, "Не удалось спарсить JSON");
+            return;
+        }
+        //Обходим все блоки с данными о приложении
+        for (int i = 0; i < appsData.size(); i++) {
+            FoundApp app = new FoundApp();
+            app.setQuery(query);
+            app.setPos(i + 1);
+            JsonArray appData = (JsonArray) appsData.get(i);
+            //name
+            try {
+                app.setName(appData.getString(2));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить имя приложения");
+            }
+            //icon URL
+            try {
+                app.setIconUrl(((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
+                        .getCollection(1))
+                        .getCollection(1))
+                        .getCollection(2))
+                        .getCollection(3))
+                        .getString(2));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить URL иконки приложения");
+            }
+            foundApps.add(app);
+        }
+
+
     }
 
     interface AppsCollectingListener {

@@ -92,7 +92,7 @@ public class App {
     }
 
     public String getUrl() {
-        return "https://play.google.com/store/apps/details?id=" + id;
+        return id != null ? "https://play.google.com/store/apps/details?id=" + id : null;
     }
 
     public void setUrl(String url) {
