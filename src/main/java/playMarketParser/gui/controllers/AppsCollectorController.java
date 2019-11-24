@@ -158,7 +158,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @FXML
     private void start() {
         if (queries.size() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noQueries"), Global.ALERT);
+            showAlert(rb.getString("error"), rb.getString("noAppsSpec"), Global.ALERT);
             return;
         }
 
@@ -174,7 +174,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", 0f) + "%"));
 
         enableLoadingMode();
-        Global.log(rb.getString("posStarted") + "\n" +
+        Global.log(rb.getString("appsColStarted") + "\n" +
                 String.format("%-30s%s%n", rb.getString("threadsCount"), Prefs.getInt("pos_threads_cnt")) +
                 String.format("%-30s%s%n", rb.getString("checksCount"), Prefs.getInt("pos_checks_cnt")) +
                 String.format("%-30s%s%n", rb.getString("parsingLang"), Prefs.getString("parsing_lang")) +
@@ -195,7 +195,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @FXML
     private void resume() {
         enableLoadingMode();
-        Global.log(rb.getString("posResumed"));
+        Global.log(rb.getString("appsColResumed"));
         appsCollector.resume();
     }
 
@@ -336,14 +336,14 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @Override
     public void onFinish() {
         enableCompleteMode();
-        Global.log(rb.getString("posComplete"));
+        Global.log(rb.getString("appsColComplete"));
         progBar.setProgress(appsCollector.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsCollector.getProgress() * 100) + "%"));
     }
 
     @Override
     public void onPause() {
-        Global.log(rb.getString("posPaused"));
+        Global.log(rb.getString("appsColPaused"));
         enablePauseMode();
     }
 

@@ -67,9 +67,9 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
             if (threadsCount == 0)
                 if (unprocessed.size() > 0) appsCollectingListener.onPause();
                 else appsCollectingListener.onFinish();
-        } else if (unprocessed.size() == 0 && threadsCount == 0) appsCollectingListener.onFinish();
-        if (unprocessed.size() == 0 && threadsCount == 0) appsCollectingListener.onFinish();
-        else startNewLoaders();
+        } else
+            if (unprocessed.size() == 0 && threadsCount == 0) appsCollectingListener.onFinish();
+            else startNewLoaders();
     }
 
     public interface AppsCollectingListener {

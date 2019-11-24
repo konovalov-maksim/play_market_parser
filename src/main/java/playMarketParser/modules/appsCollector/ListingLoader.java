@@ -41,7 +41,7 @@ public class ListingLoader extends Thread {
 
     private void collectApps(Document doc) {
         //TODO парсинг листинга
-        foundApps.add(new FoundApp(doc.title()));
+        //foundApps.add(new FoundApp(doc.title()));
     }
 
     interface AppsCollectingListener {

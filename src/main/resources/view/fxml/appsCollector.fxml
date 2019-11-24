@@ -58,7 +58,7 @@
             <TableView fx:id="outputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
                 <placeholder>
-                    <Label text="%noQueries"/>
+                    <Label text="%noAppsFound"/>
                 </placeholder>
                 <columns>
                     <TableColumn fx:id="appQueryCol" text="%inputQuery"/>
