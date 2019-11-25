@@ -74,24 +74,26 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
 
+        appQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         positionCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
-        appQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.2));
         urlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
-        nameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
+        nameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.2));
         shortDescrCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         avgRateCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         iconUrlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         devUrlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         devNameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
-        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
         appQueryCol.setCellValueFactory(new PropertyValueFactory<>("query"));
+        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
         urlCol.setCellValueFactory(new PropertyValueFactory<>("url"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        shortDescrCol.setCellValueFactory(new PropertyValueFactory<>("shortDescr"));
         avgRateCol.setCellValueFactory(new PropertyValueFactory<>("avgRate"));
         iconUrlCol.setCellValueFactory(new PropertyValueFactory<>("iconUrl"));
         devUrlCol.setCellValueFactory(new PropertyValueFactory<>("devUrl"));
         devNameCol.setCellValueFactory(new PropertyValueFactory<>("devName"));
         outputTable.setItems(foundApps);
+
         inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
         inputQueryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
         inputTable.setItems(queries);
@@ -329,7 +331,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     public synchronized void onQueryProcessed(List<FoundApp> foundApps, String query, boolean isSuccess) {
         if (!isSuccess) Global.log(String.format("%-30s%s", query, rb.getString("connTimeout")));
         if (foundApps.isEmpty()) Global.log(String.format("%-30s%s", query, rb.getString("noApps")));
-        this.foundApps.addAll(foundApps);
+        Platform.runLater(() -> outputTable.getItems().addAll(foundApps));
         outputTable.refresh();
         progBar.setProgress(appsCollector.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsCollector.getProgress() * 100) + "%"));

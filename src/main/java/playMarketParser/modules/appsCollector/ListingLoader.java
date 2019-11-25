@@ -1,7 +1,6 @@
 package playMarketParser.modules.appsCollector;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import org.jsoup.nodes.Document;
 import playMarketParser.Connection;
@@ -72,7 +71,7 @@ public class ListingLoader extends Thread {
         for (int i = 0; i < appsData.size(); i++) {
             FoundApp app = new FoundApp();
             app.setQuery(query);
-            app.setPos(i + 1);
+            app.setPosition(i + 1);
             JsonArray appData = (JsonArray) appsData.get(i);
             //name
             try {
@@ -92,6 +91,63 @@ public class ListingLoader extends Thread {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.printf("%-40s%s%n", query, "Не удалось определить URL иконки приложения");
+            }
+            //dev name
+            try {
+                app.setDevName(((JsonArray) ((JsonArray) ((JsonArray) appData
+                        .getCollection(4))
+                        .getCollection(0))
+                        .getCollection(0))
+                        .getString(0));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить имя разработчика");
+            }
+            //Dev URL
+            try {
+                app.setDevUrl(((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
+                        .getCollection(4))
+                        .getCollection(0))
+                        .getCollection(0))
+                        .getCollection(1))
+                        .getCollection(4))
+                        .getString(2));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить URL разработчика");
+            }
+            //Avg Rate
+            try {
+                app.setAvgRate(Double.parseDouble((
+                        (JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
+                        .getCollection(6))
+                        .getCollection(0))
+                        .getCollection(2))
+                        .getCollection(1))
+                        .getString(0).replaceAll(",", "."))
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить среднюю оценку");
+            }
+            //Short descr
+            try {
+                app.setShortDescr(((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
+                        .getCollection(4))
+                        .getCollection(1))
+                        .getCollection(1))
+                        .getCollection(1))
+                        .getString(1));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить краткое описание");
+            }
+            //App ID
+            try {
+                app.setId(((JsonArray) appData.getCollection(12)).getString(0));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("%-40s%s%n", query, "Не удалось определить ID приложения");
             }
             foundApps.add(app);
         }

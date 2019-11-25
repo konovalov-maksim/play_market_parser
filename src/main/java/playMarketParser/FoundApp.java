@@ -2,18 +2,18 @@ package playMarketParser;
 
 public class FoundApp extends App{
 
-    private Integer pos;
+    private Integer position;
 
     private String query;
 
-    private Integer getPos() {
-        return pos;
-    }
-
     private String shortDescr;
 
-    public void setPos(Integer pos) {
-        this.pos = pos;
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public String getQuery() {
