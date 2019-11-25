@@ -21,9 +21,10 @@ public class Prefs {
         defaults.put("window_y", -1d);
         defaults.put("window_width", 900d);
         defaults.put("window_height", 600d);
+
         //connection
         defaults.put("user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-        defaults.put("accept_language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");
+        defaults.put("accept_language", "en-US");
         defaults.put("proxy", "");
         defaults.put("timeout", 3000);
         defaults.put("parsing_lang", "en");

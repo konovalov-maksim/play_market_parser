@@ -149,7 +149,7 @@
                 </VBox>
             </GridPane>
         </TitledPane>
-        <TitledPane collapsible="false" text="%appsParsing">
+        <TitledPane collapsible="false" text="%appsColParsing">
             <GridPane styleClass="spaced-grid-pane">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />

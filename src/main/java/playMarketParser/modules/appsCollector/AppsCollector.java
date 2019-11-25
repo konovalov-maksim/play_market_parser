@@ -79,7 +79,7 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
     }
 
     public double getProgress() {
-        return collectedCount * 1.0 / queries.size();
+        return (queries.size() - unprocessed.size()) * 1.0 / queries.size();
     }
 
     public void setMaxThreadsCount(int maxThreadsCount) {

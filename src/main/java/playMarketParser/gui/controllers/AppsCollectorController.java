@@ -257,7 +257,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
             }
 
             Files.write(outputFile.toPath(), newContent, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            showAlert(rb.getString("saved"), rb.getString("fileSaved") + "\n\n" + rb.getString("posExportTip"), Global.ACCEPT);
+            showAlert(rb.getString("saved"), rb.getString("fileSaved"), Global.ACCEPT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             showAlert(rb.getString("error"), rb.getString("alreadyUsing"), Global.ERROR);
