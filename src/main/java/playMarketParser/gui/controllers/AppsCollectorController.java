@@ -165,12 +165,10 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
             showAlert(rb.getString("error"), rb.getString("noAppsSpec"), Global.ALERT);
             return;
         }
-
         outputTable.getItems().clear();
 
-
         appsCollector = new AppsCollector(queries, this);
-        appsCollector.setMaxThreadsCount(Prefs.getInt("pos_threads_cnt"));
+        appsCollector.setMaxThreadsCount(Prefs.getInt("apps_threads_cnt"));
         if (!Prefs.getString("parsing_lang").equals("-")) appsCollector.setLanguage(Prefs.getString("parsing_lang"));
         if (!Prefs.getString("parsing_country").equals("-")) appsCollector.setCountry(Prefs.getString("parsing_country"));
 

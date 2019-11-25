@@ -28,7 +28,7 @@
         <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" text="%stop" styleClass="control-btn"/>
     </HBox>
     <Separator styleClass="h-separator"/>
-    <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.1" VBox.vgrow="ALWAYS">
         <AnchorPane>
             <HBox styleClass="table-title">
                 <Label text="%queriesQuantity"/>
@@ -37,7 +37,7 @@
             <TableView fx:id="inputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
                 <columns>
-                    <TableColumn prefWidth="75.0" text="%inputQuery" fx:id="inputQueryCol"/>
+                    <TableColumn text="%inputQuery" fx:id="inputQueryCol"/>
                 </columns>
                 <placeholder>
                     <Label text="%noQueries"/>

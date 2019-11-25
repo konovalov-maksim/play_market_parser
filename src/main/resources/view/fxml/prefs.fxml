@@ -37,6 +37,58 @@
             </rowConstraints>
             </GridPane>
         </TitledPane>
+        <TitledPane collapsible="false" text="%general">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
+                    <Label text="%timeout" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%timeoutTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="spaced-box">
+                    <Label text="%proxy" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%proxyTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">
+                    <Label text="%userAgent" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%userAgentTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="spaced-box">
+                    <Label text="%acceptLang" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%acceptLangTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="parsingLangCb" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="%parsingCountry" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+                <ComboBox fx:id="parsingCountryCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+            </GridPane>
+        </TitledPane>
         <TitledPane collapsible="false" text="%posChecking">
             <GridPane styleClass="spaced-grid-pane">
                 <columnConstraints>
@@ -108,58 +160,6 @@
                 <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                 <Spinner fx:id="appsThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            </GridPane>
-        </TitledPane>
-        <TitledPane collapsible="false" text="%general">
-            <GridPane styleClass="spaced-grid-pane">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
-                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
-                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
-                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
-                </columnConstraints>
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
-                    <Label text="%timeout" />
-                    <Button styleClass="tip-button">
-                        <tooltip>
-                            <Tooltip text="%timeoutTip"/>
-                        </tooltip>
-                    </Button>
-                </HBox>
-                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="spaced-box">
-                    <Label text="%proxy" />
-                    <Button styleClass="tip-button">
-                        <tooltip>
-                            <Tooltip text="%proxyTip"/>
-                        </tooltip>
-                    </Button>
-                </HBox>
-                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">
-                    <Label text="%userAgent" />
-                    <Button styleClass="tip-button">
-                        <tooltip>
-                            <Tooltip text="%userAgentTip"/>
-                        </tooltip>
-                    </Button>
-                </HBox>
-                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <HBox GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="spaced-box">
-                    <Label text="%acceptLang" />
-                    <Button styleClass="tip-button">
-                        <tooltip>
-                            <Tooltip text="%acceptLangTip"/>
-                        </tooltip>
-                    </Button>
-                </HBox>
-                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-
-                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="parsingLangCb" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-
-                <Label text="%parsingCountry" GridPane.rowIndex="0" GridPane.columnIndex="2" />
-                <ComboBox fx:id="parsingCountryCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
             </GridPane>
         </TitledPane>
     </VBox>
