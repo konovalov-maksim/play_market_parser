@@ -100,8 +100,10 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
 
 
         //Context menus
-        TableContextMenu tableContextMenu = new TableContextMenu(outputTable);
-        removeItem = tableContextMenu.getRemoveItem();
+        TableContextMenu outputContextMenu = new TableContextMenu(outputTable);
+        outputContextMenu.getRemoveItem().setVisible(false);
+        TableContextMenu inputContextMenu = new TableContextMenu(inputTable);
+        removeItem = inputContextMenu.getRemoveItem();
 
         //Привязки
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
