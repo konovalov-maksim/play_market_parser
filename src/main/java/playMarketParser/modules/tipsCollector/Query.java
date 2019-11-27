@@ -25,10 +25,6 @@ public class Query {
         return parentQuery.getDepth() + 1;
     }
 
-    boolean isRoot() {
-        return parentQuery == null;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

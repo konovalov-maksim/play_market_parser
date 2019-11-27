@@ -18,17 +18,10 @@ public class MainController implements Initializable {
 
     private ResourceBundle rb;
 
-//    @FXML private PosCheckerController posCheckerController;
-//    @FXML private TipsCollectorController tipsCollectorController;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
     }
-
-//    void setStage(Stage stage) {
-//
-//    }
 
     @FXML
     private void openPrefs() {

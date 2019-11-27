@@ -12,7 +12,6 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
     private int maxThreadsCount = 1;
     private String language;
     private String country;
-    private int collectedCount;
     private AppsCollectingListener appsCollectingListener;
     private Deque<ListingLoader> unprocessed = new ConcurrentLinkedDeque<>();
 
@@ -60,7 +59,6 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
     @Override
     public synchronized void onQueryProcessed(List<FoundApp> foundApps, String query, boolean isSuccess) {
         appsCollectingListener.onQueryProcessed(foundApps, query, isSuccess);
-        collectedCount += foundApps.size();
         threadsCount--;
 
         if (isPaused) {
