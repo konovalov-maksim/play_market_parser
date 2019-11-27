@@ -1,4 +1,4 @@
-package playMarketParser;
+package playMarketParser.entities;
 
 public class FoundApp extends App{
 

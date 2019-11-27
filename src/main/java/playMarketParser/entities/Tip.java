@@ -1,4 +1,4 @@
-package playMarketParser.modules.tipsCollector;
+package playMarketParser.entities;
 
 import java.util.Objects;
 
@@ -7,7 +7,7 @@ public class Tip {
     private String queryText;
     private int depth;
 
-    Tip(String query, String text, int depth) {
+    public Tip(String query, String text, int depth) {
         this.text = text;
         this.queryText = query;
         this.depth = depth;

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import playMarketParser.Connection;
+import playMarketParser.entities.Connection;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.gui.customElements.NamedRadioButton;

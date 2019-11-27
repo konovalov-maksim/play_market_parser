@@ -15,7 +15,7 @@ import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.gui.customElements.TableContextMenu;
 import playMarketParser.gui.customElements.TextAreaDialog;
-import playMarketParser.modules.tipsCollector.Tip;
+import playMarketParser.entities.Tip;
 import playMarketParser.modules.tipsCollector.TipsCollector;
 
 import java.io.*;

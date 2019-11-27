@@ -3,8 +3,8 @@ package playMarketParser.modules.appsCollector;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import org.jsoup.nodes.Document;
-import playMarketParser.Connection;
-import playMarketParser.FoundApp;
+import playMarketParser.entities.Connection;
+import playMarketParser.entities.FoundApp;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ListingLoader extends Thread {
     private List<FoundApp> foundApps = new ArrayList<>();
 
 
-    public ListingLoader(String query, String language, String country, AppsCollectingListener appsCollectingListener) {
+    ListingLoader(String query, String language, String country, AppsCollectingListener appsCollectingListener) {
         this.query = query;
         this.language = language;
         this.country = country;

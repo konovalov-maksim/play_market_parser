@@ -2,6 +2,8 @@ package playMarketParser.modules.tipsCollector;
 
 
 
+import playMarketParser.entities.Tip;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;

@@ -2,7 +2,8 @@ package playMarketParser.modules.tipsCollector;
 
 
 import org.jsoup.nodes.Document;
-import playMarketParser.Connection;
+import playMarketParser.entities.Connection;
+import playMarketParser.entities.Tip;
 
 import java.io.IOException;
 import java.util.ArrayList;

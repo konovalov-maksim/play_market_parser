@@ -2,7 +2,8 @@ package playMarketParser.modules.positionsChecker;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import playMarketParser.Connection;
+import playMarketParser.entities.Connection;
+import playMarketParser.entities.Query;
 
 import java.io.IOException;
 

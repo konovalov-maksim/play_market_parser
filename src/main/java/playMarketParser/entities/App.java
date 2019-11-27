@@ -1,4 +1,4 @@
-package playMarketParser;
+package playMarketParser.entities;
 
 import java.util.ArrayList;
 import java.util.List;

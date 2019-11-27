@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import playMarketParser.FoundApp;
+import playMarketParser.entities.FoundApp;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.gui.customElements.TableContextMenu;

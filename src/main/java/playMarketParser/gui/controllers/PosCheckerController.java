@@ -15,7 +15,7 @@ import playMarketParser.Prefs;
 import playMarketParser.gui.customElements.TableContextMenu;
 import playMarketParser.gui.customElements.TextAreaDialog;
 import playMarketParser.modules.positionsChecker.PosChecker;
-import playMarketParser.modules.positionsChecker.Query;
+import playMarketParser.entities.Query;
 
 import java.io.*;
 import java.net.URL;

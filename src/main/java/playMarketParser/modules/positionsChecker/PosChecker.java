@@ -1,5 +1,7 @@
 package playMarketParser.modules.positionsChecker;
 
+import playMarketParser.entities.Query;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 

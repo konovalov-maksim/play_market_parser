@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.controlsfx.control.CheckComboBox;
-import playMarketParser.App;
+import playMarketParser.entities.App;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
 import playMarketParser.gui.customElements.TableContextMenu;

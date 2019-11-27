@@ -1,4 +1,4 @@
-package playMarketParser.modules.positionsChecker;
+package playMarketParser.entities;
 
 import playMarketParser.Global;
 
@@ -16,7 +16,7 @@ public class Query {
         text = fullRowText.split(Global.getCsvDelim())[0];
     }
 
-    synchronized void addPseudoPos(int pos) {
+    public synchronized void addPseudoPos(int pos) {
         pseudoPos.add(pos);
         calcRealPos();
         String appendix = pos > 9 ? String.valueOf(pos) : "  " + pos;

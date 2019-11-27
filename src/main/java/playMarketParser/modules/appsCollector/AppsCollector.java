@@ -1,6 +1,6 @@
 package playMarketParser.modules.appsCollector;
 
-import playMarketParser.FoundApp;
+import playMarketParser.entities.FoundApp;
 
 import java.util.Deque;
 import java.util.List;

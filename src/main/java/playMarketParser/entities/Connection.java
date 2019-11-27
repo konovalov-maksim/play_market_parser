@@ -1,7 +1,8 @@
-package playMarketParser;
+package playMarketParser.entities;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import playMarketParser.Prefs;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
