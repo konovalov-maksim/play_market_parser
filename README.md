@@ -18,6 +18,8 @@ At the moment Play Market has 4 modes:
 - Possibility of unloading the collected data in the CSV
 - English and Russian localizations
 
+![Apps parsing](https://user-images.githubusercontent.com/49783652/69719598-e1e9a480-1121-11ea-99cf-1fa8df10f2a9.png)
+
 ## Modes
 
 ### Searching tips collecting
