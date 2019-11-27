@@ -131,7 +131,7 @@ class AppLoader extends Thread {
         //ratesCount
         try {
             Element element = doc.select("span.AYi5wd.TBRnV").first();
-            app.setRatesCount(element != null ? Integer.parseInt(element.text().replaceAll(" ", "")) : 0);
+            app.setRatesCount(element != null ? Integer.parseInt(element.text().replaceAll("[\\s,]", "")) : 0);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить число оценок");
@@ -153,7 +153,8 @@ class AppLoader extends Thread {
         }
         //whats new
         try {
-            app.setWhatsNew(doc.select("c-wiz[jsrenderer=eG38Ge] div[itemprop=description].DWPxHb").first().text());
+            Element div = doc.select("c-wiz[jsrenderer=eG38Ge] div[itemprop=description].DWPxHb").first();
+            if (div != null) app.setWhatsNew(div.text());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить Что нового");
