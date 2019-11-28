@@ -173,3 +173,8 @@
     -fx-alignment: center-right;
 }
 
+.row-num-col-cell {
+        -fx-background-color: -fx-table-cell-border-color, -fx-hover-base;
+        -fx-background-insets: 0, 0 0 3 0;
+}
+
