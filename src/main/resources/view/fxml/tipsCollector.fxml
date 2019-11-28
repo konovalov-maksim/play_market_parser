@@ -37,7 +37,7 @@
             <TableView fx:id="inputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
                 <columns>
-                    <TableColumn fx:id="inRowNumCol" text="#" prefWidth="25" sortable="false"/>
+                    <TableColumn fx:id="inRowNumCol" text="#" styleClass="row-num-col" sortable="false"/>
                     <TableColumn text="%inputQuery" fx:id="inputQueryCol"/>
                 </columns>
                 <placeholder>
@@ -59,7 +59,7 @@
             <TableView fx:id="outputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
                 <columns>
-                    <TableColumn fx:id="outRowNumCol" text="#" prefWidth="25" sortable="false"/>
+                    <TableColumn fx:id="outRowNumCol" text="#" styleClass="row-num-col" sortable="false"/>
                     <TableColumn text="%query" fx:id="outputQueryCol"/>
                     <TableColumn text="%tip" fx:id="tipCol"/>
                     <TableColumn text="%depth" fx:id="depthCol"/>

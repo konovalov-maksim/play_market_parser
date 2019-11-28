@@ -167,3 +167,9 @@
     -fx-fill: -fx-base !important;
     -fx-effect: dropshadow(gaussian, lightgray, 6.0, 0.0, 1.0, 1.0);
 }
+
+.row-num-col {
+    -fx-pref-width: 25;
+    -fx-alignment: center-right;
+}
+

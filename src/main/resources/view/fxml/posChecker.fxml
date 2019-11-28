@@ -48,7 +48,7 @@
                 <Label text="%noQueries"/>
             </placeholder>
             <columns>
-                <TableColumn fx:id="rowNumCol" text="#" prefWidth="25" sortable="false"/>
+                <TableColumn fx:id="rowNumCol" text="#" sortable="false" styleClass="row-num-col"/>
                 <TableColumn fx:id="queryCol" text="%inputQuery"/>
                 <TableColumn fx:id="pseudoPosCol" text="%interPos"/>
                 <TableColumn fx:id="realPosCol" text="%finalPos"/>

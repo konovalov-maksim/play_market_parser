@@ -37,7 +37,7 @@
             <TableView fx:id="inputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
                 <columns>
-                    <TableColumn fx:id="inRowNumCol" text="#" prefWidth="25" sortable="false"/>
+                    <TableColumn fx:id="inRowNumCol" text="#" styleClass="row-num-col" sortable="false"/>
                     <TableColumn text="%inputQuery" fx:id="inputQueryCol"/>
                 </columns>
                 <placeholder>
@@ -57,12 +57,12 @@
                 </StackPane>
             </HBox>
             <TableView fx:id="outputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0" tableMenuButtonVisible="true">
                 <placeholder>
                     <Label text="%noAppsFound"/>
                 </placeholder>
                 <columns>
-                    <TableColumn fx:id="outRowNumCol" text="#" prefWidth="25" sortable="false"/>
+                    <TableColumn fx:id="outRowNumCol" text="#" styleClass="row-num-col" sortable="false"/>
                     <TableColumn fx:id="appQueryCol" text="%inputQuery"/>
                     <TableColumn fx:id="positionCol" text="%position" styleClass="center-right-align"/>
                     <TableColumn fx:id="urlCol" text="%url"/>
