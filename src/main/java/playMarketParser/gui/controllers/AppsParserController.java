@@ -14,6 +14,7 @@ import org.controlsfx.control.CheckComboBox;
 import playMarketParser.entities.App;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
+import playMarketParser.gui.customElements.RowNumCellFactory;
 import playMarketParser.gui.customElements.TableContextMenu;
 import playMarketParser.gui.customElements.TextAreaDialog;
 import playMarketParser.modules.appsParser.AppsParser;
@@ -43,6 +44,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private Label progLbl;
     @FXML private ProgressBar progBar;
     @FXML private TableView<App> table;
+    @FXML private TableColumn<App, String> rowNumCol;
     @FXML private TableColumn<App, String> idCol;
     @FXML private TableColumn<App, String> urlCol;
     @FXML private TableColumn<App, String> nameCol;
@@ -86,6 +88,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         rb = Global.getBundle();
 
         //Таблица
+        rowNumCol.setCellFactory(new RowNumCellFactory<>());
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         urlCol.setCellValueFactory(new PropertyValueFactory<>("url"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

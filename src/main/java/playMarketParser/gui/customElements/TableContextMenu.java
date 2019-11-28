@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import playMarketParser.Global;
 
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class TableContextMenu extends ContextMenu {

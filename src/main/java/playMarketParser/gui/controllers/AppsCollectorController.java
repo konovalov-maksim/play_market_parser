@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import playMarketParser.entities.FoundApp;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
+import playMarketParser.gui.customElements.RowNumCellFactory;
 import playMarketParser.gui.customElements.TableContextMenu;
 import playMarketParser.gui.customElements.TextAreaDialog;
 import playMarketParser.modules.appsCollector.AppsCollector;
@@ -48,8 +49,10 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @FXML private VBox rootPane;
 
     @FXML private TableView<String> inputTable;
+    @FXML private TableColumn<String, Integer> inRowNumCol;
     @FXML private TableColumn<String, String> inputQueryCol;
     @FXML private TableView<FoundApp> outputTable;
+    @FXML private TableColumn<FoundApp, Integer> outRowNumCol;
     @FXML private TableColumn<FoundApp, String> appQueryCol;
     @FXML private TableColumn<FoundApp, Integer> positionCol;
     @FXML private TableColumn<FoundApp, String> urlCol;
@@ -83,6 +86,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
         iconUrlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         devUrlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         devNameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
+        outRowNumCol.setCellFactory(new RowNumCellFactory<>());
         appQueryCol.setCellValueFactory(new PropertyValueFactory<>("query"));
         positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
         urlCol.setCellValueFactory(new PropertyValueFactory<>("url"));
@@ -96,8 +100,8 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
 
         inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
         inputQueryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+        inRowNumCol.setCellFactory(new RowNumCellFactory<>());
         inputTable.setItems(queries);
-
 
         //Context menus
         TableContextMenu outputContextMenu = new TableContextMenu(outputTable);

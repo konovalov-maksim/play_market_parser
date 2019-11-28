@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
+import playMarketParser.gui.customElements.RowNumCellFactory;
 import playMarketParser.gui.customElements.TableContextMenu;
 import playMarketParser.gui.customElements.TextAreaDialog;
 import playMarketParser.modules.positionsChecker.PosChecker;
@@ -43,6 +44,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML private Label progLbl;
     @FXML private ProgressBar progBar;
     @FXML private TableView<Query> table;
+    @FXML private TableColumn<Query, Integer> rowNumCol;
     @FXML private TableColumn<Query, String> queryCol;
     @FXML private TableColumn<Query, String> pseudoPosCol;
     @FXML private TableColumn<Query, String> realPosCol;
@@ -65,8 +67,8 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
         appUrlTf.setText(Prefs.getString("pos_app_url"));
 
-
         //Tables
+        rowNumCol.setCellFactory(new RowNumCellFactory<>());
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
         pseudoPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
         realPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));

@@ -3,6 +3,7 @@ package playMarketParser.gui.controllers;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import playMarketParser.Global;
 import playMarketParser.Prefs;
+import playMarketParser.gui.customElements.RowNumCellFactory;
 import playMarketParser.gui.customElements.TableContextMenu;
 import playMarketParser.gui.customElements.TextAreaDialog;
 import playMarketParser.entities.Tip;
@@ -44,11 +46,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML private Label progLbl;
     @FXML private ProgressBar progBar;
     @FXML private TableView<String> inputTable;
+    @FXML private TableColumn<String, Integer> inRowNumCol;
     @FXML private TableColumn<String, String> inputQueryCol;
     @FXML private TableView<Tip> outputTable;
+    @FXML private TableColumn<Tip, Integer> outRowNumCol;
     @FXML private TableColumn<Tip, String> outputQueryCol;
     @FXML private TableColumn<Tip, String> tipCol;
     @FXML private TableColumn<Tip, Integer> depthCol;
+
     @FXML private VBox rootPane;
 
     private CheckBox titleFirstChb;
@@ -66,12 +71,15 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
         //inputTable
         inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
+        inRowNumCol.setCellFactory(new RowNumCellFactory<>());
         inputQueryCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue()));
         inputTable.setItems(queries);
         //outputTable
         outputQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.4));
         tipCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.5));
         depthCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
+        inputQueryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+        outRowNumCol.setCellFactory(new RowNumCellFactory<>());
         outputQueryCol.setCellValueFactory(new PropertyValueFactory<>("queryText"));
         tipCol.setCellValueFactory(new PropertyValueFactory<>("text"));
         depthCol.setCellValueFactory(new PropertyValueFactory<>("depth"));

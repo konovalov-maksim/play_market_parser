@@ -49,6 +49,7 @@
                 <Label text="%noQueries"/>
             </placeholder>
             <columns>
+                <TableColumn fx:id="rowNumCol" text="#" prefWidth="25" sortable="false"/>
                 <TableColumn fx:id="idCol" text="%id"/>
                 <TableColumn fx:id="urlCol" text="%url"/>
                 <TableColumn fx:id="nameCol" text="%name"/>
