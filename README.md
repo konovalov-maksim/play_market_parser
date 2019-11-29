@@ -10,7 +10,7 @@ At the moment Play Market has 4 modes:
 - [Collecting apps by queries list](#collecting-apps)
 - [Collecting detailed information about applications](#collecting-detailed-info)
 
-##### Features:
+#### Features:
 - Parsing data for different languages ​​and countries
 - Possibility of multi-thread parsing
 - Collecting information hidden from users: **the exact number of installs** and **release date**
