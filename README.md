@@ -18,7 +18,7 @@ At the moment Play Market has 4 modes:
 - Possibility of unloading the collected data in the CSV
 - English and Russian localizations
 
-![Apps parsing](https://user-images.githubusercontent.com/49783652/69719598-e1e9a480-1121-11ea-99cf-1fa8df10f2a9.png)
+![apps-parsing-en](https://user-images.githubusercontent.com/49783652/69831631-506e5580-123b-11ea-9138-de99b59d4c3d.png)
 
 ## Modes
 
@@ -31,12 +31,17 @@ If for some original query is found 5 tips, for finding the remaining tips will 
 The algorithm does not collect the tips generated for the corrected query. 
 For example, for the query "facebook ma" tip "facebook message app" won't be collected, as it corresponds to corrected query, not original.
 
+![tips-en](https://user-images.githubusercontent.com/49783652/69831637-5106ec00-123b-11ea-8842-ce593f956803.png)
+
 ### App's positions checking
 The mode allows to check app's positions in Play Market search engine results page. Collected data can be used to analyze the dynamics of visibility of the application.
 
 Sometimes, instead of displaying the app on the actual position, Google Play "raises" or "lowers" it. Therefore, to get the real position, it is recommended to set the number of checks for each request 3-5.
 
 The exported CSV file with the results can be imported for re-checking the positions (eg the next day). In this case, if you select "Include previous results" checkbox, the new results will be recorded in a new column to the right of the old, making it easier to analyze the data.
+
+![pos-en](https://user-images.githubusercontent.com/49783652/69831633-5106ec00-123b-11ea-8da8-0d7e217a4bb6.png)
+
 
 ### Collecting apps
 The mode allows to collect links and basic apps info found by specified queries. The following app info is collected:
@@ -49,6 +54,8 @@ The mode allows to collect links and basic apps info found by specified queries.
 - developer name
 - developer page URL
 Detailed information about applications can be collected from the found links.
+
+![apps-col-en](https://user-images.githubusercontent.com/49783652/69831629-506e5580-123b-11ea-9385-21778201892d.png)
 
 ### Collecting detailed info
 Mode allows parse detail apps info by list of URLs.
@@ -80,3 +87,5 @@ The following app info is collecting:
 For each of the modes is possible to set the language and country, the number of threads, connection timeout, proxy server, and http headers user-agent, accept-language.
 If no country is specified, Play Market will detect it by IP (or proxy server IP).
 If language not specified, Play Market will detect it by http header accept-language.
+
+![prefs-en](https://user-images.githubusercontent.com/49783652/69831635-5106ec00-123b-11ea-84fe-1ef2e501248f.png)
