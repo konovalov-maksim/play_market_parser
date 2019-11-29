@@ -174,7 +174,11 @@
 }
 
 .row-num-col-cell {
-        -fx-background-color: -fx-table-cell-border-color, -fx-hover-base;
-        -fx-background-insets: 0, 0 0 3 0;
+        -fx-background-color: derive(-fx-control-inner-background,-8%);
+        -fx-background-insets: 0;
+        -fx-text-fill: -fx-text-inner-color;
 }
+
+
+
 

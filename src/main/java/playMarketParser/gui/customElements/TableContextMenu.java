@@ -18,6 +18,18 @@ public class TableContextMenu extends ContextMenu {
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getSelectionModel().setCellSelectionEnabled(true);
 
+/*        table.getColumns().forEach(col -> {
+            col.setCellFactory(column -> {
+                TableCell cell = new TableCell();
+                cell.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && !column.getText().equals("#")) {
+                        Global.log("124");
+                    }
+                });
+                return cell;
+            });
+        });*/
+
         //Пункт "Копирование выделенных ячеек"
         MenuItem copyItem = new MenuItem(rb.getString("copy"));
         ImageView copyIcon = new ImageView("/images/icons/file_copy.png");
