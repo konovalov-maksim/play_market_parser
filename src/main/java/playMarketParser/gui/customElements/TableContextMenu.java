@@ -13,22 +13,10 @@ public class TableContextMenu extends ContextMenu {
 
     public <S> TableContextMenu(TableView<S> table) {
         ResourceBundle rb = Global.getBundle();
-        final int IMG_SIZE = 20;
+        final int IMG_SIZE = 16;
 
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getSelectionModel().setCellSelectionEnabled(true);
-
-/*        table.getColumns().forEach(col -> {
-            col.setCellFactory(column -> {
-                TableCell cell = new TableCell();
-                cell.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2 && !column.getText().equals("#")) {
-                        Global.log("124");
-                    }
-                });
-                return cell;
-            });
-        });*/
 
         //Пункт "Копирование выделенных ячеек"
         MenuItem copyItem = new MenuItem(rb.getString("copy"));
@@ -69,16 +57,36 @@ public class TableContextMenu extends ContextMenu {
         });
         copyItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
 
+        //Пункт "Копирование выделенных ячеек"
+        MenuItem copyColItem = new MenuItem(rb.getString("copyCol"));
+        ImageView copyColIcon = new ImageView("/images/icons/copy_col.png");
+        copyColIcon.setFitHeight(IMG_SIZE);
+        copyColIcon.setFitWidth(IMG_SIZE);
+        copyColItem.setGraphic(copyColIcon);
+        copyColItem.setOnAction(a -> {
+            int colIndex = table.getFocusModel().getFocusedCell().getColumn();
+            StringBuilder selectedData = new StringBuilder();
+            for (int i = 0; i < table.getItems().size(); i++) {
+                Object cellData = table.getColumns().get(colIndex).getCellData(i);
+                if (cellData != null && cellData.toString().length() > 0) selectedData.append(cellData.toString()).append("\n");
+            }
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString(selectedData.toString());
+            Clipboard.getSystemClipboard().setContent(clipboardContent);
+        });
+        copyColItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN));
+
+
         //Пункт "Удаление выделенных строк"
         MenuItem removeItem = new MenuItem(rb.getString("remove"));
-        ImageView delIcon = new ImageView("/images/icons/delete.png");
+        ImageView delIcon = new ImageView("/images/icons/remove.png");
         delIcon.setFitHeight(IMG_SIZE);
         delIcon.setFitWidth(IMG_SIZE);
         removeItem.setGraphic(delIcon);
         removeItem.setOnAction(a -> table.getItems().removeAll(table.getSelectionModel().getSelectedItems()));
         removeItem.setAccelerator(new KeyCodeCombination(KeyCode.DELETE));
 
-        this.getItems().addAll(copyItem, removeItem);
+        this.getItems().addAll(copyItem, copyColItem, removeItem);
 
         //Делаем меню видимым только для непустых строк таблицы
         table.setRowFactory(c -> {
@@ -89,11 +97,16 @@ public class TableContextMenu extends ContextMenu {
         });
     }
 
-    public MenuItem getRemoveItem() {
-        return this.getItems().get(1);
-    }
-
     public MenuItem getCopyItem() {
         return this.getItems().get(0);
     }
+
+    public MenuItem getCopyColItem() {
+        return this.getItems().get(1);
+    }
+
+    public MenuItem getRemoveItem() {
+        return this.getItems().get(2);
+    }
+
 }
