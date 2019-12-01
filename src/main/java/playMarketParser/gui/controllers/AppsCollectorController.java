@@ -334,11 +334,14 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @Override
     public synchronized void onQueryProcessed(List<FoundApp> foundApps, String query, boolean isSuccess) {
         if (!isSuccess) Global.log(String.format("%-30s%s", query, rb.getString("connTimeout")));
-        if (foundApps.isEmpty()) Global.log(String.format("%-30s%s", query, rb.getString("noApps")));
-        Platform.runLater(() -> outputTable.getItems().addAll(foundApps));
-        outputTable.refresh();
-        progBar.setProgress(appsCollector.getProgress());
-        Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsCollector.getProgress() * 100) + "%"));
+        else if (foundApps.isEmpty()) Global.log(String.format("%-30s%s", query, rb.getString("noApps")));
+        else {
+            Platform.runLater(() -> outputTable.getItems().addAll(foundApps));
+            outputTable.refresh();
+            progBar.setProgress(appsCollector.getProgress());
+            Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsCollector.getProgress() * 100) + "%"));
+        }
+
     }
 
     @Override
