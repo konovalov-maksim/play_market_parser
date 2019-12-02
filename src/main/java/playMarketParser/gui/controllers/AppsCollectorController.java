@@ -200,18 +200,21 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @FXML
     private void pause() {
         appsCollector.pause();
+        Global.log(rb.getString("appsColPaused"));
+        enablePauseMode();
     }
 
     @FXML
     private void resume() {
-        enableLoadingMode();
-        Global.log(rb.getString("appsColResumed"));
         appsCollector.resume();
+        Global.log(rb.getString("appsColResumed"));
+        enableLoadingMode();
     }
 
     @FXML
     private void stop() {
         appsCollector.stop();
+        onFinish();
     }
 
     @FXML
@@ -343,7 +346,6 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
             progBar.setProgress(appsCollector.getProgress());
             Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsCollector.getProgress() * 100) + "%"));
         }
-
     }
 
     @Override
@@ -352,12 +354,6 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
         Global.log(rb.getString("appsColComplete"));
         progBar.setProgress(appsCollector.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsCollector.getProgress() * 100) + "%"));
-    }
-
-    @Override
-    public void onPause() {
-        Global.log(rb.getString("appsColPaused"));
-        enablePauseMode();
     }
 
 }

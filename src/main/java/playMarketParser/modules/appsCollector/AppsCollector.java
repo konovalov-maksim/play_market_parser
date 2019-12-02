@@ -16,7 +16,9 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
     private Deque<ListingLoader> unprocessed = new ConcurrentLinkedDeque<>();
 
     private int threadsCount;
+    private int processedCount;
     private boolean isPaused;
+    private boolean isStopped;
 
 
     public AppsCollector(List<String> queries, AppsCollectingListener appsCollectingListener) {
@@ -26,6 +28,7 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
 
     public void start() {
         isPaused = false;
+        isStopped = false;
         createThreads();
         startNewLoaders();
     }
@@ -36,12 +39,13 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
 
     public void resume() {
         isPaused = false;
+        isStopped = false;
         startNewLoaders();
     }
 
     public void stop() {
+        isStopped = true;
         unprocessed.clear();
-        if (threadsCount == 0) appsCollectingListener.onFinish();
     }
 
     private void createThreads() {
@@ -58,26 +62,26 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
 
     @Override
     public synchronized void onQueryProcessed(List<FoundApp> foundApps, String query, boolean isSuccess) {
-        appsCollectingListener.onQueryProcessed(foundApps, query, isSuccess);
         threadsCount--;
-
+        if (isStopped) return;
         if (isPaused) {
-            if (threadsCount == 0)
-                if (unprocessed.size() > 0) appsCollectingListener.onPause();
-                else appsCollectingListener.onFinish();
-        } else
-            if (unprocessed.size() == 0 && threadsCount == 0) appsCollectingListener.onFinish();
-            else startNewLoaders();
+            unprocessed.addFirst(new ListingLoader(query, language, country, this));
+            return;
+        }
+        processedCount++;
+        appsCollectingListener.onQueryProcessed(foundApps, query, isSuccess);
+
+        if (unprocessed.size() == 0 && threadsCount == 0) appsCollectingListener.onFinish();
+        else startNewLoaders();
     }
 
     public interface AppsCollectingListener {
         void onQueryProcessed(List<FoundApp> foundApps, String query, boolean isSuccess);
         void onFinish();
-        void onPause();
     }
 
     public double getProgress() {
-        return (queries.size() - unprocessed.size()) * 1.0 / queries.size();
+        return isStopped ? 1.0 : processedCount * 1.0 / queries.size();
     }
 
     public void setMaxThreadsCount(int maxThreadsCount) {
