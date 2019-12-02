@@ -55,7 +55,7 @@ public class PosLoader extends Thread {
                 return i + 1;
             }
         }
-        System.out.printf(format, query.getText(), "Приложение отсутствует в ТОП-" + appsLinksDivs.size());
+//        System.out.printf(format, query.getText(), "Приложение отсутствует в ТОП-" + appsLinksDivs.size());
         return 0;
     }
 

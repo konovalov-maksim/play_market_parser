@@ -44,7 +44,7 @@ class TipsLoader extends Thread {
 
         String content = doc.text();
         if (content.equals("[]")) {
-            System.out.println(queryText);
+//            System.out.println(queryText);
             return;
         }
         //Убираем шлак
@@ -56,7 +56,7 @@ class TipsLoader extends Thread {
         String[] tipsArray = content.split(",t:q},s:");
         for (String tip : tipsArray) {
             if (isUncorrected(queryText, tip)) tips.add(new Tip(query.getRootQueryText(), tip, query.getDepth()));
-            System.out.printf("%-35s%-50s%n", queryText, tip);
+//            System.out.printf("%-35s%-50s%n", queryText, tip);
         }
     }
 
