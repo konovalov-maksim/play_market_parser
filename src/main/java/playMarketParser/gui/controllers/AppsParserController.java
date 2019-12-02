@@ -268,16 +268,16 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
             //Добавляем заголовок
             StringBuilder firstRow = new StringBuilder();
             for (TableColumn col : table.getColumns()) {
-                if (col.isVisible())
+                if (col.isVisible() && !col.getText().equals("#"))
                 firstRow.append(col.getText()).append(csvDelim);
             }
             newContent.add(firstRow.toString());
             //Пишем данные приложений, перебираем все строки и видимые столбцы таблицы
             for (int r = 0; r < table.getItems().size(); r++) {
                 StringBuilder newRow = new StringBuilder();
-                for (int c = 0; c < table.getColumns().size(); c++)
-                    if (table.getColumns().get(c).isVisible()) {
-                        Object cellData = table.getColumns().get(c).getCellData(r);
+                for (TableColumn col : table.getColumns())
+                    if (col.isVisible() && !col.getText().equals("#")) {
+                        Object cellData = col.getCellData(r);
                         String cellString = cellData != null ? cellData.toString() : "";
                         //Кодируем спец символы перед записью в CSV
                         if (cellString.contains(csvDelim) || cellString.contains("\"")) {

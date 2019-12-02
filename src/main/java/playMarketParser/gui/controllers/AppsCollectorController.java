@@ -248,22 +248,25 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
             List<String> newContent = new ArrayList<>();
             //Добавляем заголовок
             StringBuilder firstRow = new StringBuilder();
-            for (TableColumn col : outputTable.getColumns()) firstRow.append(col.getText()).append(csvDelim);
+            for (TableColumn col : outputTable.getColumns())
+                if (col.isVisible() && !col.getText().equals("#"))
+                    firstRow.append(col.getText()).append(csvDelim);
             newContent.add(firstRow.toString());
 
             //Пишем данные приложений, перебираем все строки и столбцы таблицы
             for (int r = 0; r < outputTable.getItems().size(); r++) {
                 StringBuilder newRow = new StringBuilder();
-                for (int c = 0; c < outputTable.getColumns().size(); c++) {
-                    Object cellData = outputTable.getColumns().get(c).getCellData(r);
-                    String cellString = cellData != null ? cellData.toString() : "";
-                    //Кодируем спец символы перед записью в CSV
-                    if (cellString.contains(csvDelim) || cellString.contains("\"")) {
-                        cellString = cellString.replaceAll("\"", "\"\"");
-                        cellString = "\"" + cellString + "\"";
+                for (TableColumn col : outputTable.getColumns())
+                    if (col.isVisible() && !col.getText().equals("#")) {
+                        Object cellData = col.getCellData(r);
+                        String cellString = cellData != null ? cellData.toString() : "";
+                        //Кодируем спец символы перед записью в CSV
+                        if (cellString.contains(csvDelim) || cellString.contains("\"")) {
+                            cellString = cellString.replaceAll("\"", "\"\"");
+                            cellString = "\"" + cellString + "\"";
+                        }
+                        newRow.append(cellString).append(csvDelim);
                     }
-                    newRow.append(cellString).append(csvDelim);
-                }
                 newContent.add(newRow.toString());
             }
 
