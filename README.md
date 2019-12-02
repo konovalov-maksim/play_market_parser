@@ -1,6 +1,6 @@
-# ![app_icon](https://user-images.githubusercontent.com/49783652/69968948-87d74d80-152c-11ea-92d9-8ae6ab9e2815.png?display=inline-block) Play Market Parser
+# ![app_icon](https://user-images.githubusercontent.com/49783652/69971722-6c227600-1531-11ea-87f2-d51bd7b00379.png) Play Market Parser
 
-*Read this in another languages: ![en](https://raw.githubusercontent.com/gosquared/flags/master/src/flags/United-Kingdom/16.png?display=inline-block) [English](https://github.com/konovalov-maksim/play_market_parser/blob/master/README.md), ![ru](https://raw.githubusercontent.com/gosquared/flags/master/src/flags/Russia/16.png?display=inline-block) [Русский](https://github.com/konovalov-maksim/play_market_parser/blob/master/README.ru.md).*
+*Read this in another languages: ![en](https://user-images.githubusercontent.com/49783652/69971412-e56d9900-1530-11ea-8516-f9f1f6219147.png) [English](https://github.com/konovalov-maksim/play_market_parser/blob/master/README.md), ![ru](https://user-images.githubusercontent.com/49783652/69971413-e56d9900-1530-11ea-8937-a7989b8d727d.png) [Русский](https://github.com/konovalov-maksim/play_market_parser/blob/master/README.ru.md).*
 
 Play Market Parser - is an instrument that allows you to mass collect data from Google Play Market. Collected information can be used for analytics, formation app's promotion strategy or analysis of competitors.
 
