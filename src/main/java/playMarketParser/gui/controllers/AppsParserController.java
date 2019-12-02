@@ -219,18 +219,21 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML
     private void pause() {
         appsParser.pause();
+        Global.log(rb.getString("appsPaused"));
+        enablePauseMode();
     }
 
     @FXML
     private void resume() {
-        enableLoadingMode();
-        Global.log(rb.getString("appsResumed"));
         appsParser.resume();
+        Global.log(rb.getString("appsResumed"));
+        enableLoadingMode();
     }
 
     @FXML
     private void stop() {
         appsParser.stop();
+        onFinish();
     }
 
     @FXML
@@ -362,12 +365,6 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         table.refresh();
         progBar.setProgress(appsParser.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", appsParser.getProgress() * 100) + "%"));
-    }
-
-    @Override
-    public void onPause() {
-        Global.log(rb.getString("appsPaused"));
-        enablePauseMode();
     }
 
     @Override

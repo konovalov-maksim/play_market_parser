@@ -13,7 +13,9 @@ public class AppsParser implements AppLoader.OnAppLoadingCompleteListener{
     private String country;
 
     private int threadsCount;
+    private int processedCount;
     private boolean isPaused;
+    private boolean isStopped;
 
     private Deque<AppLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<App> apps;
@@ -36,6 +38,8 @@ public class AppsParser implements AppLoader.OnAppLoadingCompleteListener{
     }
 
     public void start() {
+        isPaused = false;
+        isStopped = false;
         createThreads();
         startNewLoaders();
     }
@@ -46,23 +50,26 @@ public class AppsParser implements AppLoader.OnAppLoadingCompleteListener{
 
     public void resume() {
         isPaused = false;
+        isStopped = false;
         startNewLoaders();
     }
 
     public synchronized void stop(){
+        isStopped = true;
         unprocessed.clear();
-        if (threadsCount == 0) appParsingListener.onFinish();
     }
 
     @Override
     public void onAppParsingComplete(App app, boolean isSuccess) {
         threadsCount--;
-        appParsingListener.onAppParsed(app, isSuccess);
+        if (isStopped) return;
         if (isPaused) {
-            if (threadsCount == 0)
-                if (unprocessed.size() > 0) appParsingListener.onPause();
-                else appParsingListener.onFinish();
-        } else
+            unprocessed.addFirst(new AppLoader(app, this, language, country));
+            return;
+        }
+        processedCount++;
+        appParsingListener.onAppParsed(app, isSuccess);
+
         if (unprocessed.size() == 0 && threadsCount == 0) appParsingListener.onFinish();
         else startNewLoaders();
     }
@@ -72,13 +79,12 @@ public class AppsParser implements AppLoader.OnAppLoadingCompleteListener{
     }
 
     public double getProgress() {
-        return (apps.size() - unprocessed.size()) * 1.0 / apps.size();
+        return isStopped ? 1.0 : processedCount * 1.0 / apps.size();
     }
 
     public interface AppParsingListener {
         void onAppParsed(App app, boolean isSuccess);
         void onFinish();
-        void onPause();
     }
 
     public void setMaxThreadsCount(int maxThreadsCount) {
