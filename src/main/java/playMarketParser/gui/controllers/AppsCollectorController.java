@@ -77,7 +77,8 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
 
-        appQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
+        outRowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
+        appQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1).subtract(RowNumCellFactory.WIDTH));
         positionCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         urlCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         nameCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.2));
@@ -98,7 +99,8 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
         devNameCol.setCellValueFactory(new PropertyValueFactory<>("devName"));
         outputTable.setItems(foundApps);
 
-        inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
+        inRowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
+        inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1).subtract(RowNumCellFactory.WIDTH));
         inputQueryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
         inRowNumCol.setCellFactory(new RowNumCellFactory<>());
         inputTable.setItems(queries);

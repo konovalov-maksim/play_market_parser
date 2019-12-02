@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class Global {
 
+//    public static final int ROW_NUM_COL_WIDTH = 32;
+
     public static void reloadPrefs() {
         csvDelim = Prefs.getString("csv_delimiter");
     }

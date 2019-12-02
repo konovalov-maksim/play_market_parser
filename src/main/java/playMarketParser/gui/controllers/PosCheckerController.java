@@ -68,10 +68,11 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         appUrlTf.setText(Prefs.getString("pos_app_url"));
 
         //Tables
-        rowNumCol.setCellFactory(new RowNumCellFactory<>());
-        queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        rowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
+        queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5).subtract(RowNumCellFactory.WIDTH));
         pseudoPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
         realPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        rowNumCol.setCellFactory(new RowNumCellFactory<>());
         queryCol.setCellValueFactory(new PropertyValueFactory<>("text"));
         pseudoPosCol.setCellValueFactory(new PropertyValueFactory<>("pseudoPosString"));
         realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));

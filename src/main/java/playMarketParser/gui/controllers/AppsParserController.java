@@ -88,6 +88,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         rb = Global.getBundle();
 
         //Таблица
+        rowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
         rowNumCol.setCellFactory(new RowNumCellFactory<>());
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         urlCol.setCellValueFactory(new PropertyValueFactory<>("url"));

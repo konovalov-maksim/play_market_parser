@@ -70,12 +70,14 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         rb = Global.getBundle();
 
         //inputTable
-        inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1));
+        inRowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
+        inputQueryCol.prefWidthProperty().bind(inputTable.widthProperty().multiply(1).subtract(RowNumCellFactory.WIDTH));
         inRowNumCol.setCellFactory(new RowNumCellFactory<>());
         inputQueryCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue()));
         inputTable.setItems(queries);
         //outputTable
-        outputQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.4));
+        outRowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
+        outputQueryCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.4).subtract(RowNumCellFactory.WIDTH));
         tipCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.5));
         depthCol.prefWidthProperty().bind(outputTable.widthProperty().multiply(0.1));
         inputQueryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));

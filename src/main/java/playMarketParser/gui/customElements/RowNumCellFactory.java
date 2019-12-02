@@ -6,6 +6,8 @@ import javafx.util.Callback;
 
 public class RowNumCellFactory<T, E> implements Callback<TableColumn<T, E>, TableCell<T, E>> {
 
+    public static final int WIDTH = 32;
+
     @Override
     public TableCell<T, E> call(TableColumn<T, E> column) {
         TableCell cell = new TableCell<T, E>() {
@@ -15,6 +17,7 @@ public class RowNumCellFactory<T, E> implements Callback<TableColumn<T, E>, Tabl
                 setText(!empty ? this.getTableRow().getIndex() + 1 + "" : "");
             }
         };
+
         cell.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 cell.getTableView().getSelectionModel().clearSelection();
