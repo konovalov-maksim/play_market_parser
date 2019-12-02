@@ -108,7 +108,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
 
-
         enableReadyMode();
     }
 
@@ -221,18 +220,21 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML
     private void pause() {
         tipsCollector.pause();
+        Global.log(rb.getString("tipsPaused"));
+        enablePauseMode();
     }
 
     @FXML
     private void resume() {
+        tipsCollector.start();
         Global.log(rb.getString("tipsResumed"));
         enableLoadingMode();
-        tipsCollector.start();
     }
 
     @FXML
     private void stop() {
         tipsCollector.stop();
+        onFinish();
     }
 
     @FXML
@@ -303,12 +305,6 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
 
         progBar.setProgress(tipsCollector.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", tipsCollector.getProgress() * 100) + "%"));
-    }
-
-    @Override
-    public void onPause() {
-        Global.log(rb.getString("tipsPaused"));
-        enablePauseMode();
     }
 
     @Override

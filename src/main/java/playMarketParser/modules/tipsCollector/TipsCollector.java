@@ -59,34 +59,33 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
     public void stop() {
         isStopped = true;
         unprocessed.clear();
-        if (threadsCount == 0) tipsLoadingListener.onFinish();
     }
 
     @Override
     public synchronized void onTipsLoadingComplete(TipsLoader tipsLoader, boolean isSuccess) {
+        threadsCount--;
         Query query = tipsLoader.getQuery();
+        if (isStopped) return;
+        if (isPaused) {
+            unprocessed.addFirst(query); //¬озвращаем запрос в очередь
+            return;
+        }
         tipsLoadingListener.onQueryProcessed(tipsLoader.getTips(), query.getText(), isSuccess);
         collectedCount += tipsLoader.getTips().size();
         //ƒобавл€ем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
-        if (tipsLoader.getTips().size() >= 5 && !isStopped && query.getDepth() < maxDepth) {
+        if (tipsLoader.getTips().size() >= 5 && query.getDepth() < maxDepth) {
             for (char letter : getAlphabet(alphaType, query.getText()))
                 unprocessed.addLast(new Query(query.getText() + letter, query));
             if (query.getText().charAt(query.getText().length() - 1) != ' ')
                 unprocessed.addLast(new Query(query.getText() + ' ', query));
         }
-        threadsCount--;
-        if (isPaused) {
-            if (threadsCount == 0)
-                if (unprocessed.size() > 0) tipsLoadingListener.onPause();
-                else tipsLoadingListener.onFinish();
-        } else if (unprocessed.isEmpty() && threadsCount == 0) tipsLoadingListener.onFinish();
+        if (unprocessed.isEmpty() && threadsCount == 0) tipsLoadingListener.onFinish();
         else attachQueriesToLoaders();
     }
 
     public interface TipsLoadingListener {
         void onQueryProcessed(List<Tip> tips, String queryText, boolean isSuccess);
         void onFinish();
-        void onPause();
     }
 
     //ѕолучаем алфавит в зависимости от €зыка запроса (по последним буквам запроса)
