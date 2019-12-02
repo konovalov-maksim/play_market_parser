@@ -87,7 +87,7 @@ class AppLoader extends Thread {
         }
         //Число установок
         try {
-            app.setInstallsCount(Integer.parseInt(((JsonArray) data.getCollection(9)).getString(2)));
+            app.setInstallsCount(Long.parseLong(((JsonArray) data.getCollection(9)).getString(2)));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о числе установок");

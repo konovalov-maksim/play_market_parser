@@ -48,7 +48,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML private TableColumn<App, String> idCol;
     @FXML private TableColumn<App, String> urlCol;
     @FXML private TableColumn<App, String> nameCol;
-    @FXML private TableColumn<App, Integer> installsCountCol;
+    @FXML private TableColumn<App, Long> installsCountCol;
     @FXML private TableColumn<App, Integer> ratesCountCol;
     @FXML private TableColumn<App, String> releaseDateCol;
     @FXML private TableColumn<App, String> lastUpdateCol;
