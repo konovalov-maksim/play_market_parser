@@ -15,6 +15,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     private String country;
 
     private int threadsCount;
+    private int processedCount;
     private boolean isPaused;
     private boolean isStopped;
 
@@ -47,7 +48,6 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     public synchronized void stop(){
         isStopped = true;
         unprocessed.clear();
-        if (threadsCount == 0) posCheckListener.onFinish();
     }
 
     private void createThreads() {
@@ -71,6 +71,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
             unprocessed.addFirst(new PosLoader(query, appId, language, country, this));
             return;
         }
+        processedCount++;
         if (isSuccess) query.addPseudoPos(pseudoPos);
         posCheckListener.onPositionChecked(query, isSuccess);
         if (unprocessed.size() == 0 && threadsCount == 0) posCheckListener.onFinish();
@@ -83,7 +84,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     public double getProgress() {
-        return ((queries.size() * checksCount) - unprocessed.size()) * 1.0 / (queries.size() * checksCount);
+        return isStopped ? 1.0 : processedCount * 1.0 / (queries.size() * checksCount);
     }
 
     public void setMaxThreadsCount(int maxThreadsCount) {
