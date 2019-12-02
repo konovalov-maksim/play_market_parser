@@ -104,7 +104,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
-        clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
 
@@ -116,10 +116,12 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         TextAreaDialog dialog = new TextAreaDialog("", rb.getString("enterQueries"), rb.getString("addingQueries"), "");
 
         Optional result = dialog.showAndWait();
-        if (result.isPresent())
+        if (result.isPresent()) {
+            queries.clear();
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
                     .distinct()
                     .forEachOrdered(s -> queries.add(s));
+        }
     }
 
     @FXML
@@ -130,6 +132,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         fileChooser.setInitialDirectory(Global.getInitDir("input_path"));
         File inputFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         if (inputFile == null) return;
+        queries.clear();
         Prefs.put("input_path", inputFile.getParentFile().toString());
         Prefs.put("title_first", titleFirstChb.isSelected());
 
@@ -240,6 +243,7 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
     @FXML
     private void clearQueries() {
         inputTable.getItems().clear();
+        outputTable.getItems().clear();
         enableReadyMode();
     }
 

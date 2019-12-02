@@ -123,7 +123,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
-        clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
 
@@ -136,7 +136,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
 
         Optional result = dialog.showAndWait();
         if (result.isPresent()) {
-            foundApps.clear();
+            queries.clear();
             Arrays.stream(((String) result.get()).split("\\r?\\n"))
                     .distinct()
                     .forEachOrdered(s -> queries.add(s));
@@ -281,6 +281,7 @@ public class AppsCollectorController implements Initializable, AppsCollector.App
     @FXML
     private void clearQueries() {
         inputTable.getItems().clear();
+        outputTable.getItems().clear();
         enableReadyMode();
     }
 

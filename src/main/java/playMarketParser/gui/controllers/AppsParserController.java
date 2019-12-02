@@ -140,7 +140,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addAppsUrls")));
         importBtn.setTooltip(new Tooltip(rb.getString("importAppsUrls")));
-        clearBtn.setTooltip(new Tooltip(rb.getString("clearAppsUrls")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
 
@@ -189,7 +189,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     @FXML
     private void start() {
         if (apps.size() == 0) {
-            showAlert(rb.getString("error"), rb.getString("noQueries"), Global.ALERT);
+            showAlert(rb.getString("error"), rb.getString("noAppsUrls"), Global.ALERT);
             return;
         }
         for (App app : apps) app.reset();

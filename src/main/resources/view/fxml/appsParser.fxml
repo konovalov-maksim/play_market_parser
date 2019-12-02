@@ -46,7 +46,7 @@
         <TableView fx:id="table" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
             <placeholder>
-                <Label text="%noQueries"/>
+                <Label text="%noAppsUrls"/>
             </placeholder>
             <columns>
                 <TableColumn fx:id="rowNumCol" text="#" styleClass="row-num-col" sortable="false"/>

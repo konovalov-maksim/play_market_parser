@@ -95,7 +95,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         //Подсказки кнопок и чекбоксов
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
-        clearBtn.setTooltip(new Tooltip(rb.getString("clearQueries")));
+        clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
         exportBtn.setTooltip(new Tooltip(rb.getString("exportResults")));
         titleFirstChb.setTooltip(new Tooltip(rb.getString("skipFirstTip")));
         savePrevResultsChb.setTooltip(new Tooltip(rb.getString("savePrevResultsTip")));
