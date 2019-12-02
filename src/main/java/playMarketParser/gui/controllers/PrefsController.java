@@ -139,8 +139,8 @@ public class PrefsController implements Initializable {
         Prefs.remove("timeout");
         Prefs.remove("proxy");
         Prefs.remove("csv_delimiter");
-        Prefs.remove("pos_lang");
-        Prefs.remove("pos_country");
+        Prefs.remove("parsing_lang");
+        Prefs.remove("parsing_country");
         Prefs.remove("tips_lang");
         Prefs.remove("tips_country");
         Prefs.remove("alphabet");
