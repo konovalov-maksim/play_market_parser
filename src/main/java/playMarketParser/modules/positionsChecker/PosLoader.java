@@ -28,10 +28,10 @@ public class PosLoader extends Thread {
     public void run() {
         super.run();
         try {
-            query.addPseudoPos(getPos());
-            onPosLoadCompleteListener.onPosLoadingComplete(query, true);
+            int pseudoPos = getPos();
+            onPosLoadCompleteListener.onPosLoadingComplete(query, pseudoPos,true);
         } catch (IOException e) {
-            onPosLoadCompleteListener.onPosLoadingComplete(query, false);
+            onPosLoadCompleteListener.onPosLoadingComplete(query, -1,false);
         }
     }
 
@@ -60,7 +60,7 @@ public class PosLoader extends Thread {
     }
 
     interface OnPosLoadCompleteListener {
-        void onPosLoadingComplete(Query query, boolean isSuccess);
+        void onPosLoadingComplete(Query query, int pseudoPos, boolean isSuccess);
     }
 
 }

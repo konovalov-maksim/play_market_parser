@@ -16,6 +16,7 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
 
     private int threadsCount;
     private boolean isPaused;
+    private boolean isStopped;
 
     private Deque<PosLoader> unprocessed = new ConcurrentLinkedDeque<>();
     private List<Query> queries;
@@ -27,8 +28,26 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
     }
 
     public void start() {
+        isPaused = false;
+        isStopped = false;
         createThreads();
         startNewLoaders();
+    }
+
+    public void resume() {
+        isPaused = false;
+        isStopped = false;
+        startNewLoaders();
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public synchronized void stop(){
+        isStopped = true;
+        unprocessed.clear();
+        if (threadsCount == 0) posCheckListener.onFinish();
     }
 
     private void createThreads() {
@@ -44,37 +63,23 @@ public class PosChecker implements PosLoader.OnPosLoadCompleteListener {
         }
     }
 
-    public void pause() {
-        isPaused = true;
-    }
-
-    public void resume() {
-        isPaused = false;
-        startNewLoaders();
-    }
-
-    public synchronized void stop(){
-        unprocessed.clear();
-        if (threadsCount == 0) posCheckListener.onFinish();
-    }
-
     @Override
-    public synchronized void onPosLoadingComplete(Query query, boolean isSuccess) {
+    public synchronized void onPosLoadingComplete(Query query, int pseudoPos, boolean isSuccess) {
         threadsCount--;
-        posCheckListener.onPositionChecked(query, isSuccess);
+        if (isStopped) return;
         if (isPaused) {
-            if (threadsCount == 0)
-                if (unprocessed.size() > 0) posCheckListener.onPause();
-                else posCheckListener.onFinish();
-        } else
-            if (unprocessed.size() == 0 && threadsCount == 0) posCheckListener.onFinish();
-            else startNewLoaders();
+            unprocessed.addFirst(new PosLoader(query, appId, language, country, this));
+            return;
+        }
+        if (isSuccess) query.addPseudoPos(pseudoPos);
+        posCheckListener.onPositionChecked(query, isSuccess);
+        if (unprocessed.size() == 0 && threadsCount == 0) posCheckListener.onFinish();
+        else startNewLoaders();
     }
 
     public interface PosCheckListener {
         void onPositionChecked(Query query, boolean isSuccess);
         void onFinish();
-        void onPause();
     }
 
     public double getProgress() {

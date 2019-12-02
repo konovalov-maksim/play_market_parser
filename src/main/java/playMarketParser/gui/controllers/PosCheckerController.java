@@ -191,18 +191,21 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
     @FXML
     private void pause() {
         posChecker.pause();
+        Global.log(rb.getString("posPaused"));
+        enablePauseMode();
     }
 
     @FXML
     private void resume() {
-        enableLoadingMode();
-        Global.log(rb.getString("posResumed"));
         posChecker.resume();
+        Global.log(rb.getString("posResumed"));
+        enableLoadingMode();
     }
 
     @FXML
     private void stop() {
         posChecker.stop();
+        onFinish();
     }
 
     @FXML
@@ -322,12 +325,6 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         table.refresh();
         progBar.setProgress(posChecker.getProgress());
         Platform.runLater(() -> progLbl.setText(String.format("%.1f", posChecker.getProgress() * 100) + "%"));
-    }
-
-    @Override
-    public void onPause() {
-        Global.log(rb.getString("posPaused"));
-        enablePauseMode();
     }
 
     @Override
