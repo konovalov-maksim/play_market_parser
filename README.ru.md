@@ -7,7 +7,7 @@ Play Market Parser - это инструмент, который позволя�
 ![download](https://user-images.githubusercontent.com/49783652/70123296-6b99f480-1683-11ea-8f71-ac9d1e14fd54.png) Скачать релиз (v1.0): [PlayMarketParser-1.0.exe + JRE](https://github.com/konovalov-maksim/play_market_parser/releases/download/v1.0.0/PlayMarketParser-1.0.zip) (77.2 Mb) | [PlayMarketParser-1.0.jar](https://github.com/konovalov-maksim/play_market_parser/releases/download/v1.0.0/PlayMarketParser-1.0.jar) (1.9 Mb)
 
 
-На данный момент Play Market имеет 4 режима:
+На данный момент Play Market Parser имеет 4 режима:
 - [Сбор поисковых подсказок](#сбор-поисковых-подсказок)
 - [Проверка позиций приложения по списку запросов](#проверка-позиций-приложения)
 - [Поиск приложений по списку запросов](#поиск-приложений)
