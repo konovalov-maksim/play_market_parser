@@ -105,7 +105,7 @@ public class ListingLoader extends Thread {
             }
             //Dev URL
             try {
-                app.setDevUrl("https://play.google.com/" + ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
+                app.setDevUrl("https://play.google.com" + ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
                         .getCollection(4))
                         .getCollection(0))
                         .getCollection(0))
