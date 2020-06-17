@@ -4,7 +4,7 @@
 
 Play Market Parser - это инструмент, который позволяет массово собирать данные из Google Play Market. Собранная информация может быть использована для аналитики, формирования стратегии продвижения приложения или анализа конкурентов.
 
-![download](https://user-images.githubusercontent.com/49783652/70123296-6b99f480-1683-11ea-8f71-ac9d1e14fd54.png) Скачать релиз (v1.0): [PlayMarketParser-1.0.exe + JRE](https://github.com/konovalov-maksim/play_market_parser/releases/download/v1.0.0/PlayMarketParser-1.0.zip) (77.2 Mb) | [PlayMarketParser-1.0.jar](https://github.com/konovalov-maksim/play_market_parser/releases/download/v1.0.0/PlayMarketParser-1.0.jar) (1.9 Mb)
+![download](https://user-images.githubusercontent.com/49783652/70123296-6b99f480-1683-11ea-8f71-ac9d1e14fd54.png) Скачать релиз (v1.1): [PlayMarketParser-1.1.exe + JRE](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.1.0/PlayMarketParser-1.1.zip) (77.2 Mb) | [PlayMarketParser-1.1.jar](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.1.0/PlayMarketParser-1.1.jar) (1.9 Mb)
 
 
 На данный момент Play Market Parser имеет 4 режима:
