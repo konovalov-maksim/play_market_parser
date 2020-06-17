@@ -8,8 +8,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="playMarketParser.gui.controllers.MainController">
     <SplitPane orientation="VERTICAL" dividerPositions="0.9" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
