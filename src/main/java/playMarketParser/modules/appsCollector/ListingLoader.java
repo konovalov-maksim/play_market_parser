@@ -45,7 +45,7 @@ public class ListingLoader extends Thread {
 
     private void parseJson(Document doc) {
         //Извлекаем JSON
-        Pattern pattern = Pattern.compile("\\{key: 'ds:3'.*?return(.*?)}", Pattern.DOTALL);
+        Pattern pattern = Pattern.compile("\\{key: 'ds:3'.*?data:(.*?)}", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(doc.data());
         if (!matcher.find()) {
             System.out.printf("%-40s%s%n", query, "Не удалось получить JSON");
