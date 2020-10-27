@@ -81,6 +81,8 @@ class AppLoader extends Thread {
                     ((JsonArray) ((JsonArray) devData.getCollection(5)).getCollection(4)).getString(2));
             if (devData.getCollection(3) != null)
                 app.setDevWebSite(((JsonArray) ((JsonArray) devData.getCollection(3)).getCollection(5)).getString(2));
+            if (devData.getCollection(4) != null)
+                app.setDevAddress(((JsonArray) ((JsonArray) data.getCollection(5)).getCollection(4)).getString(0).replaceAll("\n", " "));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о разработчике");

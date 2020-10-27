@@ -25,6 +25,8 @@ public class App {
 
     private String devEmail;
 
+    private String devAddress;
+
     private Long installsCount;
 
     private Integer ratesCount;
@@ -138,6 +140,14 @@ public class App {
 
     public void setDevEmail(String devEmail) {
         this.devEmail = devEmail;
+    }
+
+    public String getDevAddress() {
+        return devAddress;
+    }
+
+    public void setDevAddress(String devAddress) {
+        this.devAddress = devAddress;
     }
 
     public Long getInstallsCount() {

@@ -68,6 +68,7 @@
                 <TableColumn fx:id="devNameCol" text="%devName"/>
                 <TableColumn fx:id="devWebSiteCol" text="%devWebSite"/>
                 <TableColumn fx:id="devEmailCol" text="%devEmail"/>
+                <TableColumn fx:id="devAddressCol" text="%devAddress"/>
                 <TableColumn fx:id="iconUrlCol" text="%iconUrl"/>
                 <TableColumn fx:id="descriptionCol" text="%description"/>
                 <TableColumn fx:id="verCol" text="%ver"/>
