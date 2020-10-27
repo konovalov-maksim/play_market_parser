@@ -49,7 +49,7 @@ class AppLoader extends Thread {
 
     private void parseJson(Document doc) {
         //Извлекаем JSON
-        Pattern pattern = Pattern.compile("\\{key: 'ds:5'.*?data:(.*?)}", Pattern.DOTALL);
+        Pattern pattern = Pattern.compile("\\{key: 'ds:5'.*?data:(.*?), sideChannel", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(doc.data());
         if (!matcher.find()) {
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить JSON");
