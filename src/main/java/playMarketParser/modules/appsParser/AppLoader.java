@@ -37,7 +37,7 @@ class AppLoader extends Thread {
                     (language != null ? "&hl=" + language : "") +
                     (country != null ? "&gl=" + country : "");
             Document doc = Connection.getDocument(url);
-            if (doc == null) throw new IOException("Не удалось загрузить страницу результатов поиска");
+            if (doc == null) throw new IOException("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ СЃС‚СЂР°РЅРёС†Сѓ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїРѕРёСЃРєР°");
             parseJson(doc);
             parseHtml(doc);
             onAppLoadingCompleteListener.onAppParsingComplete(app, true);
@@ -48,11 +48,11 @@ class AppLoader extends Thread {
     }
 
     private void parseJson(Document doc) {
-        //Извлекаем JSON
+        //РР·РІР»РµРєР°РµРј JSON
         Pattern pattern = Pattern.compile("\\{key: 'ds:5'.*?data:(.*?), sideChannel", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(doc.data());
         if (!matcher.find()) {
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить JSON");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ JSON");
             return;
         }
         String jsonData = matcher.group(1);
@@ -62,17 +62,17 @@ class AppLoader extends Thread {
             data = ((JsonArray) fullData.getCollection(0)).getCollection(12);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось спарсить JSON");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРїР°СЂСЃРёС‚СЊ JSON");
             return;
         }
-        //Мин. возраст
+        //РњРёРЅ. РІРѕР·СЂР°СЃС‚
         try {
             app.setMinAge(((JsonArray) data.getCollection(4)).getString(0));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить минимальный возраст");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РІРѕР·СЂР°СЃС‚");
         }
-        //Разработчик
+        //Р Р°Р·СЂР°Р±РѕС‚С‡РёРє
         try {
             JsonArray devData = data.getCollection(5);
             app.setDevName(devData.getString(1));
@@ -85,16 +85,16 @@ class AppLoader extends Thread {
                 app.setDevAddress(((JsonArray) ((JsonArray) data.getCollection(5)).getCollection(4)).getString(0).replaceAll("\n", " "));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о разработчике");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєРµ");
         }
-        //Число установок
+        //Р§РёСЃР»Рѕ СѓСЃС‚Р°РЅРѕРІРѕРє
         try {
             app.setInstallsCount(Long.parseLong(((JsonArray) data.getCollection(9)).getString(2)));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о числе установок");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С‡РёСЃР»Рµ СѓСЃС‚Р°РЅРѕРІРѕРє");
         }
-        //Стоимость
+        //РЎС‚РѕРёРјРѕСЃС‚СЊ
         try {
             if (data.getCollection(12) != null) {
                 app.setOffersPurchases(true);
@@ -102,28 +102,28 @@ class AppLoader extends Thread {
             } else app.setOffersPurchases(false);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о стоимости");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃС‚РѕРёРјРѕСЃС‚Рё");
         }
-        //Наличие рекламы
+        //РќР°Р»РёС‡РёРµ СЂРµРєР»Р°РјС‹
         try {
             app.setContainsAds(data.getCollection(14) != null);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о наличии рекламы");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РЅР°Р»РёС‡РёРё СЂРµРєР»Р°РјС‹");
         }
         //Release date
         try {
             app.setReleaseDate(data.getString(36));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о дате");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РґР°С‚Рµ");
         }
         //Icon Url
         try {
             app.setIconUrl(((JsonArray)((JsonArray)data.get(1)).get(3)).getString(2));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить URL иконки");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ URL РёРєРѕРЅРєРё");
         }
     }
 
@@ -136,7 +136,7 @@ class AppLoader extends Thread {
             app.setRatesCount(element != null ? Integer.parseInt(element.text().replaceAll("[\\s,]", "")) : 0);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить число оценок");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ С‡РёСЃР»Рѕ РѕС†РµРЅРѕРє");
         }
         //avgRate
         try {
@@ -144,14 +144,14 @@ class AppLoader extends Thread {
             app.setAvgRate(element != null ? Double.parseDouble(element.text().replaceAll(",", ".")) : 0);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить ср. оценку");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ СЃСЂ. РѕС†РµРЅРєСѓ");
         }
         //category
         try {
             app.setCategory(doc.select("a[itemprop=genre]").first().text());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить категорию");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ");
         }
         //whats new
         try {
@@ -159,14 +159,14 @@ class AppLoader extends Thread {
             if (div != null) app.setWhatsNew(div.text());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить Что нового");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ Р§С‚Рѕ РЅРѕРІРѕРіРѕ");
         }
         //description
         try {
             app.setDescription(doc.select("c-wiz[jsrenderer=UsuzQd] div[itemprop=description].DWPxHb").first().text());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить описание");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РѕРїРёСЃР°РЅРёРµ");
         }
         //similar apps
         try {
@@ -174,7 +174,7 @@ class AppLoader extends Thread {
                 app.addSimilarApp("https://play.google.com" + element.attr("href"));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РїРѕС…РѕР¶РёРµ РїСЂРёР»РѕР¶РµРЅРёСЏ");
         }
         //last update, size, sdk version, app version
         try {
@@ -185,10 +185,10 @@ class AppLoader extends Thread {
             app.setMinSdkVer(elements.get(4).text());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
+            System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РїРѕС…РѕР¶РёРµ РїСЂРёР»РѕР¶РµРЅРёСЏ");
         }
 
-        //!Дублирование JSON!
+        //!Р”СѓР±Р»РёСЂРѕРІР°РЅРёРµ JSON!
         // devName, devUrl
         if (app.getDevName() == null || app.getDevUrl() == null)
             try {
@@ -196,7 +196,7 @@ class AppLoader extends Thread {
                 app.setDevName(devLink.text());
                 app.setDevUrl("https://play.google.com" + devLink.attr("href"));
             } catch (Exception e) {
-                System.out.println("Не удалось получить параметры разработчика");
+                System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РїР°СЂР°РјРµС‚СЂС‹ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°");
             }
         //devEmail
         if (app.getDevEmail() == null)
@@ -204,7 +204,7 @@ class AppLoader extends Thread {
                 app.setDevEmail(doc.select("a[href^=mailto:].hrTbp.euBY6b").first().text());
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить email");
+                System.out.printf("%-40s%s%n", app.getId(), "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ email");
             }
     }
 

@@ -33,7 +33,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         this.tipsLoadingListener = tipsLoadingListener;
 
         latin = "abcdefghijklmnopqrstuvwxyz".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        cyrillic = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+        cyrillic = "Р°Р±РІРіРґРµС‘Р¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         allAlphs = new ArrayList<>(latin);
         allAlphs.addAll(cyrillic);
     }
@@ -44,7 +44,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         attachQueriesToLoaders();
     }
 
-    //Распределяем запросы по потокам
+    //Р Р°СЃРїСЂРµРґРµР»СЏРµРј Р·Р°РїСЂРѕСЃС‹ РїРѕ РїРѕС‚РѕРєР°Рј
     private synchronized void attachQueriesToLoaders() {
         while (threadsCount < maxThreadsCount && unprocessed.size() > 0) {
             new TipsLoader(unprocessed.pop(), language, country, this).start();
@@ -67,12 +67,12 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         Query query = tipsLoader.getQuery();
         if (isStopped) return;
         if (isPaused) {
-            unprocessed.addFirst(query); //Возвращаем запрос в очередь
+            unprocessed.addFirst(query); //Р’РѕР·РІСЂР°С‰Р°РµРј Р·Р°РїСЂРѕСЃ РІ РѕС‡РµСЂРµРґСЊ
             return;
         }
         tipsLoadingListener.onQueryProcessed(tipsLoader.getTips(), query.getText(), isSuccess);
         collectedCount += tipsLoader.getTips().size();
-        //Добавляем в очередь новые запросы, если найдено не менее 5 неисправленных подсказок
+        //Р”РѕР±Р°РІР»СЏРµРј РІ РѕС‡РµСЂРµРґСЊ РЅРѕРІС‹Рµ Р·Р°РїСЂРѕСЃС‹, РµСЃР»Рё РЅР°Р№РґРµРЅРѕ РЅРµ РјРµРЅРµРµ 5 РЅРµРёСЃРїСЂР°РІР»РµРЅРЅС‹С… РїРѕРґСЃРєР°Р·РѕРє
         if (tipsLoader.getTips().size() >= 5 && query.getDepth() < maxDepth) {
             for (char letter : getAlphabet(alphaType, query.getText()))
                 unprocessed.addLast(new Query(query.getText() + letter, query));
@@ -88,7 +88,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
         void onFinish();
     }
 
-    //Получаем алфавит в зависимости от языка запроса (по последним буквам запроса)
+    //РџРѕР»СѓС‡Р°РµРј Р°Р»С„Р°РІРёС‚ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЏР·С‹РєР° Р·Р°РїСЂРѕСЃР° (РїРѕ РїРѕСЃР»РµРґРЅРёРј Р±СѓРєРІР°Рј Р·Р°РїСЂРѕСЃР°)
     private List<Character> getAlphabet(String alphaType, String text) {
         switch (alphaType) {
             case "latin":
@@ -101,7 +101,7 @@ public class TipsCollector implements TipsLoader.OnTipLoadCompleteListener {
                         if (latin.contains(text.charAt(i))) return latin;
                         if (cyrillic.contains(text.charAt(i))) return cyrillic;
                     }
-                //Если язык определить не получилось, возвращаем оба алфавита
+                //Р•СЃР»Рё СЏР·С‹Рє РѕРїСЂРµРґРµР»РёС‚СЊ РЅРµ РїРѕР»СѓС‡РёР»РѕСЃСЊ, РІРѕР·РІСЂР°С‰Р°РµРј РѕР±Р° Р°Р»С„Р°РІРёС‚Р°
                 return allAlphs;
             default:
                 return allAlphs;

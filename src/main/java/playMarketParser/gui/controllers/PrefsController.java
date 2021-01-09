@@ -83,7 +83,7 @@ public class PrefsController implements Initializable {
 
     @FXML
     private void onOkClick() {
-        //Валидация данных
+        //Р’Р°Р»РёРґР°С†РёСЏ РґР°РЅРЅС‹С…
         Pattern intPattern = Pattern.compile("\\d+");
         Pattern proxyPattern = Pattern.compile("^$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$");
         if (!intPattern.matcher(timeoutTxt.getText()).matches()) {
@@ -98,7 +98,7 @@ public class PrefsController implements Initializable {
         if (!((NamedRadioButton) langTg.getSelectedToggle()).getName().equals(Prefs.getString("lang")))
             Global.showAlert(rb.getString("restartRequired"), rb.getString("restartPls"), Global.ALERT);
 
-        //Сохранение данных
+        //РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С…
         Prefs.put("lang", ((NamedRadioButton) langTg.getSelectedToggle()).getName());
         Prefs.put("alphabet", ((NamedRadioButton) alphabetTg.getSelectedToggle()).getName());
 
