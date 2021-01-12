@@ -36,18 +36,18 @@ public class PosLoader extends Thread {
     }
 
     private int getPos() throws IOException {
-        //CSS класс div-а со ссылкой на страницу приложения
+        //CSS РєР»Р°СЃСЃ div-Р° СЃРѕ СЃСЃС‹Р»РєРѕР№ РЅР° СЃС‚СЂР°РЅРёС†Сѓ РїСЂРёР»РѕР¶РµРЅРёСЏ
         String appLinkClass = "b8cIId ReQCgd Q9MA7b";
-        //Формируем url страницы поиска
+        //Р¤РѕСЂРјРёСЂСѓРµРј url СЃС‚СЂР°РЅРёС†С‹ РїРѕРёСЃРєР°
         String url = "https://play.google.com/store/search?q=" + query.getText() + "&c=apps" +
                 (language != null ? "&hl=" + language : "") +
                 (country != null ? "&gl=" + country : "");
         Document doc = Connection.getDocument(url);
-        if (doc == null) throw new IOException("Не удалось загрузить страницу результатов поиска");
-        //Получаем список div-ов со ссылками на приложения
+        if (doc == null) throw new IOException("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ СЃС‚СЂР°РЅРёС†Сѓ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїРѕРёСЃРєР°");
+        //РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє div-РѕРІ СЃРѕ СЃСЃС‹Р»РєР°РјРё РЅР° РїСЂРёР»РѕР¶РµРЅРёСЏ
         Elements appsLinksDivs = doc.getElementsByClass(appLinkClass);
         String format = "%-30s%-2s%n";
-        //Получаем список ссылок на приложения
+        //РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє СЃСЃС‹Р»РѕРє РЅР° РїСЂРёР»РѕР¶РµРЅРёСЏ
         for (int i = 0; i < appsLinksDivs.size(); i++) {
             String curURL = appsLinksDivs.get(i).child(0).attr("href");
             if (appURL.equals(curURL)) {
@@ -55,7 +55,7 @@ public class PosLoader extends Thread {
                 return i + 1;
             }
         }
-//        System.out.printf(format, query.getText(), "Приложение отсутствует в ТОП-" + appsLinksDivs.size());
+//        System.out.printf(format, query.getText(), "РџСЂРёР»РѕР¶РµРЅРёРµ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РІ РўРћРџ-" + appsLinksDivs.size());
         return 0;
     }
 

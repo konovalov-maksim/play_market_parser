@@ -82,17 +82,17 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         TableContextMenu tableContextMenu = new TableContextMenu(table);
         removeItem = tableContextMenu.getRemoveItem();
 
-        //Привязки
+        //РџСЂРёРІСЏР·РєРё
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
 
-        //PopOvers с чекбоксами
+        //PopOvers СЃ С‡РµРєР±РѕРєСЃР°РјРё
         titleFirstChb = new CheckBox(rb.getString("titleFirst"));
         titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
         savePrevResultsChb = new CheckBox(rb.getString("savePrevResults"));
         Global.addPopOver(importBtn, titleFirstChb);
         Global.addPopOver(exportBtn, savePrevResultsChb);
 
-        //Подсказки кнопок и чекбоксов
+        //РџРѕРґСЃРєР°Р·РєРё РєРЅРѕРїРѕРє Рё С‡РµРєР±РѕРєСЃРѕРІ
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
@@ -230,12 +230,12 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         Prefs.put("output_path", outputFile.getParentFile().toString());
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
-            //Указываем кодировку файла UTF-8
+            //РЈРєР°Р·С‹РІР°РµРј РєРѕРґРёСЂРѕРІРєСѓ С„Р°Р№Р»Р° UTF-8
             ps.write('\ufeef');
             ps.write('\ufebb');
             ps.write('\ufebf');
 
-            //Добавляем заголовок
+            //Р”РѕР±Р°РІР»СЏРµРј Р·Р°РіРѕР»РѕРІРѕРє
             String firstRow = (savePrevResultsChb.isSelected() ? titleRow : rb.getString("query"))
                     + Global.getCsvDelim() + rb.getString("finalPos") + " " + curDate + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);

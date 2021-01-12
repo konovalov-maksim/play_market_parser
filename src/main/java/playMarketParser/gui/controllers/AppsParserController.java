@@ -88,7 +88,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     public void initialize(URL location, ResourceBundle resources) {
         rb = Global.getBundle();
 
-        //Таблица
+        //РўР°Р±Р»РёС†Р°
         rowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
         rowNumCol.setCellFactory(new RowNumCellFactory<>());
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -121,7 +121,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         simApp4Col.setCellValueFactory(new PropertyValueFactory<>("simApp2"));
         table.setItems(apps);
 
-        //CheckComboBox для управления видимостью колонок таблицы
+        //CheckComboBox РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РІРёРґРёРјРѕСЃС‚СЊСЋ РєРѕР»РѕРЅРѕРє С‚Р°Р±Р»РёС†С‹
         columnsCcb.setTitle(rb.getString("columns"));
         for (TableColumn col : table.getColumns()) columnsCcb.getItems().add(col.getText());
         for (TableColumn col : table.getColumns())
@@ -131,15 +131,15 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         TableContextMenu tableContextMenu = new TableContextMenu(table);
         removeItem = tableContextMenu.getRemoveItem();
 
-        //PopOver с чекбоксом
+        //PopOver СЃ С‡РµРєР±РѕРєСЃРѕРј
         titleFirstChb = new CheckBox(rb.getString("titleFirst"));
         titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
         Global.addPopOver(importBtn, titleFirstChb);
 
-        //Привязки
+        //РџСЂРёРІСЏР·РєРё
         appsCntLbl.textProperty().bind(Bindings.size(apps).asString());
 
-        //Подсказки кнопок и чекбоксов
+        //РџРѕРґСЃРєР°Р·РєРё РєРЅРѕРїРѕРє Рё С‡РµРєР±РѕРєСЃРѕРІ
         addBtn.setTooltip(new Tooltip(rb.getString("addAppsUrls")));
         importBtn.setTooltip(new Tooltip(rb.getString("importAppsUrls")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
@@ -260,28 +260,28 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         Prefs.put("output_path", outputFile.getParentFile().toString());
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
-            //Указываем кодировку файла UTF-8
+            //РЈРєР°Р·С‹РІР°РµРј РєРѕРґРёСЂРѕРІРєСѓ С„Р°Р№Р»Р° UTF-8
             ps.write('\ufeef');
             ps.write('\ufebb');
             ps.write('\ufebf');
 
             String csvDelim = Global.getCsvDelim();
             List<String> newContent = new ArrayList<>();
-            //Добавляем заголовок
+            //Р”РѕР±Р°РІР»СЏРµРј Р·Р°РіРѕР»РѕРІРѕРє
             StringBuilder firstRow = new StringBuilder();
             for (TableColumn col : table.getColumns()) {
                 if (col.isVisible() && !col.getText().equals("#"))
                 firstRow.append(col.getText()).append(csvDelim);
             }
             newContent.add(firstRow.toString());
-            //Пишем данные приложений, перебираем все строки и видимые столбцы таблицы
+            //РџРёС€РµРј РґР°РЅРЅС‹Рµ РїСЂРёР»РѕР¶РµРЅРёР№, РїРµСЂРµР±РёСЂР°РµРј РІСЃРµ СЃС‚СЂРѕРєРё Рё РІРёРґРёРјС‹Рµ СЃС‚РѕР»Р±С†С‹ С‚Р°Р±Р»РёС†С‹
             for (int r = 0; r < table.getItems().size(); r++) {
                 StringBuilder newRow = new StringBuilder();
                 for (TableColumn col : table.getColumns())
                     if (col.isVisible() && !col.getText().equals("#")) {
                         Object cellData = col.getCellData(r);
                         String cellString = cellData != null ? cellData.toString() : "";
-                        //Кодируем спец символы перед записью в CSV
+                        //РљРѕРґРёСЂСѓРµРј СЃРїРµС† СЃРёРјРІРѕР»С‹ РїРµСЂРµРґ Р·Р°РїРёСЃСЊСЋ РІ CSV
                         if (cellString.contains(csvDelim) || cellString.contains("\"")) {
                             cellString = cellString.replaceAll("\"", "\"\"");
                             cellString = "\"" + cellString + "\"";

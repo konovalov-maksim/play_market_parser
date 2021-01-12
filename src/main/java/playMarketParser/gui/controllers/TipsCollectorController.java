@@ -93,15 +93,15 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         TableContextMenu outputTableContextMenu = new TableContextMenu(outputTable);
         outputTableContextMenu.getRemoveItem().setVisible(false);
 
-        //PopOver с чекбоксом
+        //PopOver СЃ С‡РµРєР±РѕРєСЃРѕРј
         titleFirstChb = new CheckBox(rb.getString("titleFirst"));
         titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
         Global.addPopOver(importBtn, titleFirstChb);
 
-        //Привязки
+        //РџСЂРёРІСЏР·РєРё
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
 
-        //Подсказки кнопок и чекбоксов
+        //РџРѕРґСЃРєР°Р·РєРё РєРЅРѕРїРѕРє Рё С‡РµРєР±РѕРєСЃРѕРІ
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
@@ -167,12 +167,12 @@ public class TipsCollectorController implements Initializable, TipsCollector.Tip
         Prefs.put("output_path", outputFile.getParentFile().toString());
 
         try (PrintStream ps = new PrintStream(new FileOutputStream(outputFile))) {
-            //Указываем кодировку файла UTF-8
+            //РЈРєР°Р·С‹РІР°РµРј РєРѕРґРёСЂРѕРІРєСѓ С„Р°Р№Р»Р° UTF-8
             ps.write('\ufeef');
             ps.write('\ufebb');
             ps.write('\ufebf');
 
-            //Добавляем заголовок
+            //Р”РѕР±Р°РІР»СЏРµРј Р·Р°РіРѕР»РѕРІРѕРє
             String firstRow = rb.getString("query") + Global.getCsvDelim() + rb.getString("tip")
                     + Global.getCsvDelim() + rb.getString("depth") + "\n";
             Files.write(outputFile.toPath(), firstRow.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);

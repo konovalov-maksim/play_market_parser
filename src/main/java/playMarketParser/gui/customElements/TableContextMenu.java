@@ -18,7 +18,7 @@ public class TableContextMenu extends ContextMenu {
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getSelectionModel().setCellSelectionEnabled(true);
 
-        //Пункт "Копирование выделенных ячеек"
+        //РџСѓРЅРєС‚ "РљРѕРїРёСЂРѕРІР°РЅРёРµ РІС‹РґРµР»РµРЅРЅС‹С… СЏС‡РµРµРє"
         MenuItem copyItem = new MenuItem(rb.getString("copy"));
         ImageView copyIcon = new ImageView("/images/icons/file_copy.png");
         copyIcon.setFitHeight(IMG_SIZE);
@@ -31,7 +31,7 @@ public class TableContextMenu extends ContextMenu {
             int startColIndex = Integer.MAX_VALUE;
             for (TablePosition pos : table.getSelectionModel().getSelectedCells())
                 if (pos.getColumn() < startColIndex) startColIndex = pos.getColumn();
-            //Перебираем все выделенные ячейки и записываем их в буфер
+            //РџРµСЂРµР±РёСЂР°РµРј РІСЃРµ РІС‹РґРµР»РµРЅРЅС‹Рµ СЏС‡РµР№РєРё Рё Р·Р°РїРёСЃС‹РІР°РµРј РёС… РІ Р±СѓС„РµСЂ
             for (TablePosition pos : table.getSelectionModel().getSelectedCells()) {
                 int rowIndex = pos.getRow();
                 int colIndex = pos.getColumn();
@@ -57,7 +57,7 @@ public class TableContextMenu extends ContextMenu {
         });
         copyItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
 
-        //Пункт "Копирование выделенных ячеек"
+        //РџСѓРЅРєС‚ "РљРѕРїРёСЂРѕРІР°РЅРёРµ РІС‹РґРµР»РµРЅРЅС‹С… СЏС‡РµРµРє"
         MenuItem copyColItem = new MenuItem(rb.getString("copyCol"));
         ImageView copyColIcon = new ImageView("/images/icons/copy_col.png");
         copyColIcon.setFitHeight(IMG_SIZE);
@@ -77,7 +77,7 @@ public class TableContextMenu extends ContextMenu {
         copyColItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN));
 
 
-        //Пункт "Удаление выделенных строк"
+        //РџСѓРЅРєС‚ "РЈРґР°Р»РµРЅРёРµ РІС‹РґРµР»РµРЅРЅС‹С… СЃС‚СЂРѕРє"
         MenuItem removeItem = new MenuItem(rb.getString("remove"));
         ImageView delIcon = new ImageView("/images/icons/remove.png");
         delIcon.setFitHeight(IMG_SIZE);
@@ -88,7 +88,7 @@ public class TableContextMenu extends ContextMenu {
 
         this.getItems().addAll(copyItem, copyColItem, removeItem);
 
-        //Делаем меню видимым только для непустых строк таблицы
+        //Р”РµР»Р°РµРј РјРµРЅСЋ РІРёРґРёРјС‹Рј С‚РѕР»СЊРєРѕ РґР»СЏ РЅРµРїСѓСЃС‚С‹С… СЃС‚СЂРѕРє С‚Р°Р±Р»РёС†С‹
         table.setRowFactory(c -> {
             TableRow<S> row = new TableRow<>();
             row.contextMenuProperty().bind(
