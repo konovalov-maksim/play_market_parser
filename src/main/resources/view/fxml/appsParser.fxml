@@ -13,7 +13,7 @@
 
 <?import org.controlsfx.control.CheckComboBox?>
 <VBox fx:id="rootPane" spacing="10" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="playMarketParser.gui.controllers.AppsParserController">
+      fx:controller="com.appgrade.gp.scraper.gui.controllers.AppsParserController">
     <HBox styleClass="image-btns-bar">
         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addApps" text="%add"/>
         <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importApps" text="%import"/>

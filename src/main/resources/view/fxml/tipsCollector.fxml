@@ -13,7 +13,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <VBox xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="playMarketParser.gui.controllers.TipsCollectorController" fx:id="rootPane" spacing="10">
+      fx:controller="com.appgrade.gp.scraper.gui.controllers.TipsCollectorController" fx:id="rootPane" spacing="10">
     <HBox styleClass="image-btns-bar">
         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
         <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>

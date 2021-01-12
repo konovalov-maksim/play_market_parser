@@ -12,7 +12,7 @@
 <?import javafx.scene.control.SplitPane?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="playMarketParser.gui.controllers.AppsCollectorController"
+      fx:controller="com.appgrade.gp.scraper.gui.controllers.AppsCollectorController"
       fx:id="rootPane" styleClass="spaced-box">
     <HBox styleClass="image-btns-bar">
         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>

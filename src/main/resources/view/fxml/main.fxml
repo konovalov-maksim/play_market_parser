@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="playMarketParser.gui.controllers.MainController">
+            fx:controller="com.appgrade.gp.scraper.gui.controllers.MainController">
     <SplitPane orientation="VERTICAL" dividerPositions="0.9" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
         <TabPane tabClosingPolicy="UNAVAILABLE">
