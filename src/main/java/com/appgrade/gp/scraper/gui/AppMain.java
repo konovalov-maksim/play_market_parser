@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 
 import java.util.ResourceBundle;
 
-public class Main extends Application {
+public class AppMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
