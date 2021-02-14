@@ -1,0 +1,1 @@
+native2ascii -encoding windows-1251 ../src/main/resources/view/bundles/strings_ru_source.properties ../src/main/resources/view/bundles/strings_ru.properties
