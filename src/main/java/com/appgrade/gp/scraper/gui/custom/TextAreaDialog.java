@@ -1,5 +1,5 @@
 
-package com.appgrade.gp.scraper.gui.customElements;
+package com.appgrade.gp.scraper.gui.custom;
 
 import javafx.application.Platform;
 import javafx.beans.NamedArg;

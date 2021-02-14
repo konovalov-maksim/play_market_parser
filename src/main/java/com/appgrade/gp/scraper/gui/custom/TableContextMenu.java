@@ -1,4 +1,4 @@
-package com.appgrade.gp.scraper.gui.customElements;
+package com.appgrade.gp.scraper.gui.custom;
 
 import com.appgrade.gp.scraper.Global;
 import javafx.beans.binding.Bindings;

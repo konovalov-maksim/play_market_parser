@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Tooltip?>
 
-<?import com.appgrade.gp.scraper.gui.customElements.NamedRadioButton?>
+<?import com.appgrade.gp.scraper.gui.custom.NamedRadioButton?>
 <AnchorPane prefWidth="800" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appgrade.gp.scraper.gui.controllers.PrefsController">
     <VBox AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <TitledPane collapsible="false" text="%appSetting">

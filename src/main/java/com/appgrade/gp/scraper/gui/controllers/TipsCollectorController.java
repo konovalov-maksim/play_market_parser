@@ -14,9 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import com.appgrade.gp.scraper.gui.customElements.RowNumCellFactory;
-import com.appgrade.gp.scraper.gui.customElements.TableContextMenu;
-import com.appgrade.gp.scraper.gui.customElements.TextAreaDialog;
+import com.appgrade.gp.scraper.gui.custom.RowNumCellFactory;
+import com.appgrade.gp.scraper.gui.custom.TableContextMenu;
+import com.appgrade.gp.scraper.gui.custom.TextAreaDialog;
 import com.appgrade.gp.scraper.entities.Tip;
 import com.appgrade.gp.scraper.modules.tipsCollector.TipsCollector;
 

@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import com.appgrade.gp.scraper.entities.Connection;
-import com.appgrade.gp.scraper.gui.customElements.NamedRadioButton;
+import com.appgrade.gp.scraper.gui.custom.NamedRadioButton;
 
 import java.net.URL;
 import java.util.*;

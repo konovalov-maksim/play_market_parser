@@ -1,4 +1,4 @@
-package com.appgrade.gp.scraper.gui.customElements;
+package com.appgrade.gp.scraper.gui.custom;
 
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
