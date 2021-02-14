@@ -44,7 +44,7 @@ public class ListingLoader extends Thread {
     }
 
     private void parseJson(Document doc) {
-        //Извлекаем JSON
+        //extract JSON
         Pattern pattern = Pattern.compile("\\{key: 'ds:3'.*?data:(.*?), sideChannel", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(doc.data());
         if (!matcher.find()) {
@@ -67,7 +67,7 @@ public class ListingLoader extends Thread {
             System.out.printf("%-40s%s%n", query, "Не удалось спарсить JSON");
             return;
         }
-        //Обходим все блоки с данными о приложении
+        //iterate all apps
         for (int i = 0; i < appsData.size(); i++) {
             FoundApp app = new FoundApp();
             app.setQuery(query);
@@ -103,7 +103,7 @@ public class ListingLoader extends Thread {
                 e.printStackTrace();
                 System.out.printf("%-40s%s%n", query, "Не удалось определить имя разработчика");
             }
-            //Dev URL
+            //dev URL
             try {
                 app.setDevUrl("https://play.google.com" + ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
                         .getCollection(4))
@@ -116,7 +116,7 @@ public class ListingLoader extends Thread {
                 e.printStackTrace();
                 System.out.printf("%-40s%s%n", query, "Не удалось определить URL разработчика");
             }
-            //Avg Rate
+            //avg Rate
             try {
                 app.setAvgRate(Double.parseDouble((
                         (JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
@@ -130,7 +130,7 @@ public class ListingLoader extends Thread {
                 e.printStackTrace();
                 System.out.printf("%-40s%s%n", query, "Не удалось определить среднюю оценку");
             }
-            //Short descr
+            //short descr
             try {
                 app.setShortDescr(((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
                         .getCollection(4))
@@ -142,7 +142,7 @@ public class ListingLoader extends Thread {
                 e.printStackTrace();
                 System.out.printf("%-40s%s%n", query, "Не удалось определить краткое описание");
             }
-            //App ID
+            //app ID
             try {
                 app.setId(((JsonArray) appData.getCollection(12)).getString(0));
             } catch (Exception e) {

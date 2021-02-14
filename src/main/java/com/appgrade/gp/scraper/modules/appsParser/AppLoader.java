@@ -48,7 +48,7 @@ class AppLoader extends Thread {
     }
 
     private void parseJson(Document doc) {
-        //Извлекаем JSON
+        //extract JSON
         Pattern pattern = Pattern.compile("\\{key: 'ds:5'.*?data:(.*?), sideChannel", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(doc.data());
         if (!matcher.find()) {
@@ -65,14 +65,14 @@ class AppLoader extends Thread {
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось спарсить JSON");
             return;
         }
-        //Мин. возраст
+        //min age
         try {
             app.setMinAge(((JsonArray) data.getCollection(4)).getString(0));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить минимальный возраст");
         }
-        //Разработчик
+        //developer
         try {
             JsonArray devData = data.getCollection(5);
             app.setDevName(devData.getString(1));
@@ -87,14 +87,14 @@ class AppLoader extends Thread {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о разработчике");
         }
-        //Число установок
+        //installs count
         try {
             app.setInstallsCount(Long.parseLong(((JsonArray) data.getCollection(9)).getString(2)));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о числе установок");
         }
-        //Стоимость
+        //cost
         try {
             if (data.getCollection(12) != null) {
                 app.setOffersPurchases(true);
@@ -104,21 +104,21 @@ class AppLoader extends Thread {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о стоимости");
         }
-        //Наличие рекламы
+        //contains ads
         try {
             app.setContainsAds(data.getCollection(14) != null);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о наличии рекламы");
         }
-        //Release date
+        //release date
         try {
             app.setReleaseDate(data.getString(36));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить информацию о дате");
         }
-        //Icon Url
+        //icon Url
         try {
             app.setIconUrl(((JsonArray)((JsonArray)data.get(1)).get(3)).getString(2));
         } catch (Exception e) {
@@ -130,7 +130,7 @@ class AppLoader extends Thread {
     private void parseHtml(Document doc) {
         //name
         app.setName(doc.getElementsByTag("h1").first().text());
-        //ratesCount
+        //rates count
         try {
             Element element = doc.select("span.AYi5wd.TBRnV").first();
             app.setRatesCount(element != null ? Integer.parseInt(element.text().replaceAll("[\\s,]", "")) : 0);
@@ -138,7 +138,7 @@ class AppLoader extends Thread {
             e.printStackTrace();
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить число оценок");
         }
-        //avgRate
+        //avg rate
         try {
             Element element = doc.select("div[aria-label].BHMmbe").first();
             app.setAvgRate(element != null ? Double.parseDouble(element.text().replaceAll(",", ".")) : 0);
@@ -188,8 +188,8 @@ class AppLoader extends Thread {
             System.out.printf("%-40s%s%n", app.getId(), "Не удалось получить похожие приложения");
         }
 
-        //!Дублирование JSON!
-        // devName, devUrl
+        //json duplication
+        // dev name, dev url
         if (app.getDevName() == null || app.getDevUrl() == null)
             try {
                 Element devLink = doc.select("a[href^=/store/apps/dev].hrTbp.R8zArc").first();
@@ -198,7 +198,7 @@ class AppLoader extends Thread {
             } catch (Exception e) {
                 System.out.println("Не удалось получить параметры разработчика");
             }
-        //devEmail
+        //dev email
         if (app.getDevEmail() == null)
             try {
                 app.setDevEmail(doc.select("a[href^=mailto:].hrTbp.euBY6b").first().text());
