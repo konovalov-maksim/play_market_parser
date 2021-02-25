@@ -8,11 +8,13 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.appgrade.gp.scraper.gui.controllers.MainController">
-    <SplitPane orientation="VERTICAL" dividerPositions="0.9" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
-        <TabPane tabClosingPolicy="UNAVAILABLE">
+
+<?import javafx.scene.layout.HBox?>
+<SplitPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appgrade.gp.scraper.gui.controllers.MainController"
+           orientation="VERTICAL" dividerPositions="0.9">
+    <AnchorPane>
+        <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
             <Tab text="%posChecking">
                 <fx:include source="posChecker.fxml"/>
             </Tab>
@@ -26,12 +28,10 @@
                 <fx:include source="appsParser.fxml"/>
             </Tab>
         </TabPane>
-        <TextArea minHeight="50.0" editable="false" fx:id="consoleTa" styleClass="console">
-            <padding>
-                <Insets bottom="5" left="10.0" right="10.0"/>
-            </padding>
-        </TextArea>
-    </SplitPane>
-    <Button styleClass="tab-button" fx:id="settingsBtn" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0"
-            onAction="#openPrefs"/>
-</AnchorPane>
+        <HBox AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" style="-fx-padding: 2 5 0 0" spacing="3">
+            <Button styleClass="tab-button" fx:id="settingsBtn" onAction="#openPrefs"/>
+            <Button styleClass="tab-button" fx:id="infoBtn"/>
+        </HBox>
+    </AnchorPane>
+    <TextArea minHeight="50.0" editable="false" fx:id="consoleTa" styleClass="console" style="-fx-padding: 0 10 5 10"/>
+</SplitPane>
