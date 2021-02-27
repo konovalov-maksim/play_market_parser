@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Tooltip?>
+
+<?import com.github.konovalovmaksim.gp.scraper.gui.custom.NamedRadioButton?>
+<AnchorPane prefWidth="800" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.konovalovmaksim.gp.scraper.gui.controller.PrefsController">
+    <VBox AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TitledPane collapsible="false" text="%appSetting">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <Label text="%lang" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                <VBox GridPane.columnIndex="1" styleClass="spaced-box">
+                    <NamedRadioButton fx:id="ruRb" text="Русский" name="ru"/>
+                    <NamedRadioButton fx:id="enRb" text="English" name="en"/>
+                </VBox>
+                <Label text="%csvDelim" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                <ComboBox fx:id="csvDelimCb" GridPane.columnIndex="3" />
+            <rowConstraints>
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+        </TitledPane>
+        <TitledPane collapsible="false" text="%general">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="spaced-box">
+                    <Label text="%timeout" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%timeoutTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="timeoutTxt" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="spaced-box">
+                    <Label text="%proxy" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%proxyTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="proxyTxt" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">
+                    <Label text="%userAgent" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%userAgentTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="userAgentTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="spaced-box">
+                    <Label text="%acceptLang" />
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%acceptLangTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <TextField fx:id="acceptLangTxt" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                <Label text="%parsingLang" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="parsingLangCb" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="%parsingCountry" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+                <ComboBox fx:id="parsingCountryCb" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+            </GridPane>
+        </TitledPane>
+        <TitledPane collapsible="false" text="%posChecking">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Spinner fx:id="posThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="spaced-box">
+                    <Label text="%checksCount"/>
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%checksCountTip"  autoHide="true"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <Spinner fx:id="posChecksCntSpin" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            </GridPane>
+        </TitledPane>
+        <TitledPane collapsible="false" text="%tipsCollecting">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                </Label>
+                <Spinner fx:id="tipsThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <HBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="spaced-box">
+                    <Label text="%tipsParsingDepth"/>
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%parsingDepthTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <Spinner fx:id="tipsParsingDepthSpin" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="spaced-box">
+                    <Label text="%alphaType"/>
+                    <Button styleClass="tip-button">
+                        <tooltip>
+                            <Tooltip text="%alphabetTip"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+
+                <VBox GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="spaced-box">
+                    <NamedRadioButton fx:id="autoAlphRb" text="%autoAlph" name="auto"/>
+                    <NamedRadioButton fx:id="latAlphRb" text="%latAlph" name="latin"/>
+                    <NamedRadioButton fx:id="cyrAlphRb" text="%cyrAlph" name="cyrillic"/>
+                    <NamedRadioButton fx:id="allAlphRb" text="%allAlph" name="all"/>
+                </VBox>
+            </GridPane>
+        </TitledPane>
+        <TitledPane collapsible="false" text="%appsColParsing">
+            <GridPane styleClass="spaced-grid-pane">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="25" />
+                </columnConstraints>
+                <Label text="%threadsCount" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Spinner fx:id="appsThreadsCntSpin" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            </GridPane>
+        </TitledPane>
+    </VBox>
+    <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="10.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
+        <Button minWidth="100" mnemonicParsing="false" onAction="#resetToDefaults" text="%resetToDef" />
+        <Button cancelButton="true" minWidth="100" mnemonicParsing="false" onAction="#onCancelClick" text="%cancel" />
+        <Button defaultButton="true" minWidth="100" mnemonicParsing="false" onAction="#onOkClick" text="%ok" />
+    </HBox>
+</AnchorPane>

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.appgrade.gp.scraper</groupId>
+    <groupId>com.github.konovalovmaksim</groupId>
     <artifactId>google-play-scraper</artifactId>
     <version>1.3.1</version>
 
@@ -72,7 +72,7 @@
                             <transformers>
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.appgrade.gp.scraper.Launcher</mainClass>
+                                    <mainClass>com.github.konovalovmaksim.gp.scraper.Launcher</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

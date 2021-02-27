@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.github.konovalovmaksim.gp.scraper.gui.controller.TipsCollectorController" fx:id="rootPane" spacing="10">
+    <HBox styleClass="image-btns-bar">
+        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addQueries" text="%add"/>
+        <Button fx:id="importBtn" mnemonicParsing="false" onAction="#importQueries" text="%import"/>
+        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearQueries" text="%clear"/>
+        <Separator orientation="VERTICAL" styleClass="v-separator"/>
+        <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportResults" text="%export"/>
+        <Separator orientation="VERTICAL" styleClass="v-separator"/>
+        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#start" text="%start" styleClass="control-btn"/>
+        <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" text="%resume"
+                styleClass="control-btn"/>
+        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" text="%pause" styleClass="control-btn"/>
+        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stop" text="%stop" styleClass="control-btn"/>
+    </HBox>
+    <Separator styleClass="h-separator"/>
+    <SplitPane dividerPositions="0.1" VBox.vgrow="ALWAYS">
+        <AnchorPane>
+            <HBox styleClass="table-title">
+                <Label text="%queriesQuantity"/>
+                <Label text="0" fx:id="queriesCntLbl"/>
+            </HBox>
+            <TableView fx:id="inputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+                <columns>
+                    <TableColumn fx:id="inRowNumCol" text="#" styleClass="row-num-col" sortable="false"/>
+                    <TableColumn text="%inputQuery" fx:id="inputQueryCol"/>
+                </columns>
+                <placeholder>
+                    <Label text="%noQueries"/>
+                </placeholder>
+            </TableView>
+        </AnchorPane>
+        <AnchorPane>
+            <HBox styleClass="spaced-box" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                <HBox styleClass="table-title">
+                    <Label text="%tipsQuantity"/>
+                    <Label text="0" fx:id="tipsCntLbl"/>
+                </HBox>
+                <StackPane HBox.hgrow="ALWAYS">
+                    <ProgressBar fx:id="progBar" progress="0.0"/>
+                    <Label fx:id="progLbl" text="0.0%"/>
+                </StackPane>
+            </HBox>
+            <TableView fx:id="outputTable" AnchorPane.topAnchor="24" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0">
+                <columns>
+                    <TableColumn fx:id="outRowNumCol" text="#" styleClass="row-num-col" sortable="false"/>
+                    <TableColumn text="%query" fx:id="outputQueryCol"/>
+                    <TableColumn text="%tip" fx:id="tipCol"/>
+                    <TableColumn text="%depth" fx:id="depthCol"/>
+                </columns>
+                <placeholder>
+                    <Label text="%noTips"/>
+                </placeholder>
+            </TableView>
+        </AnchorPane>
+    </SplitPane>
+</VBox>
