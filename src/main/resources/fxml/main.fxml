@@ -27,7 +27,8 @@
                 <fx:include source="appsParser.fxml"/>
             </Tab>
         </TabPane>
-        <HBox AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" style="-fx-padding: 2 5 0 0" spacing="3">
+        <HBox AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" style="-fx-padding: 2 5 0 0" spacing="3" fx:id="buttonsPane">
+            <Button styleClass="banner-button" fx:id="bannerBtn" visible="false"/>
             <Button styleClass="tab-button" fx:id="settingsBtn" onAction="#openPrefs"/>
             <Button styleClass="tab-button" fx:id="infoBtn" onAction="#openInfo"/>
         </HBox>

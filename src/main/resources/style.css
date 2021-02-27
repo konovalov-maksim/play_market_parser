@@ -52,6 +52,16 @@
      -fx-background-position: center;
 }
 
+.banner-button {
+    -fx-padding: 4 4 4 28;
+    -fx-background-position: 4 50%;
+    -fx-alignment: CENTER-LEFT;
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    /*-fx-background-color: white;*/
+    -fx-background-radius: 0;
+}
+
 .field-wrong {
     -fx-border-color: #ff5050;
     -fx-border-width: 2;
