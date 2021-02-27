@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 
 <?import javafx.scene.layout.HBox?>
@@ -30,7 +29,7 @@
         </TabPane>
         <HBox AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" style="-fx-padding: 2 5 0 0" spacing="3">
             <Button styleClass="tab-button" fx:id="settingsBtn" onAction="#openPrefs"/>
-            <Button styleClass="tab-button" fx:id="infoBtn"/>
+            <Button styleClass="tab-button" fx:id="infoBtn" onAction="#openInfo"/>
         </HBox>
     </AnchorPane>
     <TextArea minHeight="50.0" editable="false" fx:id="consoleTa" styleClass="console" style="-fx-padding: 0 10 5 10"/>

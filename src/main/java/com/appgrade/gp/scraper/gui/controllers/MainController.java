@@ -31,7 +31,24 @@ public class MainController implements Initializable {
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setTitle(rb.getString("prefs"));
-            stage.getIcons().add(new Image("/images/app_icon.png"));
+            stage.getIcons().add(new Image("/image/app_icon.png"));
+            stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add("/view/style.css");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openInfo() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/fxml/info.fxml"), Global.getBundle());
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle(rb.getString("infoTitle"));
+            stage.getIcons().add(new Image("/image/app_icon.png"));
             stage.setScene(new Scene(root));
             stage.getScene().getStylesheets().add("/view/style.css");
             stage.show();

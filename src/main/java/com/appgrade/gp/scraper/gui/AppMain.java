@@ -27,7 +27,7 @@ public class AppMain extends Application {
         Parent root = loader.load();
         root.getStylesheets().add("/view/style.css");
         stage.setTitle(rb.getString("appName"));
-        stage.getIcons().add(new Image("/images/app_icon.png"));
+        stage.getIcons().add(new Image("/image/app_icon.png"));
         stage.setScene(new Scene(root));
         stage.setMaximized(Prefs.getBoolean("is_window_maximized"));
         stage.setHeight(Prefs.getDouble("window_height"));

@@ -12,7 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
+import java.awt.*;
 import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -52,9 +54,9 @@ public class Global {
         return getUserDir();
     }
 
-    public final static String ERROR = "/images/icons/error.png";
-    public final static String ACCEPT = "/images/icons/accept.png";
-    public final static String ALERT = "/images/icons/alert.png";
+    public final static String ERROR = "/image/icons/error.png";
+    public final static String ACCEPT = "/image/icons/accept.png";
+    public final static String ALERT = "/image/icons/alert.png";
 
     public static void showAlert(String title, String message, String imgUri) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -108,6 +110,16 @@ public class Global {
         });
         hovered.setOnMouseEntered(mouseEvent -> {if (!popOver.isShowing()) popOver.show(hovered);});
         hovered.setOnMouseExited(mouseEvent -> timeline.play());
+    }
+
+    public static void openUrl(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResourceBundle rb = getBundle();
+            Global.showAlert(rb.getString("error"), rb.getString("urlFailed"), Global.ERROR);
+        }
     }
 
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.appgrade.gp.scraper.gui.controllers.InfoController"
+      styleClass="spaced-box" prefWidth="400" style="-fx-padding: 10" fx:id="rootPane">
+
+
+    <Label text="%appName"/>
+    <Label text="%appVersion"/>
+    <HBox styleClass="spaced-box">
+        <Label text="%author"/>
+        <Button text="konovalov.ms93@gmail.com" styleClass="text-button"  onAction="#openEmailClient" fx:id="emailBtn"/>
+    </HBox>
+    <Button text="%help" styleClass="text-button" onAction="#showHelp"/>
+    <Button text="%licenseAgreement" styleClass="text-button" onAction="#showLicense"/>
+    <HBox alignment="CENTER">
+        <Button text="%ok" minWidth="100" onAction="#closeInfo"/>
+    </HBox>
+
+</VBox>

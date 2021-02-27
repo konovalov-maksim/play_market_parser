@@ -20,7 +20,7 @@ public class TableContextMenu extends ContextMenu {
 
         //Пункт "Копирование выделенных ячеек"
         MenuItem copyItem = new MenuItem(rb.getString("copy"));
-        ImageView copyIcon = new ImageView("/images/icons/file_copy.png");
+        ImageView copyIcon = new ImageView("/image/icons/file_copy.png");
         copyIcon.setFitHeight(IMG_SIZE);
         copyIcon.setFitWidth(IMG_SIZE);
         copyItem.setGraphic(copyIcon);
@@ -59,7 +59,7 @@ public class TableContextMenu extends ContextMenu {
 
         //Пункт "Копирование выделенных ячеек"
         MenuItem copyColItem = new MenuItem(rb.getString("copyCol"));
-        ImageView copyColIcon = new ImageView("/images/icons/copy_col.png");
+        ImageView copyColIcon = new ImageView("/image/icons/copy_col.png");
         copyColIcon.setFitHeight(IMG_SIZE);
         copyColIcon.setFitWidth(IMG_SIZE);
         copyColItem.setGraphic(copyColIcon);
@@ -79,7 +79,7 @@ public class TableContextMenu extends ContextMenu {
 
         //Пункт "Удаление выделенных строк"
         MenuItem removeItem = new MenuItem(rb.getString("remove"));
-        ImageView delIcon = new ImageView("/images/icons/remove.png");
+        ImageView delIcon = new ImageView("/image/icons/remove.png");
         delIcon.setFitHeight(IMG_SIZE);
         delIcon.setFitWidth(IMG_SIZE);
         removeItem.setGraphic(delIcon);

@@ -60,7 +60,7 @@
 
 .tip-button {
     -fx-background-color: transparent;
-    -fx-background-image: url("/images/icons/help.png");
+    -fx-background-image: url("/image/icons/help.png");
     -fx-background-size: 16 16;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -134,16 +134,16 @@
        -fx-alignment: top-left;
 }
 
-#settingsBtn {-fx-background-image: url("/images/icons/settings.png")}
-#infoBtn {-fx-background-image: url("/images/icons/help.png")}
-#addBtn {-fx-background-image: url("/images/icons/add.png")}
-#importBtn {-fx-background-image: url("/images/icons/folder_with_contents.png")}
-#clearBtn {-fx-background-image: url("/images/icons/delete.png")}
-#exportBtn {-fx-background-image: url("/images/icons/export_to_file.png")}
-#startBtn {-fx-background-image: url("/images/icons/play.png")}
-#resumeBtn {-fx-background-image: url("/images/icons/play.png")}
-#pauseBtn {-fx-background-image: url("/images/icons/pause.png")}
-#stopBtn {-fx-background-image: url("/images/icons/stop.png")}
+#settingsBtn {-fx-background-image: url("/image/icons/settings.png")}
+#infoBtn {-fx-background-image: url("/image/icons/help.png")}
+#addBtn {-fx-background-image: url("/image/icons/add.png")}
+#importBtn {-fx-background-image: url("/image/icons/folder_with_contents.png")}
+#clearBtn {-fx-background-image: url("/image/icons/delete.png")}
+#exportBtn {-fx-background-image: url("/image/icons/export_to_file.png")}
+#startBtn {-fx-background-image: url("/image/icons/play.png")}
+#resumeBtn {-fx-background-image: url("/image/icons/play.png")}
+#pauseBtn {-fx-background-image: url("/image/icons/pause.png")}
+#stopBtn {-fx-background-image: url("/image/icons/stop.png")}
 
 .marked-bg {
     -fx-background-color: red;
@@ -180,6 +180,23 @@
         -fx-text-fill: -fx-text-inner-color;
 }
 
+.text-button {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: blue;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-text-alignment: left;
+    -fx-padding: 0;
+}
+
+.text-button:pressed {
+    -fx-underline: false;
+}
 
 
 
