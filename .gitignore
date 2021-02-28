@@ -1,12 +1,4 @@
 .idea/
 *.iml
-*.iws
-/*.csv
-/*.txt
 /target/
-/out/
 /graphic/
-/classes/
-build
-.gradle
-gradle/wrapper/gradle-wrapper.jar
