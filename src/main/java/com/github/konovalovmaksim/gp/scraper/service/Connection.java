@@ -1,4 +1,4 @@
-package com.github.konovalovmaksim.gp.scraper.model;
+package com.github.konovalovmaksim.gp.scraper.service;
 
 import com.github.konovalovmaksim.gp.scraper.Prefs;
 import org.jsoup.Jsoup;

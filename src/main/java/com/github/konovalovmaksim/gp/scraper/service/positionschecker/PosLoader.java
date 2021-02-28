@@ -3,7 +3,7 @@ package com.github.konovalovmaksim.gp.scraper.service.positionschecker;
 import com.github.konovalovmaksim.gp.scraper.model.Query;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import com.github.konovalovmaksim.gp.scraper.model.Connection;
+import com.github.konovalovmaksim.gp.scraper.service.Connection;
 
 import java.io.IOException;
 

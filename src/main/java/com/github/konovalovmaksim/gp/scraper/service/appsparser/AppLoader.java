@@ -6,7 +6,7 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.github.konovalovmaksim.gp.scraper.model.Connection;
+import com.github.konovalovmaksim.gp.scraper.service.Connection;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

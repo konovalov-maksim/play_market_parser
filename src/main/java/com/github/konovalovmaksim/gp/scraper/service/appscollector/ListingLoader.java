@@ -4,7 +4,7 @@ import com.github.konovalovmaksim.gp.scraper.model.FoundApp;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import org.jsoup.nodes.Document;
-import com.github.konovalovmaksim.gp.scraper.model.Connection;
+import com.github.konovalovmaksim.gp.scraper.service.Connection;
 
 import java.io.IOException;
 import java.util.ArrayList;

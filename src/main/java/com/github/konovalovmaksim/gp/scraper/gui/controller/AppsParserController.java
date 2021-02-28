@@ -80,7 +80,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
     private MenuItem removeItem;
     private ResourceBundle rb;
 
-    private ObservableList<App> apps = FXCollections.observableArrayList();
+    private final ObservableList<App> apps = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -119,13 +119,13 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         simApp4Col.setCellValueFactory(new PropertyValueFactory<>("simApp2"));
         table.setItems(apps);
 
-        //CheckComboBox для управления видимостью колонок таблицы
+        //CheckComboBox for table columns visibility control
         columnsCcb.setTitle(rb.getString("columns"));
         for (TableColumn col : table.getColumns()) columnsCcb.getItems().add(col.getText());
         for (TableColumn col : table.getColumns())
             columnsCcb.getItemBooleanProperty(col.getText()).bindBidirectional(col.visibleProperty());
 
-        //Context menus
+        //context menus
         TableContextMenu tableContextMenu = new TableContextMenu(table);
         removeItem = tableContextMenu.getRemoveItem();
 
@@ -134,10 +134,10 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
         titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
         Global.addPopOver(importBtn, titleFirstChb);
 
-        //Привязки
+        //bindings
         appsCntLbl.textProperty().bind(Bindings.size(apps).asString());
 
-        //Подсказки кнопок и чекбоксов
+        //checkboxes and buttons tooltips
         addBtn.setTooltip(new Tooltip(rb.getString("addAppsUrls")));
         importBtn.setTooltip(new Tooltip(rb.getString("importAppsUrls")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));
@@ -238,7 +238,7 @@ public class AppsParserController implements Initializable, AppsParser.AppParsin
 
     @FXML
     private void exportResults() {
-        if (apps == null || apps.size() == 0) {
+        if (apps.isEmpty()) {
             Global.showAlert(rb.getString("error"), rb.getString("noResults"), Global.ALERT);
             return;
         }

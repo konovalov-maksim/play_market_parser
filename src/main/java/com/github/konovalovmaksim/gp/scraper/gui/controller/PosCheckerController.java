@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import com.github.konovalovmaksim.gp.scraper.gui.custom.RowNumCellFactory;
@@ -65,7 +66,7 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
 
         appUrlTf.setText(Prefs.getString("pos_app_url"));
 
-        //Tables
+        //tables
         rowNumCol.setPrefWidth(RowNumCellFactory.WIDTH);
         queryCol.prefWidthProperty().bind(table.widthProperty().multiply(0.5).subtract(RowNumCellFactory.WIDTH));
         pseudoPosCol.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
@@ -76,21 +77,21 @@ public class PosCheckerController implements Initializable, PosChecker.PosCheckL
         realPosCol.setCellValueFactory(new PropertyValueFactory<>("realPosString"));
         table.setItems(queries);
 
-        //Context menus
+        //context menus
         TableContextMenu tableContextMenu = new TableContextMenu(table);
         removeItem = tableContextMenu.getRemoveItem();
 
-        //Привязки
+        //bindings
         queriesCntLbl.textProperty().bind(Bindings.size(queries).asString());
 
-        //PopOvers с чекбоксами
+        //popOvers with checkboxes
         titleFirstChb = new CheckBox(rb.getString("titleFirst"));
         titleFirstChb.setSelected(Prefs.getBoolean("title_first"));
         savePrevResultsChb = new CheckBox(rb.getString("savePrevResults"));
         Global.addPopOver(importBtn, titleFirstChb);
         Global.addPopOver(exportBtn, savePrevResultsChb);
 
-        //Подсказки кнопок и чекбоксов
+        //buttons and checkboxes tooltips
         addBtn.setTooltip(new Tooltip(rb.getString("addQueries")));
         importBtn.setTooltip(new Tooltip(rb.getString("importQueries")));
         clearBtn.setTooltip(new Tooltip(rb.getString("clearData")));

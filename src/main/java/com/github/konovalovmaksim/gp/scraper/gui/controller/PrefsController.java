@@ -2,12 +2,12 @@ package com.github.konovalovmaksim.gp.scraper.gui.controller;
 
 import com.github.konovalovmaksim.gp.scraper.Global;
 import com.github.konovalovmaksim.gp.scraper.Prefs;
+import com.github.konovalovmaksim.gp.scraper.service.Connection;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import com.github.konovalovmaksim.gp.scraper.model.Connection;
 import com.github.konovalovmaksim.gp.scraper.gui.custom.NamedRadioButton;
 
 import java.net.URL;
@@ -22,10 +22,10 @@ public class PrefsController implements Initializable {
     @FXML private ComboBox<String> parsingLangCb;
     @FXML private ComboBox<String> parsingCountryCb;
 
-    private ToggleGroup langTg = new ToggleGroup();
+    private final ToggleGroup langTg = new ToggleGroup();
     @FXML private NamedRadioButton ruRb;
     @FXML private NamedRadioButton enRb;
-    private ToggleGroup alphabetTg = new ToggleGroup();
+    private final ToggleGroup alphabetTg = new ToggleGroup();
     @FXML private NamedRadioButton autoAlphRb;
     @FXML private NamedRadioButton latAlphRb;
     @FXML private NamedRadioButton cyrAlphRb;
@@ -83,7 +83,7 @@ public class PrefsController implements Initializable {
 
     @FXML
     private void onOkClick() {
-        //Валидация данных
+        //validation
         Pattern intPattern = Pattern.compile("\\d+");
         Pattern proxyPattern = Pattern.compile("^$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$");
         if (!intPattern.matcher(timeoutTxt.getText()).matches()) {
@@ -98,7 +98,7 @@ public class PrefsController implements Initializable {
         if (!((NamedRadioButton) langTg.getSelectedToggle()).getName().equals(Prefs.getString("lang")))
             Global.showAlert(rb.getString("restartRequired"), rb.getString("restartPls"), Global.ALERT);
 
-        //Сохранение данных
+        //saving
         Prefs.put("lang", ((NamedRadioButton) langTg.getSelectedToggle()).getName());
         Prefs.put("alphabet", ((NamedRadioButton) alphabetTg.getSelectedToggle()).getName());
 
