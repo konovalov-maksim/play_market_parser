@@ -5,7 +5,7 @@
 ![ru](https://user-images.githubusercontent.com/49783652/69971413-e56d9900-1530-11ea-8937-a7989b8d727d.png) 
 [Русский](https://github.com/konovalov-maksim/play_market_parser/blob/master/README.ru.md).*
 
-Google Play Scraper is an instrument that allows you to mass collect data from Google Play. 
+Google Play Scraper is a tool that allows you to mine data from Google Play. 
 Collected information can be used for analytics, app's promotion strategy formation or analysis of competitors.
 
 ![download](https://user-images.githubusercontent.com/49783652/70123296-6b99f480-1683-11ea-8f71-ac9d1e14fd54.png) Download release (v1.3.1): 
@@ -20,11 +20,11 @@ Google Play Scraper has 4 modes:
 
 #### Features:
 - Data scraping for different languages ​​and countries
-- Possibility of multi-thread parsing
-- Collecting information hidden from users: **the exact number of installs** and **release date**
-- Support for connection using proxy
+- Multi-thread data loading
+- Extraction of information hidden from users: **the exact number of installs** and **release date**
+- HTTP proxy support
 - User-friendly interface
-- Possibility of unloading the collected data in the CSV
+- Export of the collected data to CSV
 - English and Russian localizations
 
 ![apps-parsing-en](https://user-images.githubusercontent.com/49783652/69831631-506e5580-123b-11ea-9138-de99b59d4c3d.png)
@@ -104,7 +104,7 @@ The following apps' info is collected:
 - similar apps pages URLs
 
 ## Preferences
-For each mode is possible to set the language and country, the number of threads, connection timeout, proxy server, and http headers user-agent, 
+For each mode it's possible to set the language and country, the number of threads, connection timeout, proxy server, and http headers user-agent, 
 accept-language.  
 If no country is specified, Google Play will detect it by IP (or proxy server IP).  
 If language not specified, Google Play will detect it by http header accept-language.  
