@@ -48,4 +48,20 @@ public class Connection {
                 Prefs.put("proxy", "");
             }
     }
+
+    public static String getReferrer() {
+        return referrer;
+    }
+
+    public static String getUserAgent() {
+        return userAgent;
+    }
+
+    public static Proxy getProxy() {
+        return proxy;
+    }
+
+    public static int getTimeout() {
+        return timeout;
+    }
 }
