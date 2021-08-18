@@ -10,8 +10,6 @@ import org.jsoup.nodes.Document;
 import com.github.konovalovmaksim.gp.scraper.service.Connection;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -41,7 +39,7 @@ public class ListingLoader extends Thread {
                     (language != null ? "&hl=" + language : "") +
                     (country != null ? "&gl=" + country : "");
             Document doc = Connection.getDocument(url);
-            parseJson(doc);
+            parsePage(doc);
             getAdditionalApps(doc);
             appsCollectingListener.onQueryProcessed(foundApps, query, true);
         } catch (IOException e) {
@@ -49,7 +47,7 @@ public class ListingLoader extends Thread {
         }
     }
 
-    private void parseJson(Document doc) {
+    private void parsePage(Document doc) {
         //extract JSON
         Pattern pattern = Pattern.compile("\\{key: 'ds:3'.*?data:(.*?), sideChannel", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(doc.data());
@@ -74,89 +72,7 @@ public class ListingLoader extends Thread {
             return;
         }
         //iterate all apps
-        for (int i = 0; i < appsData.size(); i++) {
-            FoundApp app = new FoundApp();
-            app.setQuery(query);
-            app.setPosition(i + 1);
-            JsonArray appData = (JsonArray) appsData.get(i);
-            //name
-            try {
-                app.setName(appData.getString(2));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить имя приложения");
-            }
-            //icon URL
-            try {
-                app.setIconUrl(((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
-                        .getCollection(1))
-                        .getCollection(1))
-                        .getCollection(2))
-                        .getCollection(3))
-                        .getString(2));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить URL иконки приложения");
-            }
-            //dev name
-            try {
-                app.setDevName(((JsonArray) ((JsonArray) ((JsonArray) appData
-                        .getCollection(4))
-                        .getCollection(0))
-                        .getCollection(0))
-                        .getString(0));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить имя разработчика");
-            }
-            //dev URL
-            try {
-                app.setDevUrl("https://play.google.com" + ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
-                        .getCollection(4))
-                        .getCollection(0))
-                        .getCollection(0))
-                        .getCollection(1))
-                        .getCollection(4))
-                        .getString(2));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить URL разработчика");
-            }
-            //avg Rate
-            try {
-                app.setAvgRate(Double.parseDouble((
-                        (JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
-                        .getCollection(6))
-                        .getCollection(0))
-                        .getCollection(2))
-                        .getCollection(1))
-                        .getString(0).replaceAll(",", "."))
-                );
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить среднюю оценку");
-            }
-            //short descr
-            try {
-                app.setShortDescr(((JsonArray) ((JsonArray) ((JsonArray) ((JsonArray) appData
-                        .getCollection(4))
-                        .getCollection(1))
-                        .getCollection(1))
-                        .getCollection(1))
-                        .getString(1));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить краткое описание");
-            }
-            //app ID
-            try {
-                app.setId(((JsonArray) appData.getCollection(12)).getString(0));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.printf("%-40s%s%n", query, "Не удалось определить ID приложения");
-            }
-            foundApps.add(app);
-        }
+        parseAppsJsonArray(appsData);
     }
 
     private void getAdditionalApps(Document doc) {
@@ -166,7 +82,6 @@ public class ListingLoader extends Thread {
                     .replaceAll("^window.WIZ_global_data = ", "")
                     .replaceAll(";$", "")
                     .replaceAll("\\n", "");
-//            JsonObject pageData = new Gson().fromJson(json, JsonObject.class);
             JsonObject pageData = (JsonObject) Jsoner.deserialize(json);
 
             String fSid = (String) pageData.get("FdrFJe");
@@ -182,10 +97,12 @@ public class ListingLoader extends Thread {
                 loadAdditionalApps(paginationToken, fSid, bl, hl, gl);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to load additional page");
         }
     }
 
-    private void loadAdditionalApps(String paginationToken, String fSid, String bl, String hl, String gl) throws IOException {
+    private void loadAdditionalApps(String paginationToken, String fSid, String bl, String hl, String gl) {
         try {
             String fReqTemplate = "[[[\"qnKhOb\",\"[[null,[[10,[10,50]],true,null," +
                     "[96,27,4,8,57,30,110,11,16,49,1,3,9,12,104,55,56,51,10,34,31,77]," +
@@ -213,7 +130,6 @@ public class ListingLoader extends Thread {
                     .proxy(Connection.getProxy())
                     .timeout(Connection.getTimeout())
                     .post();
-            System.out.println(doc);
             String html = doc.outerHtml();
 
             String fullDataJsonStr = html
@@ -221,22 +137,7 @@ public class ListingLoader extends Thread {
                     .replaceFirst("(.*?)\\[\\[", "[[")
                     .replaceFirst("\"generic\"]] .*", "\"generic\"]]");
 
-
             parseJson(fullDataJsonStr);
-/*            final Pattern appPattern =
-                    Pattern.compile("/store/apps/developer\\?id\\\\\\\\u003d(.*?)\\\\\".+?/store/apps/details\\?id\\\\\\\\u003d(.*?)\\\\");
-            Matcher appMatcher = appPattern.matcher(html);
-            while (appMatcher.find()) {
-                String devGpId = URLDecoder.decode(appMatcher.group(1), StandardCharsets.UTF_8);
-                String appGpId = URLDecoder.decode(appMatcher.group(2), StandardCharsets.UTF_8);
-                FoundApp app = new FoundApp();
-                app.setQuery(query);
-                app.setPosition(foundApps.size() + 1);
-                app.setId(appGpId);
-                app.setDevName(devGpId);
-                foundApps.add(app);
-            }*/
-
             final Pattern tokenPattern =
                     Pattern.compile("\\\\\"([^\"]*?)\\\\\"][^]]*?][^]]*?][^]]*?][^]]*?][^]]*?\"generic\"]");
             Matcher tokenMatcher = tokenPattern.matcher(html);
@@ -266,12 +167,15 @@ public class ListingLoader extends Thread {
             System.out.printf("%-40s%s%n", query, "Не удалось спарсить JSON");
             return;
         }
-        //iterate all apps
-        for (int i = 0; i < appsJsonArray.size(); i++) {
+        parseAppsJsonArray(appsJsonArray);
+    }
+
+    private void parseAppsJsonArray(JsonArray appsJsonArray) {
+        for (Object appArray : appsJsonArray) {
+            JsonArray appData = (JsonArray) appArray;
             FoundApp app = new FoundApp();
             app.setQuery(query);
             app.setPosition(foundApps.size() + 1);
-            JsonArray appData = (JsonArray) appsJsonArray.get(i);
             //name
             try {
                 app.setName(appData.getString(2));

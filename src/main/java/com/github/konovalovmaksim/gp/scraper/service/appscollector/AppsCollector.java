@@ -12,8 +12,8 @@ public class AppsCollector implements ListingLoader.AppsCollectingListener {
     private int maxThreadsCount = 1;
     private String language;
     private String country;
-    private AppsCollectingListener appsCollectingListener;
-    private Deque<ListingLoader> unprocessed = new ConcurrentLinkedDeque<>();
+    private final AppsCollectingListener appsCollectingListener;
+    private final Deque<ListingLoader> unprocessed = new ConcurrentLinkedDeque<>();
 
     private int threadsCount;
     private int processedCount;
