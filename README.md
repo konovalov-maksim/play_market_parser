@@ -13,13 +13,13 @@ Collected information can be used for analytics, app's promotion strategy format
 [GooglePlayScraper-1.3.1.jar](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.3.1/GooglePlayScraper-1.3.1.jar) (11.61 Mb)
 
 Google Play Scraper has 4 modes:
-- [Searching tips collection](#search-suggestions-collection)
+- [Search suggestions collection](#search-suggestions-collection)
 - [App's positions checking by list of queries](#apps-positions-check)
 - [Collecting apps by queries list](#apps-collection)
 - [Collecting detailed information about applications](#detailed-info-collection)
 
 #### Features:
-- Data scraping for different languages ​​and countries
+- Data scraping for different languages and countries
 - Multi-thread data loading
 - Extraction of information hidden from users: **the exact number of installs** and **release date**
 - HTTP proxy support

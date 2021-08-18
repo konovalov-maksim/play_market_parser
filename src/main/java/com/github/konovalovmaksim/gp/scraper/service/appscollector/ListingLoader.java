@@ -240,7 +240,7 @@ public class ListingLoader extends Thread {
                         .getCollection(1))
                         .getCollection(1))
                         .getCollection(1))
-                        .getString(1));
+                        .getString(1).replaceAll("\n", ""));
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.printf("%-40s%s%n", query, "Не удалось определить краткое описание");
