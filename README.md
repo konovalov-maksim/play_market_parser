@@ -8,9 +8,9 @@
 Google Play Scraper is a tool that allows you to mine data from Google Play. 
 Collected information can be used for analytics, app's promotion strategy formation or analysis of competitors.
 
-![download](https://user-images.githubusercontent.com/49783652/70123296-6b99f480-1683-11ea-8f71-ac9d1e14fd54.png) Download release (v1.3.1): 
-[GooglePlayScraper-1.3.1.exe + JRE](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.3.1/GooglePlayScraper-1.3.1.zip) (36.05 Mb) | 
-[GooglePlayScraper-1.3.1.jar](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.3.1/GooglePlayScraper-1.3.1.jar) (11.61 Mb)
+![download](https://user-images.githubusercontent.com/49783652/70123296-6b99f480-1683-11ea-8f71-ac9d1e14fd54.png) Download release (v1.3.2): 
+[GooglePlayScraper-1.3.2.exe + JRE](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.3.2/GooglePlayScraper-1.3.2.zip) (36.05 Mb) | 
+[GooglePlayScraper-1.3.2.jar](https://github.com/konovalov-maksim/play_market_parser/releases/download/1.3.2/GooglePlayScraper-1.3.2.jar) (11.61 Mb)
 
 Google Play Scraper has 4 modes:
 - [Searching tips collection](#search-suggestions-collection)
